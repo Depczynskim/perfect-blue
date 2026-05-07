@@ -1,0 +1,271 @@
+{
+  "common": {
+    "appName": "Perfect Blue",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "close": "Cerrar",
+    "previousPhoto": "Foto anterior",
+    "nextPhoto": "Foto siguiente",
+    "existing": "Existentes",
+    "confirmDelete": "¿Estás seguro de que quieres eliminar esta foto?"
+  },
+  "nav": {
+    "home": "Inicio",
+    "listings": "Anuncios",
+    "addListing": "Añadir Anuncio",
+    "messages": "Mensajes",
+    "profile": "Mi cuenta",
+    "login": "Iniciar Sesión",
+    "register": "Registrarse",
+    "logout": "Cerrar Sesión"
+  },
+  "home": {
+    "hero": {
+      "title": "Encuentra tu",
+      "titleHighlight": "lugar perfecto",
+      "description": "Portal inmobiliario con mapa intuitivo y búsqueda simple. Añade anuncios gratis y llega a compradores interesados.",
+      "browseListings": "Ver Anuncios",
+      "addListing": "Añadir Anuncio"
+    },
+    "features": {
+      "mapSearch": {
+        "title": "Búsqueda en Mapa",
+        "description": "Encuentra propiedades en tu ubicación deseada con nuestro mapa interactivo."
+      },
+      "freeListings": {
+        "title": "Anuncios Gratuitos",
+        "description": "Añadir anuncios es completamente gratis. Paga solo por acceso al contacto."
+      },
+      "securePayments": {
+        "title": "Pagos Seguros",
+        "description": "Pagos procesados por Stripe. Datos de contacto protegidos."
+      }
+    },
+    "footer": {
+      "rights": "© 2025 Perfect Blue. Todos los derechos reservados."
+    }
+  },
+  "listings": {
+    "title": "Anuncios",
+    "activeListings": "{count} anuncios activos",
+    "noListings": "Sin anuncios",
+    "noListingsDescription": "No se encontraron anuncios activos.",
+    "addFirstListing": "Añadir primer anuncio",
+    "viewDetails": "Ver detalles",
+    "filterAll": "Todos",
+    "filterLongTermRent": "Alquiler a largo plazo",
+    "filterShortTermRent": "Alquiler a corto plazo",
+    "filterSale": "En venta",
+    "city": "Ciudad / Municipio",
+    "cityPlaceholder": "Selecciona una ciudad",
+    "cityNoResults": "No hay ciudades coincidentes",
+    "cityHint": "Solo mostraremos lugares con anuncios activos",
+    "cityClear": "Borrar selección",
+    "locationNotSpecified": "Ubicación no especificada",
+    "card": {
+      "propertyApartment": "Apartamento",
+      "propertyHouse": "Casa",
+      "propertyRoom": "Habitación",
+      "propertyStudio": "Estudio",
+      "roomsCount": "{count, plural, one {# habitación} other {# habitaciones}}",
+      "bathroomsCount": "{count, plural, one {# baño} other {# baños}}",
+      "ariaPreviousPhoto": "Foto anterior",
+      "ariaNextPhoto": "Foto siguiente",
+      "priceSuffixPerMonth": " / mes",
+      "priceSuffixPerNight": " / noche"
+    }
+  },
+  "listingDetail": {
+    "propertySummary": "Resumen de la propiedad",
+    "location": "Ubicación",
+    "price": "Precio",
+    "priceHeadingSale": "Precio de venta",
+    "priceHeadingRentLong": "Alquiler mensual",
+    "priceHeadingRentShort": "Precio por noche",
+    "addedOn": "Añadido el",
+    "yourListing": "Este es tu anuncio",
+    "editListing": "Editar Anuncio",
+    "contactOwner": "Contactar Propietario",
+    "allListings": "Todos los Anuncios",
+    "invalidCoordinates": "Coordenadas inválidas",
+    "mapLabel": "Ubicación de la propiedad",
+    "locationNotSpecified": "Ubicación no especificada"
+  },
+  "createListing": {
+    "title": "Añadir Nuevo Anuncio",
+    "description": "Completa el formulario para añadir tu propiedad al portal.",
+    "editTitle": "Editar Anuncio",
+    "editDescription": "Actualiza los detalles de tu anuncio.",
+    "form": {
+      "title": "Título del Anuncio",
+      "titlePlaceholder": "ej. Apartamento espacioso en el centro",
+      "description": "Descripción",
+      "descriptionPlaceholder": "Describe la propiedad...",
+      "price": "Precio",
+      "priceLabelSale": "Precio (EUR)",
+      "priceLabelRentLong": "Precio (EUR / mes)",
+      "priceLabelRentShort": "Precio (EUR / noche)",
+      "priceHelperSale": "Solo euros enteros. Precio total de venta. No incluye impuestos ni gastos de compra.",
+      "priceHelperRentLong": "Solo euros enteros. Alquiler mensual.",
+      "priceHelperRentShort": "Solo euros enteros. Precio por noche.",
+      "currency": "Moneda",
+      "city": "Ciudad / Municipio",
+      "cityPlaceholder": "ej. Madrid",
+      "cityNoResults": "No hay ciudades coincidentes",
+      "cityAddNew": "Añadir \"{name}\" como nueva ciudad",
+      "zone": "Zona / Barrio",
+      "zonePlaceholder": "ej. Centro",
+      "addressLine": "Línea de dirección",
+      "addressLinePlaceholder": "ej. Gran Vía 1",
+      "address": "Dirección",
+      "addressPlaceholder": "ej. Madrid, Centro, Gran Vía 1",
+      "locationOnMap": "Ubicación en el mapa",
+      "photos": "Fotos",
+      "category": "Categoría",
+      "categoryLongTermRent": "Alquiler a largo plazo",
+      "categoryShortTermRent": "Alquiler a corto plazo",
+      "categorySale": "En venta",
+      "submit": "Crear Anuncio",
+      "submitting": "Creando...",
+      "update": "Guardar cambios",
+      "updating": "Guardando...",
+      "required": "requerido",
+      "optional": "opcional"
+    },
+    "map": {
+      "loading": "Cargando mapa...",
+      "hintLabel": "Consejo",
+      "hintText": "Haz clic en el mapa para cambiar la ubicación.",
+      "coordinatesLabel": "Coordenadas"
+    },
+    "validation": {
+      "titleRequired": "El título es requerido.",
+      "descriptionRequired": "La descripción es requerida.",
+      "cityRequired": "La ciudad es obligatoria.",
+      "priceInvalid": "El precio debe ser un número mayor que cero.",
+      "photosUploading": "Espera hasta que todas las fotos se hayan subido.",
+      "submitFailed": "No se pudo crear el anuncio."
+    }
+  },
+  "messages": {
+    "title": "Mensajes",
+    "newMessages": "{count} nuevos",
+    "messageCount": "{count, plural, one {# mensaje} other {# mensajes}}",
+    "noMessages": "Sin mensajes",
+    "noMessagesDescription": "Aún no tienes conversaciones.",
+    "browseListings": "Ver anuncios",
+    "conversation": "Conversación sobre el anuncio:",
+    "youAreOwner": "Eres el propietario",
+    "contactingOwner": "Contactando al propietario",
+    "noMessagesYet": "Aún no hay mensajes. ¡Inicia la conversación!",
+    "youPrefix": "Tú: ",
+    "writeMessage": "Escribe un mensaje...",
+    "send": "Enviar",
+    "sending": "Enviando...",
+    "messageSent": "¡Mensaje enviado!",
+    "subscriptionRequired": "Necesitas una suscripción para responder mensajes.",
+    "buySubscription": "Obtener suscripción"
+  },
+  "profile": {
+    "title": "Tu Perfil",
+    "description": "Gestiona los datos de tu cuenta y tus preferencias de idioma.",
+    "loginEmail": "Email de Inicio de Sesión",
+    "loginEmailNote": "Este email se usa para iniciar sesión y no se puede cambiar aquí.",
+    "displayName": "Nombre para mostrar",
+    "displayNamePlaceholder": "Tu nombre",
+    "displayNameNote": "Cómo quieres aparecer en la aplicación.",
+    "preferredLocale": "Idioma preferido",
+    "preferredLocaleNote": "Tu preferencia de idioma guardada.",
+    "saveChanges": "Guardar Cambios",
+    "saving": "Guardando...",
+    "updated": "¡Perfil actualizado!"
+  },
+  "auth": {
+    "login": {
+      "title": "Bienvenido de Nuevo",
+      "email": "Email",
+      "emailPlaceholder": "tu@email.com",
+      "password": "Contraseña",
+      "passwordPlaceholder": "••••••••",
+      "submit": "Iniciar Sesión",
+      "submitting": "Iniciando sesión...",
+      "noAccount": "¿No tienes cuenta?",
+      "registerLink": "Registrarse"
+    },
+    "register": {
+      "title": "Crear Cuenta",
+      "email": "Email",
+      "emailPlaceholder": "tu@email.com",
+      "password": "Contraseña",
+      "passwordPlaceholder": "Mínimo 6 caracteres",
+      "confirmPassword": "Confirmar Contraseña",
+      "confirmPasswordPlaceholder": "Repite la contraseña",
+      "submit": "Registrarse",
+      "submitting": "Registrando...",
+      "hasAccount": "¿Ya tienes cuenta?",
+      "loginLink": "Iniciar Sesión",
+      "checkEmail": "Revisa tu Bandeja de Entrada",
+      "emailSent": "Hemos enviado un enlace de confirmación a {email}. Haz clic en el enlace para activar tu cuenta.",
+      "backToLogin": "Volver al inicio de sesión"
+    },
+    "validation": {
+      "passwordMismatch": "Las contraseñas no coinciden",
+      "passwordTooShort": "La contraseña debe tener al menos 6 caracteres"
+    }
+  },
+  "contact": {
+    "button": "Enviar Mensaje",
+    "hasSubscription": "Tienes una suscripción Premium activa",
+    "writeMessage": "Escribir mensaje",
+    "messagePlaceholder": "¡Hola! Estoy interesado en este anuncio...",
+    "send": "Enviar",
+    "sending": "Enviando...",
+    "cancel": "Cancelar",
+    "messageSent": "¡Mensaje enviado!",
+    "ownerWillRespond": "El propietario ha recibido tu mensaje y responderá al email proporcionado.",
+    "sendAnother": "Enviar otro mensaje",
+    "subscriptionInfo": "Suscripción 5€/mes para contactar con todos los anunciantes",
+    "loginRequired": "Debes iniciar sesión para enviar un mensaje"
+  },
+  "photoUpload": {
+    "clickToSelect": "Haz clic para seleccionar",
+    "orDrag": "o arrastra fotos",
+    "fileTypes": "JPEG, PNG, GIF, WebP • máx {size}MB después de compresión • hasta {max} fotos",
+    "maxPhotosReached": "Máximo {max} fotos.",
+    "maxPhotosAlert": "Máximo {max} fotos",
+    "invalidFileType": "Algunos archivos fueron rechazados (formato no compatible).",
+    "rejectedFilesAlert": "Algunos archivos fueron rechazados (formato no válido)",
+    "loginRequired": "Debes iniciar sesión para subir fotos.",
+    "uploadDisplayFailed": "Falló la subida de la versión display.",
+    "uploadThumbFailed": "Falló la subida de la miniatura.",
+    "uploadError": "Error de subida.",
+    "uploadFailed": "Error al subir",
+    "photoAlt": "Foto {index}",
+    "added": "Añadidas: {current}/{max}",
+    "retry": "Intentar de nuevo",
+    "status": {
+      "done": "Listo",
+      "error": "Error",
+      "processing": "Procesando...",
+      "uploading": "Subiendo...",
+      "pending": "Pendiente"
+    },
+    "retryUpload": "Intentar de nuevo",
+    "somePhotosFailed": "Algunas fotos no se pudieron subir. Intenta de nuevo o elimínalas."
+  },
+  "map": {
+    "address": "Dirección",
+    "hint": "Consejo",
+    "clickToChange": "Haz clic en el mapa para cambiar la ubicación",
+    "coordinates": "Coordenadas",
+    "invalidCoordinates": "Coordenadas no válidas",
+    "propertyLocation": "Ubicación de la propiedad"
+  }
+}

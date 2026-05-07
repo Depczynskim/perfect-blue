@@ -1,0 +1,271 @@
+{
+  "common": {
+    "appName": "Perfect Blue",
+    "loading": "جاري التحميل...",
+    "error": "خطأ",
+    "success": "نجح",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "back": "رجوع",
+    "next": "التالي",
+    "close": "إغلاق",
+    "previousPhoto": "الصورة السابقة",
+    "nextPhoto": "الصورة التالية",
+    "existing": "موجود",
+    "confirmDelete": "هل أنت متأكد أنك تريد حذف هذه الصورة؟"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "listings": "الإعلانات",
+    "addListing": "إضافة إعلان",
+    "messages": "الرسائل",
+    "profile": "حسابي",
+    "login": "تسجيل الدخول",
+    "register": "التسجيل",
+    "logout": "تسجيل الخروج"
+  },
+  "home": {
+    "hero": {
+      "title": "ابحث عن",
+      "titleHighlight": "مكانك المثالي",
+      "description": "بوابة عقارات مع خريطة سهلة الاستخدام وبحث بسيط. أضف إعلانات مجانًا واصل إلى المشترين المهتمين.",
+      "browseListings": "تصفح الإعلانات",
+      "addListing": "إضافة إعلان"
+    },
+    "features": {
+      "mapSearch": {
+        "title": "البحث على الخريطة",
+        "description": "ابحث عن العقارات في الموقع المطلوب باستخدام خريطتنا التفاعلية."
+      },
+      "freeListings": {
+        "title": "إعلانات مجانية",
+        "description": "إضافة الإعلانات مجانية تمامًا. ادفع فقط للوصول إلى معلومات الاتصال."
+      },
+      "securePayments": {
+        "title": "مدفوعات آمنة",
+        "description": "المدفوعات مدعومة من Stripe. بيانات الاتصال محمية."
+      }
+    },
+    "footer": {
+      "rights": "© 2025 Perfect Blue. جميع الحقوق محفوظة."
+    }
+  },
+  "listings": {
+    "title": "الإعلانات",
+    "activeListings": "{count} إعلان نشط",
+    "noListings": "لا توجد إعلانات",
+    "noListingsDescription": "لم يتم العثور على إعلانات نشطة.",
+    "addFirstListing": "إضافة أول إعلان",
+    "viewDetails": "عرض التفاصيل",
+    "filterAll": "الكل",
+    "filterLongTermRent": "إيجار طويل الأجل",
+    "filterShortTermRent": "إيجار قصير الأجل",
+    "filterSale": "للبيع",
+    "city": "المدينة / البلدية",
+    "cityPlaceholder": "اختر مدينة",
+    "cityNoResults": "لا توجد مدن مطابقة",
+    "cityHint": "سنعرض فقط الأماكن التي بها إعلانات نشطة",
+    "cityClear": "مسح الاختيار",
+    "locationNotSpecified": "الموقع غير محدد",
+    "card": {
+      "propertyApartment": "شقة",
+      "propertyHouse": "منزل",
+      "propertyRoom": "غرفة",
+      "propertyStudio": "استوديو",
+      "roomsCount": "{count, plural, zero {لا غرف} one {# غرفة} two {# غرفتان} few {# غرف} many {# غرفة} other {# غرف}}",
+      "bathroomsCount": "{count, plural, zero {لا حمامات} one {# حمام} two {# حمامان} few {# حمامات} many {# حماماً} other {# حمام}}",
+      "ariaPreviousPhoto": "الصورة السابقة",
+      "ariaNextPhoto": "الصورة التالية",
+      "priceSuffixPerMonth": " / شهر",
+      "priceSuffixPerNight": " / ليلة"
+    }
+  },
+  "listingDetail": {
+    "propertySummary": "ملخص العقار",
+    "location": "الموقع",
+    "price": "السعر",
+    "priceHeadingSale": "سعر الطلب",
+    "priceHeadingRentLong": "الإيجار الشهري",
+    "priceHeadingRentShort": "السعر لليلة",
+    "addedOn": "تمت الإضافة في",
+    "yourListing": "هذا إعلانك",
+    "editListing": "تعديل الإعلان",
+    "contactOwner": "اتصل بالمالك",
+    "allListings": "جميع الإعلانات",
+    "invalidCoordinates": "إحداثيات غير صالحة",
+    "mapLabel": "موقع العقار",
+    "locationNotSpecified": "الموقع غير محدد"
+  },
+  "createListing": {
+    "title": "إضافة إعلان جديد",
+    "description": "املأ النموذج لإضافة عقارك إلى البوابة.",
+    "editTitle": "تعديل الإعلان",
+    "editDescription": "قم بتحديث تفاصيل إعلانك.",
+    "form": {
+      "title": "عنوان الإعلان",
+      "titlePlaceholder": "مثال: شقة واسعة في وسط المدينة",
+      "description": "الوصف",
+      "descriptionPlaceholder": "صف العقار...",
+      "price": "السعر",
+      "priceLabelSale": "السعر (يورو)",
+      "priceLabelRentLong": "السعر (يورو / شهر)",
+      "priceLabelRentShort": "السعر (يورو / ليلة)",
+      "priceHelperSale": "يورو كامل فقط. إجمالي سعر البيع. لا يشمل الضرائب ومصاريف الشراء.",
+      "priceHelperRentLong": "يورو كامل فقط. الإيجار الشهري.",
+      "priceHelperRentShort": "يورو كامل فقط. السعر لليلة الواحدة.",
+      "currency": "العملة",
+      "city": "المدينة / البلدية",
+      "cityPlaceholder": "مثال: مدريد",
+      "cityNoResults": "لا توجد مدن مطابقة",
+      "cityAddNew": "إضافة \"{name}\" كمدينة جديدة",
+      "zone": "المنطقة / الحي",
+      "zonePlaceholder": "مثال: Centro",
+      "addressLine": "سطر العنوان",
+      "addressLinePlaceholder": "مثال: Gran Via 1",
+      "address": "العنوان",
+      "addressPlaceholder": "مثال: مدريد، Centro، Gran Via 1",
+      "locationOnMap": "الموقع على الخريطة",
+      "photos": "الصور",
+      "category": "الفئة",
+      "categoryLongTermRent": "إيجار طويل الأجل",
+      "categoryShortTermRent": "إيجار قصير الأجل",
+      "categorySale": "للبيع",
+      "submit": "إنشاء الإعلان",
+      "submitting": "جاري الإنشاء...",
+      "update": "حفظ التغييرات",
+      "updating": "جاري الحفظ...",
+      "required": "مطلوب",
+      "optional": "اختياري"
+    },
+    "map": {
+      "loading": "جاري تحميل الخريطة...",
+      "hintLabel": "تلميح",
+      "hintText": "انقر على الخريطة لتغيير الموقع.",
+      "coordinatesLabel": "الإحداثيات"
+    },
+    "validation": {
+      "titleRequired": "العنوان مطلوب.",
+      "descriptionRequired": "الوصف مطلوب.",
+      "cityRequired": "المدينة مطلوبة.",
+      "priceInvalid": "يجب أن يكون السعر رقمًا أكبر من الصفر.",
+      "photosUploading": "انتظر حتى يتم تحميل جميع الصور.",
+      "submitFailed": "تعذر إنشاء الإعلان."
+    }
+  },
+  "messages": {
+    "title": "الرسائل",
+    "newMessages": "{count} جديد",
+    "messageCount": "{count, plural, zero {لا رسائل} one {# رسالة} two {# رسالتان} few {# رسائل} many {# رسالة} other {# رسالة}}",
+    "noMessages": "لا توجد رسائل",
+    "noMessagesDescription": "ليس لديك أي محادثات حتى الآن.",
+    "browseListings": "تصفح الإعلانات",
+    "conversation": "محادثة حول الإعلان:",
+    "youAreOwner": "أنت المالك",
+    "contactingOwner": "الاتصال بالمالك",
+    "noMessagesYet": "لا توجد رسائل بعد. ابدأ المحادثة!",
+    "youPrefix": "أنت: ",
+    "writeMessage": "اكتب رسالة...",
+    "send": "إرسال",
+    "sending": "جاري الإرسال...",
+    "messageSent": "تم إرسال الرسالة!",
+    "subscriptionRequired": "تحتاج إلى اشتراك للرد على الرسائل.",
+    "buySubscription": "احصل على اشتراك"
+  },
+  "profile": {
+    "title": "ملفك الشخصي",
+    "description": "إدارة تفاصيل حسابك وتفضيلات اللغة.",
+    "loginEmail": "بريد تسجيل الدخول",
+    "loginEmailNote": "يُستخدم هذا البريد الإلكتروني لتسجيل الدخول ولا يمكن تغييره هنا.",
+    "displayName": "الاسم المعروض",
+    "displayNamePlaceholder": "اسمك",
+    "displayNameNote": "كيف تريد أن يظهر اسمك في التطبيق.",
+    "preferredLocale": "اللغة المفضلة",
+    "preferredLocaleNote": "تفضيل اللغة المحفوظ لديك.",
+    "saveChanges": "حفظ التغييرات",
+    "saving": "جاري الحفظ...",
+    "updated": "تم تحديث الملف الشخصي!"
+  },
+  "auth": {
+    "login": {
+      "title": "مرحبًا بعودتك",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "your@email.com",
+      "password": "كلمة المرور",
+      "passwordPlaceholder": "••••••••",
+      "submit": "تسجيل الدخول",
+      "submitting": "جاري تسجيل الدخول...",
+      "noAccount": "ليس لديك حساب؟",
+      "registerLink": "التسجيل"
+    },
+    "register": {
+      "title": "إنشاء حساب",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "your@email.com",
+      "password": "كلمة المرور",
+      "passwordPlaceholder": "6 أحرف على الأقل",
+      "confirmPassword": "تأكيد كلمة المرور",
+      "confirmPasswordPlaceholder": "كرر كلمة المرور",
+      "submit": "التسجيل",
+      "submitting": "جاري التسجيل...",
+      "hasAccount": "هل لديك حساب بالفعل؟",
+      "loginLink": "تسجيل الدخول",
+      "checkEmail": "تحقق من بريدك الوارد",
+      "emailSent": "لقد أرسلنا رابط تأكيد إلى {email}. انقر على الرابط لتفعيل حسابك.",
+      "backToLogin": "العودة لتسجيل الدخول"
+    },
+    "validation": {
+      "passwordMismatch": "كلمات المرور غير متطابقة",
+      "passwordTooShort": "يجب أن تكون كلمة المرور 6 أحرف على الأقل"
+    }
+  },
+  "contact": {
+    "button": "إرسال رسالة",
+    "hasSubscription": "لديك اشتراك Premium نشط",
+    "writeMessage": "اكتب رسالة",
+    "messagePlaceholder": "مرحبًا! أنا مهتم بهذا الإعلان...",
+    "send": "إرسال",
+    "sending": "جاري الإرسال...",
+    "cancel": "إلغاء",
+    "messageSent": "تم إرسال الرسالة!",
+    "ownerWillRespond": "تلقى المالك رسالتك وسيرد على البريد الإلكتروني المقدم.",
+    "sendAnother": "إرسال رسالة أخرى",
+    "subscriptionInfo": "اشتراك 5€/شهر للاتصال بجميع المعلنين",
+    "loginRequired": "يجب تسجيل الدخول لإرسال رسالة"
+  },
+  "photoUpload": {
+    "clickToSelect": "انقر للاختيار",
+    "orDrag": "أو اسحب الصور",
+    "fileTypes": "JPEG, PNG, GIF, WebP • بحد أقصى {size}MB بعد الضغط • حتى {max} صور",
+    "maxPhotosReached": "الحد الأقصى {max} صورة.",
+    "maxPhotosAlert": "الحد الأقصى {max} صور",
+    "invalidFileType": "تم رفض بعض الملفات (صيغة غير مدعومة).",
+    "rejectedFilesAlert": "تم رفض بعض الملفات (تنسيق غير صالح)",
+    "loginRequired": "يجب تسجيل الدخول لرفع الصور.",
+    "uploadDisplayFailed": "فشل رفع نسخة العرض.",
+    "uploadThumbFailed": "فشل رفع الصورة المصغرة.",
+    "uploadError": "خطأ في الرفع.",
+    "uploadFailed": "فشل التحميل",
+    "photoAlt": "صورة {index}",
+    "added": "تمت الإضافة: {current}/{max}",
+    "retry": "حاول مرة أخرى",
+    "status": {
+      "done": "تم",
+      "error": "خطأ",
+      "processing": "جاري المعالجة...",
+      "uploading": "جاري التحميل...",
+      "pending": "قيد الانتظار"
+    },
+    "retryUpload": "حاول مرة أخرى",
+    "somePhotosFailed": "فشل تحميل بعض الصور. حاول مرة أخرى أو احذفها."
+  },
+  "map": {
+    "address": "العنوان",
+    "hint": "تلميح",
+    "clickToChange": "انقر على الخريطة لتغيير الموقع",
+    "coordinates": "الإحداثيات",
+    "invalidCoordinates": "إحداثيات غير صالحة",
+    "propertyLocation": "موقع العقار"
+  }
+}

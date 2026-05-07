@@ -1,0 +1,271 @@
+{
+  "common": {
+    "appName": "Perfect Blue",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "close": "Close",
+    "previousPhoto": "Previous photo",
+    "nextPhoto": "Next photo",
+    "existing": "Existing",
+    "confirmDelete": "Are you sure you want to delete this photo?"
+  },
+  "nav": {
+    "home": "Home",
+    "listings": "Listings",
+    "addListing": "Add Listing",
+    "messages": "Messages",
+    "profile": "My Account",
+    "login": "Log In",
+    "register": "Sign Up",
+    "logout": "Log Out"
+  },
+  "home": {
+    "hero": {
+      "title": "Find your",
+      "titleHighlight": "perfect place",
+      "description": "Real estate portal with intuitive map and simple search. Add listings for free and reach interested buyers.",
+      "browseListings": "Browse Listings",
+      "addListing": "Add Listing"
+    },
+    "features": {
+      "mapSearch": {
+        "title": "Map Search",
+        "description": "Find properties in your desired location with our interactive map."
+      },
+      "freeListings": {
+        "title": "Free Listings",
+        "description": "Adding listings is completely free. Pay only for contact access."
+      },
+      "securePayments": {
+        "title": "Secure Payments",
+        "description": "Payments powered by Stripe. Contact data protected."
+      }
+    },
+    "footer": {
+      "rights": "© 2025 Perfect Blue. All rights reserved."
+    }
+  },
+  "listings": {
+    "title": "Listings",
+    "activeListings": "{count} active listings",
+    "noListings": "No listings",
+    "noListingsDescription": "No active listings found.",
+    "addFirstListing": "Add first listing",
+    "viewDetails": "View details",
+    "filterAll": "All",
+    "filterLongTermRent": "Long-term Rent",
+    "filterShortTermRent": "Short-term Rent",
+    "filterSale": "For Sale",
+    "city": "City / Municipio",
+    "cityPlaceholder": "Select city",
+    "cityNoResults": "No matching cities",
+    "cityHint": "We'll only show places with active listings",
+    "cityClear": "Clear selection",
+    "locationNotSpecified": "Location not specified",
+    "card": {
+      "propertyApartment": "Apartment",
+      "propertyHouse": "House",
+      "propertyRoom": "Room",
+      "propertyStudio": "Studio",
+      "roomsCount": "{count, plural, one {# room} other {# rooms}}",
+      "bathroomsCount": "{count, plural, one {# bathroom} other {# bathrooms}}",
+      "ariaPreviousPhoto": "Previous photo",
+      "ariaNextPhoto": "Next photo",
+      "priceSuffixPerMonth": " / month",
+      "priceSuffixPerNight": " / night"
+    }
+  },
+  "listingDetail": {
+    "propertySummary": "Property summary",
+    "location": "Location",
+    "price": "Price",
+    "priceHeadingSale": "Asking price",
+    "priceHeadingRentLong": "Monthly rent",
+    "priceHeadingRentShort": "Nightly price",
+    "addedOn": "Added on",
+    "yourListing": "This is your listing",
+    "editListing": "Edit Listing",
+    "contactOwner": "Contact Owner",
+    "allListings": "All Listings",
+    "invalidCoordinates": "Invalid coordinates",
+    "mapLabel": "Property location",
+    "locationNotSpecified": "Location not specified"
+  },
+  "createListing": {
+    "title": "Add New Listing",
+    "description": "Fill out the form to add your property to the portal.",
+    "editTitle": "Edit Listing",
+    "editDescription": "Update your listing details.",
+    "form": {
+      "title": "Listing Title",
+      "titlePlaceholder": "e.g. Spacious apartment in city center",
+      "description": "Description",
+      "descriptionPlaceholder": "Describe the property...",
+      "price": "Price",
+      "priceLabelSale": "Price (EUR)",
+      "priceLabelRentLong": "Price (EUR / month)",
+      "priceLabelRentShort": "Price (EUR / night)",
+      "priceHelperSale": "Whole euros only. Total asking price. Taxes and purchase costs are not included.",
+      "priceHelperRentLong": "Whole euros only. Monthly rent.",
+      "priceHelperRentShort": "Whole euros only. Nightly price.",
+      "currency": "Currency",
+      "city": "City / Municipio",
+      "cityPlaceholder": "e.g. Madrid",
+      "cityNoResults": "No matching cities",
+      "cityAddNew": "Add \"{name}\" as new city",
+      "zone": "Zone / Barrio",
+      "zonePlaceholder": "e.g. Centro",
+      "addressLine": "Address line",
+      "addressLinePlaceholder": "e.g. Gran Via 1",
+      "address": "Address",
+      "addressPlaceholder": "e.g. Madrid, Centro, Gran Via 1",
+      "locationOnMap": "Location on map",
+      "photos": "Photos",
+      "category": "Category",
+      "categoryLongTermRent": "Long-term Rent",
+      "categoryShortTermRent": "Short-term Rent",
+      "categorySale": "For Sale",
+      "submit": "Create Listing",
+      "submitting": "Creating...",
+      "update": "Save Changes",
+      "updating": "Saving...",
+      "required": "required",
+      "optional": "optional"
+    },
+    "map": {
+      "loading": "Loading map...",
+      "hintLabel": "Tip",
+      "hintText": "Click on the map to change the location.",
+      "coordinatesLabel": "Coordinates"
+    },
+    "validation": {
+      "titleRequired": "Title is required.",
+      "descriptionRequired": "Description is required.",
+      "cityRequired": "City is required.",
+      "priceInvalid": "Price must be a number greater than zero.",
+      "photosUploading": "Wait until all photos are uploaded.",
+      "submitFailed": "Failed to create listing."
+    }
+  },
+  "messages": {
+    "title": "Messages",
+    "newMessages": "{count} new",
+    "messageCount": "{count, plural, one {# message} other {# messages}}",
+    "noMessages": "No messages",
+    "noMessagesDescription": "You don't have any conversations yet.",
+    "browseListings": "Browse listings",
+    "conversation": "Conversation about listing:",
+    "youAreOwner": "You are the owner",
+    "contactingOwner": "Contacting the owner",
+    "noMessagesYet": "No messages yet. Start the conversation!",
+    "youPrefix": "You: ",
+    "writeMessage": "Write a message...",
+    "send": "Send",
+    "sending": "Sending...",
+    "messageSent": "Message sent!",
+    "subscriptionRequired": "You need a subscription to reply to messages.",
+    "buySubscription": "Get subscription"
+  },
+  "profile": {
+    "title": "Your Profile",
+    "description": "Manage your account details and language preferences.",
+    "loginEmail": "Login Email",
+    "loginEmailNote": "This email is used for login and cannot be changed here.",
+    "displayName": "Display name",
+    "displayNamePlaceholder": "Your name",
+    "displayNameNote": "How you want to be shown in the app.",
+    "preferredLocale": "Preferred language",
+    "preferredLocaleNote": "Your saved language preference.",
+    "saveChanges": "Save Changes",
+    "saving": "Saving...",
+    "updated": "Profile updated!"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "submit": "Log In",
+      "submitting": "Logging in...",
+      "noAccount": "Don't have an account?",
+      "registerLink": "Sign Up"
+    },
+    "register": {
+      "title": "Create Account",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "password": "Password",
+      "passwordPlaceholder": "Minimum 6 characters",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Repeat password",
+      "submit": "Sign Up",
+      "submitting": "Signing up...",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Log In",
+      "checkEmail": "Check Your Inbox",
+      "emailSent": "We've sent a confirmation link to {email}. Click the link to activate your account.",
+      "backToLogin": "Back to login"
+    },
+    "validation": {
+      "passwordMismatch": "Passwords don't match",
+      "passwordTooShort": "Password must be at least 6 characters"
+    }
+  },
+  "contact": {
+    "button": "Send Message",
+    "hasSubscription": "You have an active Premium subscription",
+    "writeMessage": "Write message",
+    "messagePlaceholder": "Hi! I'm interested in this listing...",
+    "send": "Send",
+    "sending": "Sending...",
+    "cancel": "Cancel",
+    "messageSent": "Message sent!",
+    "ownerWillRespond": "The owner has received your message and will respond to the provided email.",
+    "sendAnother": "Send another message",
+    "subscriptionInfo": "€5/month subscription for contact with all advertisers",
+    "loginRequired": "You must be logged in to send a message"
+  },
+  "photoUpload": {
+    "clickToSelect": "Click to select",
+    "orDrag": "or drag photos",
+    "fileTypes": "JPEG, PNG, GIF, WebP • max {size}MB after compression • up to {max} photos",
+    "maxPhotosReached": "Maximum {max} photos.",
+    "maxPhotosAlert": "Maximum {max} photos",
+    "invalidFileType": "Some files were rejected (unsupported format).",
+    "rejectedFilesAlert": "Some files were rejected (invalid format)",
+    "loginRequired": "You must be logged in to upload photos.",
+    "uploadDisplayFailed": "Display upload failed.",
+    "uploadThumbFailed": "Thumbnail upload failed.",
+    "uploadError": "Upload error.",
+    "uploadFailed": "Upload failed",
+    "photoAlt": "Photo {index}",
+    "added": "Added: {current}/{max}",
+    "retry": "Try again",
+    "status": {
+      "done": "Done",
+      "error": "Error",
+      "processing": "Processing...",
+      "uploading": "Uploading...",
+      "pending": "Pending"
+    },
+    "retryUpload": "Try again",
+    "somePhotosFailed": "Some photos failed to upload. Try again or remove them."
+  },
+  "map": {
+    "address": "Address",
+    "hint": "Hint",
+    "clickToChange": "Click on the map to change location",
+    "coordinates": "Coordinates",
+    "invalidCoordinates": "Invalid coordinates",
+    "propertyLocation": "Property location"
+  }
+}
