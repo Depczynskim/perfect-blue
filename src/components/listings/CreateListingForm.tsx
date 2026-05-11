@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
 import dynamic from 'next/dynamic';
-import type { PhotoItem } from './PhotoUpload';
+import type { ListingPhotoFilenameFields, PhotoItem } from './PhotoUpload';
 import { createClient } from '@/lib/supabase/client';
 
 function LoadingMap() {
@@ -198,6 +198,58 @@ export default function CreateListingForm({
   }, [formData.transactionType, t]);
 
   const normalizedQuery = useMemo(() => normalizeCityName(cityQuery), [cityQuery]);
+
+  const canUploadPhotos = useMemo(() => {
+    if (!formData.transactionType || !formData.propertyType) {
+      return false;
+    }
+    if (!formData.city.trim()) {
+      return false;
+    }
+    const roomsTrim = formData.rooms.trim();
+    if (roomsTrim === '') {
+      return false;
+    }
+    const rooms = Number(roomsTrim);
+    if (!Number.isFinite(rooms) || !Number.isInteger(rooms) || rooms < 0) {
+      return false;
+    }
+    const sizeTrim = formData.size_m2.trim();
+    if (sizeTrim === '') {
+      return false;
+    }
+    const sizeM2 = Number(sizeTrim);
+    if (!Number.isFinite(sizeM2) || sizeM2 <= 0) {
+      return false;
+    }
+    return true;
+  }, [
+    formData.transactionType,
+    formData.propertyType,
+    formData.city,
+    formData.rooms,
+    formData.size_m2,
+  ]);
+
+  const photoFilenameFields = useMemo((): ListingPhotoFilenameFields | null => {
+    if (!canUploadPhotos) {
+      return null;
+    }
+    return {
+      transactionType: formData.transactionType,
+      propertyType: formData.propertyType,
+      city: formData.city.trim(),
+      rooms: Number(formData.rooms),
+      sizeM2: Number(formData.size_m2),
+    };
+  }, [
+    canUploadPhotos,
+    formData.transactionType,
+    formData.propertyType,
+    formData.city,
+    formData.rooms,
+    formData.size_m2,
+  ]);
 
   // Show "Add new" option when the normalized name doesn't exactly match any existing city
   const showAddNew = useMemo(() => {
@@ -866,6 +918,8 @@ export default function CreateListingForm({
           listingId={null}
           maxPhotos={10 - existingPhotos.length}
           onPhotosChange={setPhotos}
+          canUploadPhotos={canUploadPhotos}
+          photoFilenameFields={photoFilenameFields}
         />
         {photos.length > 0 && photos.some(p => p.status === 'error') && (
           <p className="mt-2 text-sm text-red-600">

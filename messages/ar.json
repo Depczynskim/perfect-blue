@@ -83,11 +83,20 @@
     }
   },
   "listingDetail": {
-    "propertySummary": "ملخص العقار",
+    "propertySummary": "مواصفات العقار",
+    "featureType": "النوع",
+    "featureSize": "المساحة الإجمالية",
+    "featureRooms": "الغرف",
+    "featureBathrooms": "الحمامات",
+    "propertyGeneric": "عقار",
+    "titleSale": "{propertyType} للبيع في {location}",
+    "titleRentLong": "{propertyType} للإيجار في {location}",
+    "titleRentShort": "{propertyType} للإيجار قصير الأجل في {location}",
+    "description": "وصف العقار",
     "location": "الموقع",
     "price": "السعر",
     "priceHeadingSale": "سعر الطلب",
-    "priceHeadingRentLong": "الإيجار الشهري",
+    "priceHeadingRentLong": "سعر الإيجار",
     "priceHeadingRentShort": "السعر لليلة",
     "addedOn": "تمت الإضافة في",
     "yourListing": "هذا إعلانك",
@@ -96,7 +105,8 @@
     "allListings": "جميع الإعلانات",
     "invalidCoordinates": "إحداثيات غير صالحة",
     "mapLabel": "موقع العقار",
-    "locationNotSpecified": "الموقع غير محدد"
+    "locationNotSpecified": "الموقع غير محدد",
+    "translateDescription": "ترجمة"
   },
   "createListing": {
     "title": "إضافة إعلان جديد",
@@ -258,7 +268,8 @@
       "pending": "قيد الانتظار"
     },
     "retryUpload": "حاول مرة أخرى",
-    "somePhotosFailed": "فشل تحميل بعض الصور. حاول مرة أخرى أو احذفها."
+    "somePhotosFailed": "فشل تحميل بعض الصور. حاول مرة أخرى أو احذفها.",
+    "uploadBlockedSeoFilenames": "أضف المدينة وعدد الغرف والمساحة قبل رفع الصور. يساعد ذلك على إنشاء أسماء ملفات أفضل لمحركات البحث."
   },
   "map": {
     "address": "العنوان",

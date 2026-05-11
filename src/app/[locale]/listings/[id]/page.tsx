@@ -8,8 +8,36 @@ import { parseLocation } from '@/lib/map/parseLocation';
 import { formatListingDisplayPrice, formatListingLocation } from '@/lib/listings';
 import type { ListingPropertyType, ListingTransactionType } from '@/lib/supabase/types';
 import dynamicImport from 'next/dynamic';
+import { IconBath, IconBuilding, IconDoor, IconRuler2 } from '@tabler/icons-react';
+import DescriptionActions from '@/components/listings/DescriptionActions';
 
 export const dynamic = 'force-dynamic';
+
+const ALLOWED_TRANSLATE_LOCALES = new Set(['pl', 'en', 'es', 'de', 'ar']);
+
+function normalizeTranslateTargetLocale(
+  preferred: string | null | undefined,
+  routeLocale: string,
+  isLoggedIn: boolean,
+): string {
+  if (
+    isLoggedIn &&
+    preferred != null &&
+    preferred !== '' &&
+    ALLOWED_TRANSLATE_LOCALES.has(preferred)
+  ) {
+    return preferred;
+  }
+  if (ALLOWED_TRANSLATE_LOCALES.has(routeLocale)) {
+    return routeLocale;
+  }
+  return 'en';
+}
+
+function buildGoogleTranslateUrl(description: string, targetLocale: string): string {
+  const encoded = encodeURIComponent(description);
+  return `https://translate.google.com/?sl=auto&tl=${targetLocale}&text=${encoded}&op=translate`;
+}
 
 // Dynamiczny import mapy (bez SSR)
 const ListingMap = dynamicImport(
@@ -54,34 +82,6 @@ function propertySummaryTypeLine(propertyType: unknown, tCard: CardTranslate): s
   return tCard(key);
 }
 
-function propertySummaryMetricsLine(
-  sizeM2Raw: unknown,
-  roomsRaw: unknown,
-  bathroomsRaw: unknown,
-  tCard: CardTranslate
-): string | null {
-  const parts: string[] = [];
-
-  const sizeM2 = toFiniteNumber(sizeM2Raw);
-  if (sizeM2 != null && sizeM2 > 0) {
-    const display = Number.isInteger(sizeM2) ? String(sizeM2) : String(sizeM2);
-    parts.push(`${display} m²`);
-  }
-
-  const rooms = toFiniteNumber(roomsRaw);
-  if (rooms != null && rooms >= 0) {
-    parts.push(tCard('roomsCount', { count: Math.round(rooms) }));
-  }
-
-  const bathrooms = toFiniteNumber(bathroomsRaw);
-  if (bathrooms != null && bathrooms >= 0) {
-    parts.push(tCard('bathroomsCount', { count: Math.round(bathrooms) }));
-  }
-
-  if (parts.length === 0) return null;
-  return parts.join(' · ');
-}
-
 /** Use first segment when title repeats size/price after en dash or hyphen (sidebar shows price). */
 function listingPageHeadingTitle(raw: string): string {
   const trimmed = raw.trim();
@@ -107,6 +107,19 @@ function listingDetailPriceHeadingKey(
       return 'priceHeadingRentLong';
     case 'rent_short':
       return 'priceHeadingRentShort';
+  }
+}
+
+function listingDetailTitleKey(
+  transactionType: ListingTransactionType,
+): 'titleSale' | 'titleRentLong' | 'titleRentShort' {
+  switch (transactionType) {
+    case 'sale':
+      return 'titleSale';
+    case 'rent_long':
+      return 'titleRentLong';
+    case 'rent_short':
+      return 'titleRentShort';
   }
 }
 
@@ -142,15 +155,22 @@ export default async function ListingDetailPage({
     .eq('listing_id', params.id)
     .order('order_index', { ascending: true });
 
-  // Sprawdź czy użytkownik ma aktywną subskrypcję (is_paid)
+  // Profil przeglądającego: subskrypcja (dla nie-właściciela) + preferowany język (translate)
   let hasSubscription = false;
-  if (user && user.id !== listing.owner_id) {
+  let viewerPreferredLocale: string | null = null;
+  if (user) {
     const { data: userProfile } = await supabase
       .from('users')
-      .select('is_paid')
+      .select('is_paid, preferred_locale')
       .eq('id', user.id)
       .single();
-    hasSubscription = !!userProfile?.is_paid;
+    viewerPreferredLocale =
+      typeof userProfile?.preferred_locale === 'string'
+        ? userProfile.preferred_locale
+        : null;
+    if (user.id !== listing.owner_id) {
+      hasSubscription = !!userProfile?.is_paid;
+    }
   }
 
   // Mapowanie zdjęć do formatu dla PhotoGallery
@@ -168,17 +188,38 @@ export default async function ListingDetailPage({
   const longitude = parsedLocation?.longitude ?? -3.7038;
 
   const isOwner = user?.id === listing.owner_id;
-  const listingLocation = formatListingLocation(listing) || t('locationNotSpecified');
+  const listingLocationRaw = formatListingLocation(listing);
+  const listingLocation = listingLocationRaw || t('locationNotSpecified');
 
-  const summaryTypeLine = propertySummaryTypeLine(listing.property_type, tCard);
-  const summaryMetricsLine = propertySummaryMetricsLine(
-    listing.size_m2,
-    listing.rooms,
-    listing.bathrooms,
-    tCard
-  );
+  const featureTypeDisplay =
+    propertySummaryTypeLine(listing.property_type, tCard) ?? '—';
+
+  const sizeM2 = toFiniteNumber(listing.size_m2);
+  const featureSizeDisplay =
+    sizeM2 != null && sizeM2 > 0
+      ? `${Number.isInteger(sizeM2) ? String(sizeM2) : String(sizeM2)} m²`
+      : '—';
+
+  const rooms = toFiniteNumber(listing.rooms);
+  const featureRoomsDisplay =
+    rooms != null && rooms >= 0
+      ? String(Math.round(rooms))
+      : '—';
+
+  const bathrooms = toFiniteNumber(listing.bathrooms);
+  const featureBathroomsDisplay =
+    bathrooms != null && bathrooms >= 0
+      ? String(Math.round(bathrooms))
+      : '—';
 
   const pageHeadingTitle = listingPageHeadingTitle(listing.title);
+  const headingPropertyType = propertySummaryTypeLine(listing.property_type, tCard) ?? t('propertyGeneric');
+  const headingTitle = listingLocationRaw
+    ? t(listingDetailTitleKey(listing.transaction_type as ListingTransactionType), {
+      propertyType: headingPropertyType,
+      location: listingLocationRaw,
+    })
+    : pageHeadingTitle;
 
   const priceSuffixes = {
     perMonth: tCard('priceSuffixPerMonth'),
@@ -193,6 +234,17 @@ export default async function ListingDetailPage({
   });
   const priceHeading = t(listingDetailPriceHeadingKey(listing.transaction_type as ListingTransactionType));
 
+  const descriptionText = listing.description ?? '';
+  const showDescriptionActions = descriptionText.trim().length > 0;
+  const translateTargetLocale = normalizeTranslateTargetLocale(
+    viewerPreferredLocale,
+    locale,
+    !!user,
+  );
+  const translateHref = showDescriptionActions
+    ? buildGoogleTranslateUrl(descriptionText, translateTargetLocale)
+    : '';
+
   return (
     <div className="min-h-screen bg-slate-50">
       <Header user={user} />
@@ -203,24 +255,74 @@ export default async function ListingDetailPage({
           {/* Lewa kolumna - zdjęcia i opis */}
           <div className="lg:col-span-2 space-y-7">
             {/* Galeria zdjęć z lightboxem */}
-            <PhotoGallery photos={galleryPhotos} title={pageHeadingTitle} />
+            <PhotoGallery photos={galleryPhotos} title={headingTitle} />
 
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{pageHeadingTitle}</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{headingTitle}</h1>
 
-            {/* Property summary (V1 structured fields) */}
+            {/* Property summary — feature tiles */}
             <div className="bg-white rounded-lg shadow-sm p-6">
               <h2 className="text-xl font-semibold text-slate-900 mb-4">{t('propertySummary')}</h2>
-              <div className="space-y-3 text-slate-600">
-                {summaryTypeLine ? (
-                  <p className="text-xl font-semibold text-slate-900">{summaryTypeLine}</p>
-                ) : null}
-                {summaryMetricsLine ? <p className="leading-relaxed">{summaryMetricsLine}</p> : null}
-                <p className="leading-relaxed">{listingLocation}</p>
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+                <div className="rounded-lg border border-slate-100 bg-slate-50 px-3 py-4 sm:px-4">
+                  <div className="flex flex-col items-center text-center justify-center py-2 gap-1.5">
+                    <IconBuilding size={32} stroke={1.8} className="text-slate-500" />
+                    <div className="text-[11px] font-medium text-slate-500">
+                      {t('featureType')}
+                    </div>
+                    <div className="text-base font-semibold text-slate-900 tabular-nums">
+                      {featureTypeDisplay}
+                    </div>
+                  </div>
+                </div>
+                <div className="rounded-lg border border-slate-100 bg-slate-50 px-3 py-4 sm:px-4">
+                  <div className="flex flex-col items-center text-center justify-center py-2 gap-1.5">
+                    <IconRuler2 size={32} stroke={1.8} className="text-slate-500" />
+                    <div className="text-[11px] font-medium text-slate-500">
+                      {t('featureSize')}
+                    </div>
+                    <div className="text-base font-semibold text-slate-900 tabular-nums">
+                      {featureSizeDisplay}
+                    </div>
+                  </div>
+                </div>
+                <div className="rounded-lg border border-slate-100 bg-slate-50 px-3 py-4 sm:px-4">
+                  <div className="flex flex-col items-center text-center justify-center py-2 gap-1.5">
+                    <IconDoor size={32} stroke={1.8} className="text-slate-500" />
+                    <div className="text-[11px] font-medium text-slate-500">
+                      {t('featureRooms')}
+                    </div>
+                    <div className="text-lg font-semibold text-slate-900 tabular-nums leading-tight">
+                      {featureRoomsDisplay}
+                    </div>
+                  </div>
+                </div>
+                <div className="rounded-lg border border-slate-100 bg-slate-50 px-3 py-4 sm:px-4">
+                  <div className="flex flex-col items-center text-center justify-center py-2 gap-1.5">
+                    <IconBath size={32} stroke={1.8} className="text-slate-500" />
+                    <div className="text-[11px] font-medium text-slate-500">
+                      {t('featureBathrooms')}
+                    </div>
+                    <div className="text-lg font-semibold text-slate-900 tabular-nums leading-tight">
+                      {featureBathroomsDisplay}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* Opis */}
             <div className="bg-white rounded-lg shadow-sm p-6">
+              <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+                <h2 className="min-w-0 text-xl font-semibold text-slate-900">
+                  {t('description')}
+                </h2>
+                {showDescriptionActions && (
+                  <DescriptionActions
+                    translateHref={translateHref}
+                    translateLabel={t('translateDescription')}
+                  />
+                )}
+              </div>
               <div className="max-w-none text-slate-700 leading-relaxed">
                 <p>{listing.description}</p>
               </div>

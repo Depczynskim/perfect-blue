@@ -83,11 +83,20 @@
     }
   },
   "listingDetail": {
-    "propertySummary": "Charakterystyka",
+    "propertySummary": "Charakterystyka nieruchomości",
+    "featureType": "Typ",
+    "featureSize": "Powierzchnia",
+    "featureRooms": "Pokoje",
+    "featureBathrooms": "Łazienki",
+    "propertyGeneric": "Nieruchomość",
+    "titleSale": "{propertyType} na sprzedaż w {location}",
+    "titleRentLong": "{propertyType} do wynajęcia w {location}",
+    "titleRentShort": "{propertyType} na wynajem krótkoterminowy w {location}",
+    "description": "Opis nieruchomości",
     "location": "Lokalizacja",
     "price": "Cena",
     "priceHeadingSale": "Cena sprzedaży",
-    "priceHeadingRentLong": "Czynsz miesięczny",
+    "priceHeadingRentLong": "Cena najmu",
     "priceHeadingRentShort": "Cena za dobę",
     "addedOn": "Dodano",
     "yourListing": "To Twoje ogłoszenie",
@@ -96,7 +105,8 @@
     "allListings": "Wszystkie ogłoszenia",
     "invalidCoordinates": "Nieprawidłowe współrzędne",
     "mapLabel": "Lokalizacja nieruchomości",
-    "locationNotSpecified": "Lokalizacja nieokreślona"
+    "locationNotSpecified": "Lokalizacja nieokreślona",
+    "translateDescription": "Tłumacz"
   },
   "createListing": {
     "title": "Dodaj nowe ogłoszenie",
@@ -258,7 +268,8 @@
       "pending": "Oczekuje"
     },
     "retryUpload": "Spróbuj ponownie",
-    "somePhotosFailed": "Niektóre zdjęcia nie zostały przesłane. Spróbuj ponownie lub usuń je."
+    "somePhotosFailed": "Niektóre zdjęcia nie zostały przesłane. Spróbuj ponownie lub usuń je.",
+    "uploadBlockedSeoFilenames": "Podaj miasto, liczbę pokoi i metraż przed przesłaniem zdjęć. Ułatwia to tworzenie przyjaznych nazw plików dla SEO."
   },
   "map": {
     "address": "Adres",

@@ -4,9 +4,18 @@ import { useState, useRef, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import { prepareImageVersions, isAllowedImageType, MAX_FILE_SIZE } from '@/lib/image';
 import { createClient } from '@/lib/supabase/client';
+import { buildListingPhotoStoragePaths } from '@/lib/listings/storagePhotoFilename';
 
 // Nazwa bucketu w Supabase Storage
 const STORAGE_BUCKET = 'listing-photos';
+
+export interface ListingPhotoFilenameFields {
+  transactionType: 'sale' | 'rent_long' | 'rent_short';
+  propertyType: 'apartment' | 'house' | 'room' | 'studio';
+  city: string;
+  rooms: number;
+  sizeM2: number;
+}
 
 interface PhotoItem {
   id: string;
@@ -28,6 +37,10 @@ interface PhotoUploadProps {
   maxPhotos?: number;
   onPhotosChange?: (photos: PhotoItem[]) => void;
   className?: string;
+  /** When false, dropzone and file input are disabled (listing form missing SEO filename fields). */
+  canUploadPhotos?: boolean;
+  /** Required segments when uploads run; keep in sync via ref inside processAndUpload. */
+  photoFilenameFields?: ListingPhotoFilenameFields | null;
 }
 
 export default function PhotoUpload({
@@ -35,12 +48,19 @@ export default function PhotoUpload({
   maxPhotos = 10,
   onPhotosChange,
   className = '',
+  canUploadPhotos = false,
+  photoFilenameFields = null,
 }: PhotoUploadProps) {
   const t = useTranslations('photoUpload');
   const [photos, setPhotos] = useState<PhotoItem[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const filenameFieldsRef = useRef<ListingPhotoFilenameFields | null>(photoFilenameFields);
+  filenameFieldsRef.current = photoFilenameFields;
   const maxSizeMb = Math.round(MAX_FILE_SIZE / 1024 / 1024);
+
+  const atPhotoLimit = photos.length >= maxPhotos;
+  const uploadAllowed = canUploadPhotos && !atPhotoLimit;
 
   // Update parent component when photos change
   const updatePhotos = useCallback((newPhotos: PhotoItem[]) => {
@@ -52,8 +72,12 @@ export default function PhotoUpload({
    * Dodaje pliki do listy
    */
   const addFiles = useCallback(async (files: FileList | File[]) => {
+    if (!canUploadPhotos) {
+      return;
+    }
+
     const fileArray = Array.from(files);
-    
+
     // Sprawdzenie limitu
     const remainingSlots = maxPhotos - photos.length;
     if (remainingSlots <= 0) {
@@ -85,7 +109,7 @@ export default function PhotoUpload({
     for (const photo of newPhotos) {
       await processAndUpload(photo.id, updatedPhotos);
     }
-  }, [photos, maxPhotos, updatePhotos]);
+  }, [photos, maxPhotos, updatePhotos, canUploadPhotos]);
 
   /**
    * Przetwarza i uploaduje pojedyncze zdjęcie do Supabase Storage
@@ -128,11 +152,15 @@ export default function PhotoUpload({
 
       updateStatus({ status: 'uploading', progress: 40 });
 
-      // Generowanie ścieżek plików
-      // Struktura: {user_id}/{uuid}_display.webp i {user_id}/{uuid}_thumb.webp
-      const uuid = crypto.randomUUID();
-      const displayPath = `${user.id}/${uuid}_display.webp`;
-      const thumbPath = `${user.id}/${uuid}_thumb.webp`;
+      const fields = filenameFieldsRef.current;
+      const { displayPath, thumbPath } = buildListingPhotoStoragePaths({
+        userId: user.id,
+        transactionType: fields?.transactionType,
+        propertyType: fields?.propertyType,
+        city: fields?.city,
+        rooms: fields?.rooms,
+        sizeM2: fields?.sizeM2,
+      });
 
       // Upload wersji DISPLAY
       const { error: displayError } = await supabase.storage
@@ -213,6 +241,9 @@ export default function PhotoUpload({
    * Ponowna próba uploadu
    */
   const retryUpload = (photoId: string) => {
+    if (!canUploadPhotos) {
+      return;
+    }
     const photo = photos.find(p => p.id === photoId);
     if (photo) {
       processAndUpload(photoId, photos);
@@ -221,6 +252,9 @@ export default function PhotoUpload({
 
   // Drag & Drop handlers
   const handleDragEnter = (e: React.DragEvent) => {
+    if (!uploadAllowed) {
+      return;
+    }
     e.preventDefault();
     e.stopPropagation();
     setIsDragging(true);
@@ -233,6 +267,9 @@ export default function PhotoUpload({
   };
 
   const handleDragOver = (e: React.DragEvent) => {
+    if (!uploadAllowed) {
+      return;
+    }
     e.preventDefault();
     e.stopPropagation();
   };
@@ -242,6 +279,10 @@ export default function PhotoUpload({
     e.stopPropagation();
     setIsDragging(false);
 
+    if (!canUploadPhotos || atPhotoLimit) {
+      return;
+    }
+
     const files = e.dataTransfer.files;
     if (files.length > 0) {
       addFiles(files);
@@ -250,7 +291,7 @@ export default function PhotoUpload({
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    if (files && files.length > 0) {
+    if (files && files.length > 0 && canUploadPhotos && !atPhotoLimit) {
       addFiles(files);
     }
     // Reset input
@@ -281,21 +322,33 @@ export default function PhotoUpload({
 
   return (
     <div className={className}>
+      {!canUploadPhotos && (
+        <p className="mb-3 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900">
+          {t('uploadBlockedSeoFilenames')}
+        </p>
+      )}
       {/* Dropzone */}
       <div
         className={`
-          relative border-2 border-dashed rounded-lg p-8 text-center transition-colors cursor-pointer
-          ${isDragging 
-            ? 'border-primary-500 bg-primary-50' 
-            : 'border-gray-300 hover:border-primary-400 hover:bg-gray-50'
+          relative border-2 border-dashed rounded-lg p-8 text-center transition-colors
+          ${uploadAllowed
+            ? `cursor-pointer ${isDragging
+              ? 'border-primary-500 bg-primary-50'
+              : 'border-gray-300 hover:border-primary-400 hover:bg-gray-50'
+            }`
+            : 'cursor-not-allowed border-gray-200 bg-gray-100 opacity-75 pointer-events-none'
           }
-          ${photos.length >= maxPhotos ? 'opacity-50 pointer-events-none' : ''}
         `}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
-        onClick={() => fileInputRef.current?.click()}
+        onClick={() => {
+          if (!uploadAllowed) {
+            return;
+          }
+          fileInputRef.current?.click();
+        }}
       >
         <input
           ref={fileInputRef}
@@ -304,7 +357,7 @@ export default function PhotoUpload({
           multiple
           className="hidden"
           onChange={handleFileSelect}
-          disabled={photos.length >= maxPhotos}
+          disabled={!uploadAllowed}
         />
 
         <svg

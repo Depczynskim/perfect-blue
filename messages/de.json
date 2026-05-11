@@ -83,11 +83,20 @@
     }
   },
   "listingDetail": {
-    "propertySummary": "Objektübersicht",
+    "propertySummary": "Immobilienmerkmale",
+    "featureType": "Typ",
+    "featureSize": "Wohnfläche",
+    "featureRooms": "Zimmer",
+    "featureBathrooms": "Badezimmer",
+    "propertyGeneric": "Immobilie",
+    "titleSale": "{propertyType} zum Verkauf in {location}",
+    "titleRentLong": "{propertyType} zur Miete in {location}",
+    "titleRentShort": "{propertyType} zur Kurzzeitmiete in {location}",
+    "description": "Immobilienbeschreibung",
     "location": "Standort",
     "price": "Preis",
     "priceHeadingSale": "Kaufpreis",
-    "priceHeadingRentLong": "Monatsmiete",
+    "priceHeadingRentLong": "Mietpreis",
     "priceHeadingRentShort": "Preis pro Nacht",
     "addedOn": "Hinzugefügt am",
     "yourListing": "Das ist Ihre Anzeige",
@@ -96,7 +105,8 @@
     "allListings": "Alle Anzeigen",
     "invalidCoordinates": "Ungültige Koordinaten",
     "mapLabel": "Standort der Immobilie",
-    "locationNotSpecified": "Standort nicht angegeben"
+    "locationNotSpecified": "Standort nicht angegeben",
+    "translateDescription": "Übersetzen"
   },
   "createListing": {
     "title": "Neue Anzeige hinzufügen",
@@ -258,7 +268,8 @@
       "pending": "Ausstehend"
     },
     "retryUpload": "Erneut versuchen",
-    "somePhotosFailed": "Einige Fotos konnten nicht hochgeladen werden. Versuchen Sie es erneut oder entfernen Sie sie."
+    "somePhotosFailed": "Einige Fotos konnten nicht hochgeladen werden. Versuchen Sie es erneut oder entfernen Sie sie.",
+    "uploadBlockedSeoFilenames": "Geben Sie Stadt, Zimmeranzahl und Fläche ein, bevor Sie Fotos hochladen. So entstehen SEO-freundliche Dateinamen."
   },
   "map": {
     "address": "Adresse",

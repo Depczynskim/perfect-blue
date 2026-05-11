@@ -83,11 +83,20 @@
     }
   },
   "listingDetail": {
-    "propertySummary": "Resumen de la propiedad",
+    "propertySummary": "Características de la propiedad",
+    "featureType": "Tipo",
+    "featureSize": "Área",
+    "featureRooms": "Habitaciones",
+    "featureBathrooms": "Baños",
+    "propertyGeneric": "Propiedad",
+    "titleSale": "{propertyType} en venta en {location}",
+    "titleRentLong": "{propertyType} en alquiler en {location}",
+    "titleRentShort": "{propertyType} en alquiler de corta estancia en {location}",
+    "description": "Descripción de la propiedad",
     "location": "Ubicación",
     "price": "Precio",
     "priceHeadingSale": "Precio de venta",
-    "priceHeadingRentLong": "Alquiler mensual",
+    "priceHeadingRentLong": "Precio del alquiler",
     "priceHeadingRentShort": "Precio por noche",
     "addedOn": "Añadido el",
     "yourListing": "Este es tu anuncio",
@@ -96,7 +105,8 @@
     "allListings": "Todos los Anuncios",
     "invalidCoordinates": "Coordenadas inválidas",
     "mapLabel": "Ubicación de la propiedad",
-    "locationNotSpecified": "Ubicación no especificada"
+    "locationNotSpecified": "Ubicación no especificada",
+    "translateDescription": "Traducir"
   },
   "createListing": {
     "title": "Añadir Nuevo Anuncio",
@@ -258,7 +268,8 @@
       "pending": "Pendiente"
     },
     "retryUpload": "Intentar de nuevo",
-    "somePhotosFailed": "Algunas fotos no se pudieron subir. Intenta de nuevo o elimínalas."
+    "somePhotosFailed": "Algunas fotos no se pudieron subir. Intenta de nuevo o elimínalas.",
+    "uploadBlockedSeoFilenames": "Añade ciudad, habitaciones y superficie antes de subir fotos. Así se generan nombres de archivo más útiles para el SEO."
   },
   "map": {
     "address": "Dirección",

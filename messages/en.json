@@ -83,11 +83,20 @@
     }
   },
   "listingDetail": {
-    "propertySummary": "Property summary",
+    "propertySummary": "Property characteristics",
+    "featureType": "Type",
+    "featureSize": "Area",
+    "featureRooms": "Rooms",
+    "featureBathrooms": "Bathrooms",
+    "propertyGeneric": "Property",
+    "titleSale": "{propertyType} for sale in {location}",
+    "titleRentLong": "{propertyType} for rent in {location}",
+    "titleRentShort": "{propertyType} for short-term rent in {location}",
+    "description": "Property description",
     "location": "Location",
     "price": "Price",
     "priceHeadingSale": "Asking price",
-    "priceHeadingRentLong": "Monthly rent",
+    "priceHeadingRentLong": "Rent",
     "priceHeadingRentShort": "Nightly price",
     "addedOn": "Added on",
     "yourListing": "This is your listing",
@@ -96,7 +105,8 @@
     "allListings": "All Listings",
     "invalidCoordinates": "Invalid coordinates",
     "mapLabel": "Property location",
-    "locationNotSpecified": "Location not specified"
+    "locationNotSpecified": "Location not specified",
+    "translateDescription": "Translate"
   },
   "createListing": {
     "title": "Add New Listing",
@@ -258,7 +268,8 @@
       "pending": "Pending"
     },
     "retryUpload": "Try again",
-    "somePhotosFailed": "Some photos failed to upload. Try again or remove them."
+    "somePhotosFailed": "Some photos failed to upload. Try again or remove them.",
+    "uploadBlockedSeoFilenames": "Add city, rooms and size before uploading photos. This helps generate SEO-friendly photo filenames."
   },
   "map": {
     "address": "Address",
