@@ -65,6 +65,22 @@ export async function POST(
       throw new ValidationError('thumb_path and thumb_url are required');
     }
 
+    if (typeof display_path !== 'string' || typeof thumb_path !== 'string') {
+      throw new ValidationError('display_path and thumb_path must be strings');
+    }
+
+    const userStoragePrefix = `${user.id}/`;
+    if (
+      !display_path.startsWith(userStoragePrefix) ||
+      !thumb_path.startsWith(userStoragePrefix)
+    ) {
+      throw new ValidationError('Photo paths must be in your storage folder');
+    }
+
+    if (!display_path.endsWith('_display.webp') || !thumb_path.endsWith('_thumb.webp')) {
+      throw new ValidationError('Photo paths must use _display.webp and _thumb.webp suffixes');
+    }
+
     // Zapis do bazy danych
     const { data: photo, error: insertError } = await supabase
       .from('listing_photos')

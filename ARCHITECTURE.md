@@ -1,7 +1,7 @@
 # ARCHITECTURE.md
 
 **Purpose**: AI assistant startup context for working on this repository.
-**Last updated**: 2026-05-07
+**Last updated**: 2026-05-15
 
 **Source of truth hierarchy**:
 1. Code in `src/`, `supabase/migrations/`, `scripts/`, `package.json`
@@ -32,6 +32,8 @@ Real estate listing portal for Catalonia region. Users post property listings fo
 ### Listings
 Property advertisements with location, price, category, photos.
 - **Code**: `src/app/[locale]/listings/**`, `src/lib/listings/`, `src/components/listings/`
+- **Create / edit (V1)**: `CreateListingForm` + `parseV1ListingPayload` (`src/lib/listings/parseV1ListingPayload.ts`) used by POST `/api/listings` and PATCH `/api/listings/[id]`. **Currency** is always **EUR** (server-set). **Numeric fields (whole numbers only):** `price` positive integer; `size_m2` positive integer; `rooms` non-negative integer; `bathrooms` non-negative integer. UI copy and validation messages live under `messages/*/createListing` (5 locales).
+- **Listing detail**: free-text description; optional link to Google Translate (new tab) with `sl=auto` and target locale from `users.preferred_locale` (when logged in), else route locale, else `en` — see `src/app/[locale]/listings/[id]/page.tsx`, `DescriptionActions.tsx`
 - **API**: `/api/listings`, `/api/listings/[id]`, `/api/listings/[id]/photos`
 - **Tables**: `listings`, `listing_photos`
 - **Migrations**: 002, 005, 007, 011, 012, 014
@@ -77,8 +79,9 @@ Address-to-coordinates conversion with caching to reduce API costs.
 
 ### Image Processing
 Client-side WebP conversion, resize, compression (display: 1600x1200, thumb: 600x450).
-- **Code**: `src/lib/image/`, `src/components/listings/PhotoUpload.tsx`
-- **Storage**: Supabase Storage bucket `listing-photos` (structure: `{user_id}/{uuid}_display.webp`, `{user_id}/{uuid}_thumb.webp`)
+- **Code**: `src/lib/image/`, `src/components/listings/PhotoUpload.tsx`, `src/components/listings/CreateListingForm.tsx`, `src/lib/listings/storagePhotoFilename.ts`
+- **Upload gating**: new photos cannot be added until the create/edit form has valid **transactionType**, **propertyType**, **city** (trimmed non-empty), **rooms** (non-negative integer), **size_m2** (positive integer) — ensures stable SEO-style object keys (see `PhotoUpload` props `canUploadPhotos` / `photoFilenameFields`).
+- **Storage**: Supabase Storage bucket `listing-photos`. Object keys: `{user_id}/{transaction}-{property}-{city-slug}-{rooms}br-{size}m2-{shortid}_display.webp` and `_thumb.webp` (e.g. `sale-apartment-calafell-2br-80m2-a7f39c`). Folder segment must remain `auth.uid()` for RLS (`006_storage_policies.sql`). `buildListingPhotoStoragePaths()` includes defensive fallbacks for missing inputs; normal UI should not hit them. Older rows may still store legacy `{uuid}_*.webp` paths until replaced.
 - **Migrations**: 005, 006, 007
 - **Dependencies**: Auth (user_id for storage paths), Listings (listing_id)
 
@@ -96,7 +99,7 @@ Next.js App Router pages and API routes.
 Reusable React components organized by domain.
 - **`auth/`**: LoginForm, RegisterForm, LogoutButton
 - **`layout/`**: Header, LanguageSelector
-- **`listings/`**: CreateListingForm, PhotoUpload, LocationPicker, ListingGrid, ContactButton, etc.
+- **`listings/`**: CreateListingForm, PhotoUpload, LocationPicker, ListingGrid, ContactButton, DescriptionActions, etc.
 - **Should contain**: presentational and interactive UI components
 - **Should NOT contain**: API calls (use `lib/` utilities), direct DB queries
 - **Type**: Shared UI code
@@ -105,7 +108,7 @@ Reusable React components organized by domain.
 Business logic, utilities, and infrastructure organized by domain.
 - **`api/`**: auth helpers, error classes, subscription checks
 - **`supabase/`**: client factories (server/browser), types, middleware
-- **`listings/`**: queries, normalization, location formatting
+- **`listings/`**: queries, normalization, location formatting, `parseV1ListingPayload.ts` (create/update body validation), `storagePhotoFilename.ts` (SEO-oriented storage basenames for new photo uploads)
 - **`stripe/`**: Stripe client singleton, config
 - **`image/`**: client-side image processing (WebP, resize, compress)
 - **`map/`**: location parsing (WKB/WKT/GeoJSON), icon utilities
@@ -126,6 +129,8 @@ Next.js middleware for i18n routing and Supabase session refresh.
 
 ### `src/i18n.ts`
 next-intl configuration (locales, locale names, message loading).
+- **`getRequestConfig`**: resolves locale from explicit `locale` or `requestLocale` (`[locale]` segment). Only values in `locales` load `messages/{locale}.json`; unknown segments (e.g. mistaken `[locale]` matches like asset paths) fall back to **`defaultLocale` (`pl`)** — do not import message JSON for arbitrary path segments.
+- **Static assets**: `public/favicon.ico`, `public/apple-touch-icon.png`, `public/apple-touch-icon-precomposed.png` (served before App Router; middleware matcher excludes common dotted paths).
 - **Type**: Infrastructure
 
 ## Working mode
@@ -182,7 +187,7 @@ next-intl configuration (locales, locale names, message loading).
 
 ### Image handling
 - **Client-side processing**: Always generate both `display` and `thumb` versions before upload
-- **Storage paths**: `{user_id}/{uuid}_display.webp` and `{user_id}/{uuid}_thumb.webp`
+- **Storage paths** (new uploads): `{user_id}/{transaction}-{property}-{city-slug}-{rooms}br-{size}m2-{shortid}_display.webp` and `_thumb.webp`, built in `src/lib/listings/storagePhotoFilename.ts`. Legacy paths `{user_id}/{uuid}_display.webp` may still exist in DB for older photos.
 - **DB columns**: `display_path`, `display_url`, `thumb_path`, `thumb_url` (not `storage_path`, `public_url` - deprecated)
 
 ## Domain dependencies
@@ -222,10 +227,11 @@ Geocoding (independent infrastructure)
 
 ### Implemented (verified in code)
 - User registration/login (Supabase Auth + email confirmation)
-- Listing CRUD (create, read, update, delete with RLS)
-- Photo upload (dual versions: display + thumb, Supabase Storage)
+- Listing CRUD (create, read, update, delete with RLS; V1 create/edit integer EUR fields via `parseV1ListingPayload`)
+- Photo upload (dual versions: display + thumb, Supabase Storage; SEO-friendly filenames + gated upload in create/edit form)
+- Listing detail: Google Translate link for description (external; not in-app translation)
 - City filtering (947 Catalonia municipalities, approved + pending statuses)
-- Category filtering (long_term_rent, short_term_rent, sale)
+- Category filtering (transaction types: `sale`, `rent_long`, `rent_short`; legacy API filter names may still appear in older docs)
 - Map-based location selection (Leaflet)
 - Geocoding with cache (LocationIQ, optional)
 - Messaging between users (conversation threads per listing)
@@ -274,8 +280,10 @@ Geocoding (independent infrastructure)
 - All DB queries use RLS; service role key only in webhooks and scripts
 - Client components use `createBrowserClient()`, server components use `createServerClient()`
 - Images always processed client-side before upload (display + thumb)
+- New listing photo storage keys are SEO-oriented under `{user_id}/` once required form fields are filled; `CreateListingForm` passes filename segments into `PhotoUpload`
 - Cities have `approved` (visible) vs `pending` (user-submitted) status
 - Subscription check: `users.is_paid` (boolean), not `contacts_access` table
+- Listing create/edit numeric fields: whole numbers only (`price` > 0, `size_m2` > 0, `rooms` / `bathrooms` ≥ 0); enforced in `parseV1ListingPayload` and `CreateListingForm`
 
 ## Modification policy
 

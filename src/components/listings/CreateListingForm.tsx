@@ -7,6 +7,15 @@ import dynamic from 'next/dynamic';
 import type { ListingPhotoFilenameFields, PhotoItem } from './PhotoUpload';
 import { createClient } from '@/lib/supabase/client';
 
+/** POST/PATCH API errors use `{ error }`; some clients may send `{ message }`. */
+function readApiErrorMessage(body: unknown): string | undefined {
+  if (!body || typeof body !== 'object') return undefined;
+  const o = body as { error?: unknown; message?: unknown };
+  if (typeof o.error === 'string' && o.error.trim()) return o.error;
+  if (typeof o.message === 'string' && o.message.trim()) return o.message;
+  return undefined;
+}
+
 function LoadingMap() {
   const tMap = useTranslations('createListing.map');
   return (
@@ -67,12 +76,22 @@ const TRANSACTION_TYPE_LABEL_KEY: Record<
   sale: 'categorySale',
 };
 
-const PROPERTY_OPTIONS: { value: FormState['propertyType']; label: string }[] = [
-  { value: 'apartment', label: 'Apartment' },
-  { value: 'house', label: 'House' },
-  { value: 'room', label: 'Room' },
-  { value: 'studio', label: 'Studio' },
+const PROPERTY_TYPES: FormState['propertyType'][] = [
+  'apartment',
+  'house',
+  'room',
+  'studio',
 ];
+
+const PROPERTY_TYPE_LABEL_KEY: Record<
+  FormState['propertyType'],
+  'propertyTypeApartment' | 'propertyTypeHouse' | 'propertyTypeRoom' | 'propertyTypeStudio'
+> = {
+  apartment: 'propertyTypeApartment',
+  house: 'propertyTypeHouse',
+  room: 'propertyTypeRoom',
+  studio: 'propertyTypeStudio',
+};
 
 function getInitialFormState(initialData?: Partial<FormState>): FormState {
   return {
@@ -116,6 +135,19 @@ interface CityOption {
 
 function normalizeCityName(raw: string): string {
   return raw.trim().replace(/\s+/g, ' ');
+}
+
+/** Replace the browser default “Enter a valid value” with a translated whole-number hint. */
+function applyTranslatedInputValidity(input: HTMLInputElement, message: string) {
+  if (input.validity.valid) {
+    input.setCustomValidity('');
+    return;
+  }
+  input.setCustomValidity(message);
+}
+
+function clearTranslatedInputValidity(input: HTMLInputElement) {
+  input.setCustomValidity('');
 }
 
 export default function CreateListingForm({ 
@@ -219,7 +251,7 @@ export default function CreateListingForm({
       return false;
     }
     const sizeM2 = Number(sizeTrim);
-    if (!Number.isFinite(sizeM2) || sizeM2 <= 0) {
+    if (!Number.isFinite(sizeM2) || !Number.isInteger(sizeM2) || sizeM2 <= 0) {
       return false;
     }
     return true;
@@ -400,37 +432,37 @@ export default function CreateListingForm({
 
     const priceTrim = formData.price.trim();
     if (!/^\d+$/.test(priceTrim)) {
-      setError('Price must be a positive whole number (EUR).');
+      setError(tValidation('priceWholeEuroPositive'));
       setIsSubmitting(false);
       return;
     }
     const priceInt = parseInt(priceTrim, 10);
     if (priceInt <= 0) {
-      setError('Price must be a positive whole number (EUR).');
+      setError(tValidation('priceWholeEuroPositive'));
       setIsSubmitting(false);
       return;
     }
     const sizeM2 = Number(formData.size_m2);
-    if (!Number.isFinite(sizeM2) || sizeM2 <= 0) {
-      setError('Size (m²) must be greater than zero.');
+    if (!Number.isFinite(sizeM2) || !Number.isInteger(sizeM2) || sizeM2 <= 0) {
+      setError(tValidation('sizeM2Positive'));
       setIsSubmitting(false);
       return;
     }
     const rooms = Number(formData.rooms);
     if (!Number.isFinite(rooms) || !Number.isInteger(rooms) || rooms < 0) {
-      setError('Rooms must be a non-negative whole number.');
+      setError(tValidation('roomsNonNegativeInteger'));
       setIsSubmitting(false);
       return;
     }
     const bathrooms = Number(formData.bathrooms);
-    if (!Number.isFinite(bathrooms) || bathrooms < 0) {
-      setError('Bathrooms must be zero or greater.');
+    if (!Number.isFinite(bathrooms) || !Number.isInteger(bathrooms) || bathrooms < 0) {
+      setError(tValidation('bathroomsNonNegative'));
       setIsSubmitting(false);
       return;
     }
     const descTrim = formData.description.trim();
     if (descTrim.length > 500) {
-      setError('Description must be at most 500 characters.');
+      setError(tValidation('descriptionMaxLength'));
       setIsSubmitting(false);
       return;
     }
@@ -461,7 +493,7 @@ export default function CreateListingForm({
         const lat = formData.latitude;
         const lng = formData.longitude;
         if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
-          setError(tValidation('invalidCoordinates') ?? 'Invalid coordinates. Please set the location on the map.');
+          setError(tValidation('invalidCoordinates'));
           setIsSubmitting(false);
           return;
         }
@@ -515,7 +547,7 @@ export default function CreateListingForm({
         resultListingId = listingId;
         if (!response.ok) {
           const errBody = await response.json().catch(() => ({}));
-          throw new Error((errBody as { message?: string }).message || tValidation('submitFailed'));
+          throw new Error(readApiErrorMessage(errBody) || tValidation('submitFailed'));
         }
         await response.json().catch(() => null);
       } else {
@@ -526,7 +558,7 @@ export default function CreateListingForm({
         });
         if (!createResponse.ok) {
           const errBody = await createResponse.json().catch(() => ({}));
-          throw new Error((errBody as { message?: string }).message || tValidation('submitFailed'));
+          throw new Error(readApiErrorMessage(errBody) || tValidation('submitFailed'));
         }
         const data = (await createResponse.json()) as { listing_id?: string };
         resultListingId = data.listing_id;
@@ -591,7 +623,7 @@ export default function CreateListingForm({
     <form onSubmit={handleSubmit} className="max-w-4xl mx-auto space-y-6">
       <div>
         <label htmlFor="transactionType" className="block text-sm font-medium text-gray-700 mb-2">
-          Transaction <span className="text-slate-400">({t('required')})</span>
+          {t('transactionType')} <span className="text-slate-400">({t('required')})</span>
         </label>
         <select
           id="transactionType"
@@ -615,7 +647,7 @@ export default function CreateListingForm({
 
       <div>
         <label htmlFor="propertyType" className="block text-sm font-medium text-gray-700 mb-2">
-          Property type <span className="text-slate-400">({t('required')})</span>
+          {t('propertyType')} <span className="text-slate-400">({t('required')})</span>
         </label>
         <select
           id="propertyType"
@@ -629,9 +661,9 @@ export default function CreateListingForm({
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
           required
         >
-          {PROPERTY_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
+          {PROPERTY_TYPES.map((value) => (
+            <option key={value} value={value}>
+              {t(PROPERTY_TYPE_LABEL_KEY[value])}
             </option>
           ))}
         </select>
@@ -647,7 +679,16 @@ export default function CreateListingForm({
           id="price"
           inputMode="numeric"
           value={formData.price}
-          onChange={(e) => setFormData((prev) => ({ ...prev, price: e.target.value }))}
+          onChange={(e) => {
+            clearTranslatedInputValidity(e.currentTarget);
+            setFormData((prev) => ({ ...prev, price: e.target.value }));
+          }}
+          onInvalid={(e) =>
+            applyTranslatedInputValidity(
+              e.currentTarget,
+              tValidation('priceWholeEuroPositive'),
+            )
+          }
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
           placeholder="e.g. 220000"
           step={1}
@@ -659,30 +700,48 @@ export default function CreateListingForm({
 
       <div>
         <label htmlFor="size_m2" className="block text-sm font-medium text-gray-700 mb-2">
-          Size (m²) <span className="text-slate-400">({t('required')})</span>
+          {t('sizeM2')} <span className="text-slate-400">({t('required')})</span>
         </label>
         <input
           type="number"
           id="size_m2"
           value={formData.size_m2}
-          onChange={(e) => setFormData((prev) => ({ ...prev, size_m2: e.target.value }))}
+          onChange={(e) => {
+            clearTranslatedInputValidity(e.currentTarget);
+            setFormData((prev) => ({ ...prev, size_m2: e.target.value }));
+          }}
+          onInvalid={(e) =>
+            applyTranslatedInputValidity(
+              e.currentTarget,
+              tValidation('sizeM2Positive'),
+            )
+          }
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
           placeholder="e.g. 80"
-          step="any"
-          min={0.01}
+          step={1}
+          min={1}
           required
         />
       </div>
 
       <div>
         <label htmlFor="rooms" className="block text-sm font-medium text-gray-700 mb-2">
-          Rooms <span className="text-slate-400">({t('required')})</span>
+          {t('rooms')} <span className="text-slate-400">({t('required')})</span>
         </label>
         <input
           type="number"
           id="rooms"
           value={formData.rooms}
-          onChange={(e) => setFormData((prev) => ({ ...prev, rooms: e.target.value }))}
+          onChange={(e) => {
+            clearTranslatedInputValidity(e.currentTarget);
+            setFormData((prev) => ({ ...prev, rooms: e.target.value }));
+          }}
+          onInvalid={(e) =>
+            applyTranslatedInputValidity(
+              e.currentTarget,
+              tValidation('roomsNonNegativeInteger'),
+            )
+          }
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
           placeholder="0"
           step={1}
@@ -693,16 +752,25 @@ export default function CreateListingForm({
 
       <div>
         <label htmlFor="bathrooms" className="block text-sm font-medium text-gray-700 mb-2">
-          Bathrooms <span className="text-slate-400">({t('required')})</span>
+          {t('bathrooms')} <span className="text-slate-400">({t('required')})</span>
         </label>
         <input
           type="number"
           id="bathrooms"
           value={formData.bathrooms}
-          onChange={(e) => setFormData((prev) => ({ ...prev, bathrooms: e.target.value }))}
+          onChange={(e) => {
+            clearTranslatedInputValidity(e.currentTarget);
+            setFormData((prev) => ({ ...prev, bathrooms: e.target.value }));
+          }}
+          onInvalid={(e) =>
+            applyTranslatedInputValidity(
+              e.currentTarget,
+              tValidation('bathroomsNonNegative'),
+            )
+          }
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
           placeholder="0"
-          step="any"
+          step={1}
           min={0}
           required
         />

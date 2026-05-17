@@ -91,8 +91,7 @@ export async function PATCH(
     }
 
     const body = (await request.json()) as Record<string, unknown>;
-    const { city_id, ...rest } = body;
-    const parsed = parseV1ListingPayload(rest);
+    const parsed = parseV1ListingPayload(body);
 
     const title = generateListingTitle(
       parsed.propertyType,
@@ -117,10 +116,6 @@ export async function PATCH(
       address_text: parsed.addressValue,
       location: `POINT(${parsed.longitude} ${parsed.latitude})`,
     };
-
-    if (Object.prototype.hasOwnProperty.call(body, 'city_id')) {
-      updateData.city_id = city_id ?? null;
-    }
 
     // Aktualizuj ogłoszenie
     const { data, error } = await supabase

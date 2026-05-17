@@ -10,6 +10,7 @@ import type { ListingPropertyType, ListingTransactionType } from '@/lib/supabase
 import dynamicImport from 'next/dynamic';
 import { IconBath, IconBuilding, IconDoor, IconRuler2 } from '@tabler/icons-react';
 import DescriptionActions from '@/components/listings/DescriptionActions';
+import { messagingRequiresSubscription } from '@/lib/messaging/config';
 
 export const dynamic = 'force-dynamic';
 
@@ -169,7 +170,8 @@ export default async function ListingDetailPage({
         ? userProfile.preferred_locale
         : null;
     if (user.id !== listing.owner_id) {
-      hasSubscription = !!userProfile?.is_paid;
+      hasSubscription =
+        !messagingRequiresSubscription() || !!userProfile?.is_paid;
     }
   }
 
@@ -184,8 +186,7 @@ export default async function ListingDetailPage({
 
   // Parsuj lokalizację z PostGIS (GeoJSON lub WKT)
   const parsedLocation = parseLocation(listing.location);
-  const latitude = parsedLocation?.latitude ?? 40.4168; // fallback Madrid, Spain
-  const longitude = parsedLocation?.longitude ?? -3.7038;
+  const hasValidCoordinates = parsedLocation != null;
 
   const isOwner = user?.id === listing.owner_id;
   const listingLocationRaw = formatListingLocation(listing);
@@ -234,14 +235,14 @@ export default async function ListingDetailPage({
   });
   const priceHeading = t(listingDetailPriceHeadingKey(listing.transaction_type as ListingTransactionType));
 
-  const descriptionText = listing.description ?? '';
-  const showDescriptionActions = descriptionText.trim().length > 0;
+  const descriptionText = (listing.description ?? '').trim();
+  const hasDescription = descriptionText.length > 0;
   const translateTargetLocale = normalizeTranslateTargetLocale(
     viewerPreferredLocale,
     locale,
     !!user,
   );
-  const translateHref = showDescriptionActions
+  const translateHref = hasDescription
     ? buildGoogleTranslateUrl(descriptionText, translateTargetLocale)
     : '';
 
@@ -310,23 +311,22 @@ export default async function ListingDetailPage({
               </div>
             </div>
 
-            {/* Opis */}
+            {hasDescription && (
             <div className="bg-white rounded-lg shadow-sm p-6">
               <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
                 <h2 className="min-w-0 text-xl font-semibold text-slate-900">
                   {t('description')}
                 </h2>
-                {showDescriptionActions && (
-                  <DescriptionActions
-                    translateHref={translateHref}
-                    translateLabel={t('translateDescription')}
-                  />
-                )}
+                <DescriptionActions
+                  translateHref={translateHref}
+                  translateLabel={t('translateDescription')}
+                />
               </div>
               <div className="max-w-none text-slate-700 leading-relaxed">
-                <p>{listing.description}</p>
+                <p>{descriptionText}</p>
               </div>
             </div>
+            )}
 
             {/* Lokalizacja */}
             <div className="bg-white rounded-lg shadow-sm p-6">
@@ -338,9 +338,14 @@ export default async function ListingDetailPage({
                 </svg>
                 <span>{listingLocation}</span>
               </div>
-              <div className="h-80 rounded-lg overflow-hidden border border-slate-200">
-                <ListingMap latitude={latitude} longitude={longitude} />
-              </div>
+              {hasValidCoordinates && (
+                <div className="h-80 rounded-lg overflow-hidden border border-slate-200">
+                  <ListingMap
+                    latitude={parsedLocation.latitude}
+                    longitude={parsedLocation.longitude}
+                  />
+                </div>
+              )}
             </div>
           </div>
 
@@ -373,6 +378,7 @@ export default async function ListingDetailPage({
                   listingId={params.id}
                   hasAccess={hasSubscription}
                   isLoggedIn={!!user}
+                  requiresSubscription={messagingRequiresSubscription()}
                 />
               )}
 

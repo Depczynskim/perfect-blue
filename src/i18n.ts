@@ -26,8 +26,16 @@ export const localeToIntl: Record<Locale, string> = {
   de: 'de-DE',
 };
 
-export default getRequestConfig(async ({ locale }): Promise<RequestConfig> => {
-  const resolved = (locale ?? defaultLocale) as Locale;
+export default getRequestConfig(async ({
+  locale,
+  requestLocale,
+}): Promise<RequestConfig> => {
+  // `requestLocale` is the `[locale]` segment; it can be any single path segment
+  // (e.g. /favicon.ico) and must not be used to load message JSON unless it is real.
+  const raw = locale ?? (await requestLocale);
+  const resolved: Locale =
+    raw != null && locales.includes(raw as Locale) ? (raw as Locale) : defaultLocale;
+
   return {
     locale: resolved,
     messages: (await import(`../messages/${resolved}.json`)).default,

@@ -5,6 +5,7 @@ import { createServerClient } from '@/lib/supabase';
 import { Header } from '@/components/layout';
 import { formatDateTime } from '@/lib/format';
 import ConversationForm from './ConversationForm';
+import { messagingRequiresSubscription } from '@/lib/messaging/config';
 
 export default async function ConversationPage({
   params,
@@ -23,7 +24,6 @@ export default async function ConversationPage({
   const otherUserId = params.odbiorca;
   const listingId = params.listing;
 
-  // Pobierz ogłoszenie
   const { data: listing, error: listingError } = await supabase
     .from('listings')
     .select('id, title, owner_id')
@@ -34,20 +34,41 @@ export default async function ConversationPage({
     notFound();
   }
 
-  // Pobierz wiadomości między użytkownikami w kontekście tego ogłoszenia
   const { data: messages } = await supabase
     .from('messages')
     .select('id, body, created_at, from_user_id, to_user_id, is_read')
     .eq('listing_id', listingId)
-    .or(`and(from_user_id.eq.${user.id},to_user_id.eq.${otherUserId}),and(from_user_id.eq.${otherUserId},to_user_id.eq.${user.id})`)
+    .or(
+      `and(from_user_id.eq.${user.id},to_user_id.eq.${otherUserId}),and(from_user_id.eq.${otherUserId},to_user_id.eq.${user.id})`,
+    )
     .order('created_at', { ascending: true });
 
-  // Oznacz wiadomości jako przeczytane
+  const isOwner = listing.owner_id === user.id;
+  const hasDyadMessages = (messages?.length ?? 0) > 0;
+
+  let canAccessThread = hasDyadMessages;
+
+  if (!canAccessThread && isOwner) {
+    const { data: inboundFromOther } = await supabase
+      .from('messages')
+      .select('id')
+      .eq('listing_id', listingId)
+      .eq('from_user_id', otherUserId)
+      .eq('to_user_id', user.id)
+      .limit(1);
+
+    canAccessThread = (inboundFromOther?.length ?? 0) > 0;
+  }
+
+  if (!canAccessThread) {
+    notFound();
+  }
+
   if (messages && messages.length > 0) {
     const unreadIds = messages
-      .filter(m => m.to_user_id === user.id && !m.is_read)
-      .map(m => m.id);
-    
+      .filter((m) => m.to_user_id === user.id && !m.is_read)
+      .map((m) => m.id);
+
     if (unreadIds.length > 0) {
       await supabase
         .from('messages')
@@ -56,12 +77,9 @@ export default async function ConversationPage({
     }
   }
 
-  // Sprawdź czy użytkownik może pisać (ma subskrypcję lub jest właścicielem)
-  const isOwner = listing.owner_id === user.id;
-  let canReply = isOwner; // Właściciel zawsze może odpowiadać
+  let canReply = isOwner || !messagingRequiresSubscription();
 
-  if (!isOwner) {
-    // Sprawdź subskrypcję
+  if (!isOwner && messagingRequiresSubscription()) {
     const { data: userProfile } = await supabase
       .from('users')
       .select('is_paid')
@@ -72,11 +90,9 @@ export default async function ConversationPage({
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <Header user={user} variant="minimal" />
+      <Header user={user} />
 
-      {/* Main content */}
       <main className="max-w-3xl mx-auto px-4 py-8">
-        {/* Nagłówek konwersacji */}
         <div className="bg-white rounded-lg shadow-sm p-4 mb-4">
           <div className="flex items-center justify-between">
             <div>
@@ -94,7 +110,6 @@ export default async function ConversationPage({
           </div>
         </div>
 
-        {/* Lista wiadomości */}
         <div className="bg-white rounded-lg shadow-sm p-4 mb-4 min-h-[400px] max-h-[500px] overflow-y-auto">
           {messages && messages.length > 0 ? (
             <div className="space-y-4">
@@ -132,7 +147,6 @@ export default async function ConversationPage({
           )}
         </div>
 
-        {/* Formularz odpowiedzi */}
         {canReply ? (
           <ConversationForm
             listingId={listingId}
@@ -140,9 +154,7 @@ export default async function ConversationPage({
           />
         ) : (
           <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
-            <p className="text-yellow-800">
-              {t('subscriptionRequired')}
-            </p>
+            <p className="text-yellow-800">{t('subscriptionRequired')}</p>
             <Link
               href={`/${locale}/listings/${listingId}`}
               className="text-primary-600 hover:underline text-sm"

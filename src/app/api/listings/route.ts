@@ -89,8 +89,7 @@ export async function POST(request: NextRequest) {
     const user = await requireAuth(supabase);
 
     const body = (await request.json()) as Record<string, unknown>;
-    const { city_id, ...rest } = body;
-    const parsed = parseV1ListingPayload(rest);
+    const parsed = parseV1ListingPayload(body);
 
     const title = generateListingTitle(
       parsed.propertyType,
@@ -119,7 +118,6 @@ export async function POST(request: NextRequest) {
         address_text: parsed.addressValue,
         location: locationWKT,
         status: 'active',
-        ...(Object.prototype.hasOwnProperty.call(body, 'city_id') ? { city_id: city_id ?? null } : {}),
       })
       .select('id')
       .single();

@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
@@ -36,6 +37,34 @@ export function Header({ user, variant = 'default' }: HeaderProps) {
     active
       ? 'text-primary-600 transition-colors px-3 py-2'
       : 'text-slate-600 hover:text-primary-600 transition-colors px-3 py-2';
+
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  useEffect(() => {
+    if (!user || variant !== 'default') {
+      setUnreadCount(0);
+      return;
+    }
+
+    let cancelled = false;
+
+    fetch('/api/messages/unread-count')
+      .then((res) => (res.ok ? res.json() : { count: 0 }))
+      .then((data: { count?: number }) => {
+        if (!cancelled) {
+          setUnreadCount(typeof data.count === 'number' ? data.count : 0);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setUnreadCount(0);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [user, variant, pathname]);
 
   return (
     <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
@@ -77,10 +106,15 @@ export function Header({ user, variant = 'default' }: HeaderProps) {
                     </Link>
                     <Link
                       href={`/${locale}/messages`}
-                      className={navLinkClass(messagesActive)}
+                      className={`${navLinkClass(messagesActive)} inline-flex items-center gap-1.5`}
                       aria-current={messagesActive ? 'page' : undefined}
                     >
                       {t('messages')}
+                      {unreadCount > 0 && (
+                        <span className="min-w-[1.25rem] h-5 px-1 flex items-center justify-center rounded-full bg-primary-600 text-white text-xs font-medium leading-none">
+                          {unreadCount > 9 ? '9+' : unreadCount}
+                        </span>
+                      )}
                     </Link>
                   </>
                 )}

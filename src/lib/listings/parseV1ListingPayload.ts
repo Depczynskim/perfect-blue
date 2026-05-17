@@ -79,8 +79,8 @@ export function parseV1ListingPayload(body: Record<string, unknown>): V1ListingP
   }
 
   const sizeM2 = parseFiniteNumber(sizeM2Raw, 'size_m2');
-  if (sizeM2 <= 0) {
-    throw new ValidationError('size_m2 must be greater than zero');
+  if (!Number.isInteger(sizeM2) || sizeM2 <= 0) {
+    throw new ValidationError('size_m2 must be a positive integer');
   }
 
   const rooms = parseFiniteNumber(roomsRaw, 'rooms');
@@ -89,8 +89,8 @@ export function parseV1ListingPayload(body: Record<string, unknown>): V1ListingP
   }
 
   const bathrooms = parseFiniteNumber(bathroomsRaw, 'bathrooms');
-  if (bathrooms < 0) {
-    throw new ValidationError('bathrooms must be >= 0');
+  if (!Number.isInteger(bathrooms) || bathrooms < 0) {
+    throw new ValidationError('bathrooms must be a non-negative integer');
   }
 
   if (!cityValue) {
