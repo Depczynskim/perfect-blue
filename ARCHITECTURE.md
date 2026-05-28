@@ -1,7 +1,7 @@
 # ARCHITECTURE.md
 
 **Purpose**: AI assistant startup context for working on this repository.
-**Last updated**: 2026-05-24
+**Last updated**: 2026-05-28
 
 **Source of truth hierarchy**:
 1. Code in `src/`, `supabase/migrations/`, `scripts/`, `package.json`
@@ -26,6 +26,44 @@ Real estate listing portal for Catalonia region. Users post property listings fo
 - **Maps**: Leaflet + react-leaflet
 - **Geocoding**: LocationIQ API (optional, with daily limit + cache)
 - **Styling**: Tailwind CSS
+- **Hosting (production)**: Vercel (Next.js preset), existing Supabase project/database
+
+## Production deployment
+
+Live on Vercel; same Supabase project used locally and in production (no separate prod database).
+
+- **Canonical URL**: `https://perfectblue.es` (`NEXT_PUBLIC_SITE_URL` set in Vercel Production)
+- **www**: `www.perfectblue.es` redirects to `perfectblue.es`
+- **Vercel project**: `perfect-blue` — GitHub `Depczynskim/perfect-blue`, branch `main`
+- **Build**: root `.`, `npm run build`, Node.js `20.x`, framework preset Next.js
+
+### DNS (GoDaddy)
+
+GoDaddy nameservers remain in use (Vercel DNS nameservers not adopted).
+
+| Host | Type | Value |
+|------|------|-------|
+| `@` (apex) | A | `216.198.79.1` |
+| `www` | CNAME | `cname.vercel-dns.com` |
+
+### Vercel Production environment variables (required)
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `NEXT_PUBLIC_SITE_URL` = `https://perfectblue.es`
+- `MESSAGING_REQUIRES_SUBSCRIPTION` = `false`
+
+**Not required for current launch**: Stripe env vars (`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, `STRIPE_PRICE_ID_SUBSCRIPTION`), `SUPABASE_SERVICE_ROLE_KEY` (only needed when Stripe webhooks are enabled).
+
+### Launch mode
+
+Free-messaging MVP: messaging does not require subscription or Stripe checkout. Stripe integration code exists in repo but production Stripe configuration is deferred.
+
+### Supabase Auth (production)
+
+- **Site URL**: `https://perfectblue.es`
+- **Redirect URLs** (per locale): `https://perfectblue.es/{pl|en|es|de|ar}/auth/callback`
+- **Local dev**: keep localhost callback URLs (e.g. `http://localhost:3008/pl/auth/callback` and other locales as used)
 
 ## Business domains
 
@@ -54,21 +92,24 @@ User authentication and profile management via Supabase Auth.
 - **Code**: `src/app/[locale]/auth/**`, `src/components/auth/`, `src/lib/api/auth.ts`
 - **Tables**: `users` (extends `auth.users`)
 - **Migrations**: 002, 003 (trigger), 008 (legacy contact fields), 010 (subscription fields)
+- **Production**: Site URL and locale callback URLs configured for `perfectblue.es` (see Production deployment)
 - **Dependencies**: None (foundational)
 
 ### Subscriptions
-Monthly premium access (€5/month) for unlimited messaging.
+Monthly premium access (€5/month) for unlimited messaging — **code present; production Stripe deferred** for free-messaging MVP launch.
 - **Code**: `src/app/api/payments/**`, `src/app/api/webhooks/stripe/**`, `src/lib/stripe/`, `src/lib/api/subscription.ts`
 - **Tables**: `users.is_paid`, `users.stripe_customer_id`, `users.stripe_subscription_id`, `users.subscription_status`
 - **Migrations**: 010
+- **Production**: no Stripe env vars on Vercel; checkout/webhooks inactive until configured
 - **Dependencies**: Auth (user_id)
 
 ### Messages
 Conversation threads between users about specific listings.
 - **Code**: `src/app/[locale]/messages/**`, `src/app/api/messages/**`, `src/components/listings/ContactButton.tsx`
 - **Tables**: `messages`
-- **Migrations**: 002, 004
-- **Dependencies**: Auth (from_user_id, to_user_id), Listings (listing_id), Subscriptions (requires is_paid for non-owners)
+- **Migrations**: 002, 004, 016 (hardening), 017 (free INSERT for MVP)
+- **Dependencies**: Auth (from_user_id, to_user_id), Listings (listing_id)
+- **Production**: `MESSAGING_REQUIRES_SUBSCRIPTION=false` — non-owners can message without `is_paid` (subscription gate only when env is `true`/`1`)
 - **Note**: current contact model is message-only (no phone/contact_email exposure in listing detail UI)
 
 ### Geocoding
@@ -178,7 +219,7 @@ next-intl configuration (locales, locale names, message loading).
 - **`src/middleware.ts`**: i18n + Supabase session refresh order matters
 - **`supabase/migrations/`**: immutable history; always create new migrations, never edit existing
 - **`src/lib/supabase/middleware.ts`**: session token refresh logic
-- **`src/app/api/webhooks/stripe/route.ts`**: uses service role key, bypasses RLS
+- **`src/app/api/webhooks/stripe/route.ts`**: Supabase admin client created lazily inside `POST` via `getSupabaseAdmin()` (not at module import); missing `SUPABASE_SERVICE_ROLE_KEY` / `NEXT_PUBLIC_SUPABASE_URL` returns runtime 500 instead of failing Vercel build; webhook verification and handlers unchanged when env vars are present; uses service role key (bypasses RLS) only at runtime
 - **`scripts/import-cities.mjs`**: slug collision logic, INE code handling
 - **RLS policies**: defined in migrations; changes require new migrations, not edits
 - **Folder structure**: do not move files between `src/components/`, `src/lib/`, `src/app/` without instruction
@@ -239,8 +280,10 @@ Geocoding (independent infrastructure)
 - Map-based location selection (Leaflet)
 - Geocoding with cache (LocationIQ, optional)
 - Messaging between users (conversation threads per listing)
-- Stripe subscription (€5/month, checkout + webhooks)
-- Subscription-gated messaging (non-owners need is_paid=true)
+- Free-messaging MVP in production (`MESSAGING_REQUIRES_SUBSCRIPTION=false`, migration 017)
+- Stripe subscription code (€5/month, checkout + webhooks) — not enabled in production yet
+- Subscription-gated messaging when `MESSAGING_REQUIRES_SUBSCRIPTION` is true (non-owners need `is_paid=true`)
+- Production deployment on Vercel at `https://perfectblue.es` (existing Supabase project)
 - i18n (5 locales: pl, en, es, ar, de)
 - Profile management (`display_name`, `preferred_locale`, login email read-only)
 - Login redirect prefers `users.preferred_locale` when available
@@ -257,10 +300,8 @@ Geocoding (independent infrastructure)
 - SEO-friendly listing slugs, city landing pages, filter landing pages, locale-aware sitewide metadata
 
 ### Unclear from code
-- Whether LocationIQ is enabled in production (env var `LOCATIONIQ_ENABLED`)
-- Whether city import script has been executed (947 cities expected)
-- Whether Stripe webhook is configured in production
-- Whether `NEXT_PUBLIC_SITE_URL` is set in production (required for correct canonical/sitemap/robots URLs)
+- Whether LocationIQ is enabled in production (env var `LOCATIONIQ_ENABLED`; not set on Vercel for current launch)
+- Whether city import script has been executed in the linked Supabase project (947 cities expected; cities were imported before production deploy per project history)
 
 ## AI working notes
 
