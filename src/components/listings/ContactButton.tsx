@@ -40,7 +40,7 @@ export default function ContactButton({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ listing_id: listingId }),
+        body: JSON.stringify({ listing_id: listingId, locale }),
       });
 
       const data = await response.json();

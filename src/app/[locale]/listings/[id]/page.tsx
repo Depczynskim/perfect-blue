@@ -1,15 +1,22 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { createServerClient } from '@/lib/supabase';
 import { Header } from '@/components/layout';
 import { formatDate } from '@/lib/format';
 import { parseLocation } from '@/lib/map/parseLocation';
-import { formatListingDisplayPrice, formatListingLocation } from '@/lib/listings';
+import {
+  buildListingDetailMetadata,
+  formatListingDisplayPrice,
+  formatListingLocation,
+  getListingDetailData,
+} from '@/lib/listings';
 import type { ListingPropertyType, ListingTransactionType } from '@/lib/supabase/types';
 import dynamicImport from 'next/dynamic';
 import { IconBath, IconBuilding, IconDoor, IconRuler2 } from '@tabler/icons-react';
 import DescriptionActions from '@/components/listings/DescriptionActions';
+import ListingJsonLd from '@/components/listings/ListingJsonLd';
 import { messagingRequiresSubscription } from '@/lib/messaging/config';
 
 export const dynamic = 'force-dynamic';
@@ -124,6 +131,24 @@ function listingDetailTitleKey(
   }
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string; locale: string };
+}): Promise<Metadata> {
+  const data = await getListingDetailData(params.id);
+  if (!data) {
+    return { title: 'Perfect Blue' };
+  }
+
+  return buildListingDetailMetadata({
+    listing: data.listing,
+    photos: data.photos,
+    locale: params.locale,
+    id: params.id,
+  });
+}
+
 export default async function ListingDetailPage({
   params,
 }: {
@@ -135,26 +160,11 @@ export default async function ListingDetailPage({
   const t = await getTranslations({ locale, namespace: 'listingDetail' });
   const tCard = await getTranslations({ locale, namespace: 'listings.card' });
 
-  // Pobierz ogłoszenie wraz z danymi właściciela
-  const { data: listing, error } = await supabase
-    .from('listings')
-    .select(`
-      id, title, description, price, currency, transaction_type, property_type, size_m2, rooms, bathrooms,
-      address_text, city, zone, location, status, created_at, owner_id
-    `)
-    .eq('id', params.id)
-    .single();
-
-  if (error || !listing) {
+  const detailData = await getListingDetailData(params.id);
+  if (!detailData) {
     notFound();
   }
-
-  // Pobierz zdjęcia z nowymi kolumnami (display + thumb)
-  const { data: photos } = await supabase
-    .from('listing_photos')
-    .select('id, display_url, thumb_url, order_index')
-    .eq('listing_id', params.id)
-    .order('order_index', { ascending: true });
+  const { listing, photos } = detailData;
 
   // Profil przeglądającego: subskrypcja (dla nie-właściciela) + preferowany język (translate)
   let hasSubscription = false;
@@ -248,6 +258,7 @@ export default async function ListingDetailPage({
 
   return (
     <div className="min-h-screen bg-slate-50">
+      <ListingJsonLd listing={listing} photos={photos} locale={locale} id={params.id} />
       <Header user={user} />
 
       {/* Main content */}

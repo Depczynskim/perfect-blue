@@ -3,7 +3,9 @@
 import { useState, useRef, useMemo } from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { formatListingDisplayPrice, formatListingLocation, type ListingCardItem } from '@/lib/listings';
+import { formatListingDisplayPrice } from '@/lib/listings/formatListingDisplayPrice';
+import { formatListingLocation } from '@/lib/listings/location';
+import type { ListingCardItem } from '@/lib/listings/types';
 import type { ListingPropertyType } from '@/lib/supabase/types';
 import { parseLocation } from '@/lib/map/parseLocation';
 import ListingCardMapPreview from './ListingCardMapPreview';

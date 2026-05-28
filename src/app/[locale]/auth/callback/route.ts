@@ -1,11 +1,23 @@
 import { NextResponse } from 'next/server'
 import { createServerClient } from '@/lib/supabase'
+import { defaultLocale, locales, type Locale } from '@/i18n'
+
+function resolveLocale(raw: string | undefined): Locale {
+  if (raw && locales.includes(raw as Locale)) {
+    return raw as Locale
+  }
+  return defaultLocale
+}
 
 /**
  * Route Handler dla callback po potwierdzeniu email
  * Supabase przekierowuje tutaj po kliknięciu w link weryfikacyjny
  */
-export async function GET(request: Request) {
+export async function GET(
+  request: Request,
+  { params }: { params: { locale: string } },
+) {
+  const locale = resolveLocale(params.locale)
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
   const next = searchParams.get('next') ?? '/'
@@ -20,6 +32,6 @@ export async function GET(request: Request) {
   }
 
   // Błąd - przekieruj do strony błędu lub logowania
-  return NextResponse.redirect(`${origin}/auth/login?error=auth_callback_error`)
+  return NextResponse.redirect(`${origin}/${locale}/auth/login?error=auth_callback_error`)
 }
 

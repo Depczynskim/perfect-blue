@@ -106,7 +106,15 @@
     "invalidCoordinates": "Nieprawidłowe współrzędne",
     "mapLabel": "Lokalizacja nieruchomości",
     "locationNotSpecified": "Lokalizacja nieokreślona",
-    "translateDescription": "Tłumacz"
+    "translateDescription": "Tłumacz",
+    "seo": {
+      "metaTitleLead": "{propertyType} w {city}",
+      "metaDescriptionSale": "{propertyType} na sprzedaż w {city}. {specs}{cta}",
+      "metaDescriptionRentLong": "{propertyType} do wynajęcia w {city}. {specs}{cta}",
+      "metaDescriptionRentShort": "{propertyType} na wynajem krótkoterminowy w {city}. {specs}{cta}",
+      "metaDescriptionCta": "Zobacz zdjęcia, lokalizację i pełne szczegóły.",
+      "metaDescriptionFallback": "Ogłoszenie: {propertyType} w Perfect Blue."
+    }
   },
   "createListing": {
     "title": "Dodaj nowe ogłoszenie",

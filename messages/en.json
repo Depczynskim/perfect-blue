@@ -106,7 +106,15 @@
     "invalidCoordinates": "Invalid coordinates",
     "mapLabel": "Property location",
     "locationNotSpecified": "Location not specified",
-    "translateDescription": "Translate"
+    "translateDescription": "Translate",
+    "seo": {
+      "metaTitleLead": "{propertyType} in {city}",
+      "metaDescriptionSale": "{propertyType} for sale in {city}. {specs}{cta}",
+      "metaDescriptionRentLong": "{propertyType} for rent in {city}. {specs}{cta}",
+      "metaDescriptionRentShort": "{propertyType} for short-term rent in {city}. {specs}{cta}",
+      "metaDescriptionCta": "View photos, location and full details.",
+      "metaDescriptionFallback": "{propertyType} listing on Perfect Blue."
+    }
   },
   "createListing": {
     "title": "Add New Listing",

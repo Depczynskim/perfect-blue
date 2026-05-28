@@ -1,9 +1,47 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase';
 import { getStripeServer, STRIPE_CONFIG } from '@/lib/stripe';
+import { defaultLocale, locales, type Locale } from '@/i18n';
+
+const LOCALE_SET = new Set<string>(locales);
+
+function resolveCheckoutLocale(options: {
+  bodyLocale?: unknown;
+  referer?: string | null;
+}): Locale {
+  if (typeof options.bodyLocale === 'string' && LOCALE_SET.has(options.bodyLocale)) {
+    return options.bodyLocale as Locale;
+  }
+
+  if (options.referer) {
+    try {
+      const segment = new URL(options.referer).pathname.split('/').filter(Boolean)[0];
+      if (segment && LOCALE_SET.has(segment)) {
+        return segment as Locale;
+      }
+    } catch {
+      // ignore invalid referer
+    }
+  }
+
+  return defaultLocale;
+}
 
 export async function POST(request: NextRequest) {
   try {
+    let bodyLocale: unknown;
+    try {
+      const body = (await request.json()) as { locale?: unknown };
+      bodyLocale = body.locale;
+    } catch {
+      bodyLocale = undefined;
+    }
+
+    const checkoutLocale = resolveCheckoutLocale({
+      bodyLocale,
+      referer: request.headers.get('referer'),
+    });
+
     const supabase = await createServerClient();
     
     // Sprawdź autoryzację
@@ -75,8 +113,8 @@ export async function POST(request: NextRequest) {
       metadata: {
         user_id: user.id,
       },
-      success_url: `${origin}/profile?subscription=success`,
-      cancel_url: `${origin}/profile?subscription=cancelled`,
+      success_url: `${origin}/${checkoutLocale}/profile?subscription=success`,
+      cancel_url: `${origin}/${checkoutLocale}/profile?subscription=cancelled`,
     });
 
     return NextResponse.json({

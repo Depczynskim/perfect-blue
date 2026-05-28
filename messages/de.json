@@ -106,7 +106,15 @@
     "invalidCoordinates": "Ungültige Koordinaten",
     "mapLabel": "Standort der Immobilie",
     "locationNotSpecified": "Standort nicht angegeben",
-    "translateDescription": "Übersetzen"
+    "translateDescription": "Übersetzen",
+    "seo": {
+      "metaTitleLead": "{propertyType} in {city}",
+      "metaDescriptionSale": "{propertyType} zum Verkauf in {city}. {specs}{cta}",
+      "metaDescriptionRentLong": "{propertyType} zur Miete in {city}. {specs}{cta}",
+      "metaDescriptionRentShort": "{propertyType} zur Kurzzeitmiete in {city}. {specs}{cta}",
+      "metaDescriptionCta": "Fotos, Standort und alle Details ansehen.",
+      "metaDescriptionFallback": "{propertyType}-Anzeige auf Perfect Blue."
+    }
   },
   "createListing": {
     "title": "Neue Anzeige hinzufügen",

@@ -106,7 +106,15 @@
     "invalidCoordinates": "إحداثيات غير صالحة",
     "mapLabel": "موقع العقار",
     "locationNotSpecified": "الموقع غير محدد",
-    "translateDescription": "ترجمة"
+    "translateDescription": "ترجمة",
+    "seo": {
+      "metaTitleLead": "{propertyType} في {city}",
+      "metaDescriptionSale": "{propertyType} للبيع في {city}. {specs}{cta}",
+      "metaDescriptionRentLong": "{propertyType} للإيجار في {city}. {specs}{cta}",
+      "metaDescriptionRentShort": "{propertyType} للإيجار قصير الأجل في {city}. {specs}{cta}",
+      "metaDescriptionCta": "اطلع على الصور والموقع والتفاصيل الكاملة.",
+      "metaDescriptionFallback": "إعلان {propertyType} على Perfect Blue."
+    }
   },
   "createListing": {
     "title": "إضافة إعلان جديد",

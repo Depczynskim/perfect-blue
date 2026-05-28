@@ -9,5 +9,6 @@ export { default as CategoryFilters } from './CategoryFilters';
 export { default as ListingGrid } from './ListingGrid';
 export { default as ListingCard } from './ListingCard';
 export { default as CityCombobox } from './CityCombobox';
+export { default as ListingJsonLd } from './ListingJsonLd';
 export type { ListingPhotoFilenameFields, PhotoItem } from './PhotoUpload';
 

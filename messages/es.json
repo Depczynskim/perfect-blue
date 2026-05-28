@@ -106,7 +106,15 @@
     "invalidCoordinates": "Coordenadas inválidas",
     "mapLabel": "Ubicación de la propiedad",
     "locationNotSpecified": "Ubicación no especificada",
-    "translateDescription": "Traducir"
+    "translateDescription": "Traducir",
+    "seo": {
+      "metaTitleLead": "{propertyType} en {city}",
+      "metaDescriptionSale": "{propertyType} en venta en {city}. {specs}{cta}",
+      "metaDescriptionRentLong": "{propertyType} en alquiler en {city}. {specs}{cta}",
+      "metaDescriptionRentShort": "{propertyType} en alquiler de corta estancia en {city}. {specs}{cta}",
+      "metaDescriptionCta": "Ver fotos, ubicación y todos los detalles.",
+      "metaDescriptionFallback": "Anuncio de {propertyType} en Perfect Blue."
+    }
   },
   "createListing": {
     "title": "Añadir Nuevo Anuncio",

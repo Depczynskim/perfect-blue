@@ -35,7 +35,9 @@ export const config = {
      * - favicon.ico (ikona)
      * - obrazy (svg, png, jpg, jpeg, gif, webp)
      * - api routes (nie potrzebują locale)
+     * - sitemap.xml (metadata route, bez locale)
+     * - robots.txt (metadata route, bez locale)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap\\.xml|robots\\.txt|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 };

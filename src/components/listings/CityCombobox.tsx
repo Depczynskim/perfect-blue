@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import type { CityCount } from '@/lib/listings';
+import type { CityCount } from '@/lib/listings/types';
 
 interface CityComboboxProps {
   cityCounts: CityCount[];

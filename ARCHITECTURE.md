@@ -1,7 +1,7 @@
 # ARCHITECTURE.md
 
 **Purpose**: AI assistant startup context for working on this repository.
-**Last updated**: 2026-05-15
+**Last updated**: 2026-05-24
 
 **Source of truth hierarchy**:
 1. Code in `src/`, `supabase/migrations/`, `scripts/`, `package.json`
@@ -34,6 +34,7 @@ Property advertisements with location, price, category, photos.
 - **Code**: `src/app/[locale]/listings/**`, `src/lib/listings/`, `src/components/listings/`
 - **Create / edit (V1)**: `CreateListingForm` + `parseV1ListingPayload` (`src/lib/listings/parseV1ListingPayload.ts`) used by POST `/api/listings` and PATCH `/api/listings/[id]`. **Currency** is always **EUR** (server-set). **Numeric fields (whole numbers only):** `price` positive integer; `size_m2` positive integer; `rooms` non-negative integer; `bathrooms` non-negative integer. UI copy and validation messages live under `messages/*/createListing` (5 locales).
 - **Listing detail**: free-text description; optional link to Google Translate (new tab) with `sl=auto` and target locale from `users.preferred_locale` (when logged in), else route locale, else `en` — see `src/app/[locale]/listings/[id]/page.tsx`, `DescriptionActions.tsx`
+- **Listing SEO (MVP)**: dynamic metadata on listing detail (`generateMetadata`, `messages/*/listingDetail.seo`); JSON-LD `RealEstateListing` (city-level address only, no street/geo); shared loader `getListingDetailData` (`cache()`); helpers `buildListingDetailMetadata`, `buildListingJsonLd`, `getActiveListingSitemapEntries`; `ListingJsonLd` component; canonical/OG/sitemap URLs via `getSiteUrl()` (`NEXT_PUBLIC_SITE_URL`). Active listings only in sitemap/JSON-LD; non-active get `noindex` (owner can still preview via RLS).
 - **API**: `/api/listings`, `/api/listings/[id]`, `/api/listings/[id]/photos`
 - **Tables**: `listings`, `listing_photos`
 - **Migrations**: 002, 005, 007, 011, 012, 014
@@ -91,6 +92,7 @@ Client-side WebP conversion, resize, compression (display: 1600x1200, thumb: 600
 Next.js App Router pages and API routes.
 - **`[locale]/`**: i18n-aware pages (home, listings, messages, auth, profile)
 - **`api/`**: REST endpoints (listings, messages, payments, webhooks, geocode)
+- **`sitemap.ts`**, **`robots.ts`**: root metadata routes (no locale prefix); excluded from next-intl middleware matcher
 - **Should contain**: route handlers, page components, layout components
 - **Should NOT contain**: business logic (move to `lib/`), reusable components (move to `components/`)
 - **Type**: Next.js infrastructure
@@ -99,7 +101,7 @@ Next.js App Router pages and API routes.
 Reusable React components organized by domain.
 - **`auth/`**: LoginForm, RegisterForm, LogoutButton
 - **`layout/`**: Header, LanguageSelector
-- **`listings/`**: CreateListingForm, PhotoUpload, LocationPicker, ListingGrid, ContactButton, DescriptionActions, etc.
+- **`listings/`**: CreateListingForm, PhotoUpload, LocationPicker, ListingGrid, ContactButton, DescriptionActions, ListingJsonLd, etc.
 - **Should contain**: presentational and interactive UI components
 - **Should NOT contain**: API calls (use `lib/` utilities), direct DB queries
 - **Type**: Shared UI code
@@ -108,7 +110,8 @@ Reusable React components organized by domain.
 Business logic, utilities, and infrastructure organized by domain.
 - **`api/`**: auth helpers, error classes, subscription checks
 - **`supabase/`**: client factories (server/browser), types, middleware
-- **`listings/`**: queries, normalization, location formatting, `parseV1ListingPayload.ts` (create/update body validation), `storagePhotoFilename.ts` (SEO-oriented storage basenames for new photo uploads)
+- **`listings/`**: queries, normalization, location formatting, `parseV1ListingPayload.ts`, `storagePhotoFilename.ts`, SEO helpers (`getListingDetailData.ts`, `buildListingDetailMetadata.ts`, `buildListingJsonLd.ts`, `getActiveListingSitemapEntries.ts`); barrel `index.ts` re-exports server-only modules — **client components must not import from `@/lib/listings` barrel** (use direct paths e.g. `formatListingDisplayPrice`, `location`, `types`)
+- **`siteUrl.ts`**: `getSiteUrl()` for absolute canonical/sitemap/robots URLs (`NEXT_PUBLIC_SITE_URL`, fallback `VERCEL_URL`, then `http://localhost:3000`)
 - **`stripe/`**: Stripe client singleton, config
 - **`image/`**: client-side image processing (WebP, resize, compress)
 - **`map/`**: location parsing (WKB/WKT/GeoJSON), icon utilities
@@ -125,6 +128,7 @@ React custom hooks.
 
 ### `src/middleware.ts`
 Next.js middleware for i18n routing and Supabase session refresh.
+- **Matcher exclusions**: `api`, `sitemap.xml`, `robots.txt`, static assets — metadata routes must not be locale-rewritten
 - **Type**: Infrastructure
 
 ### `src/i18n.ts`
@@ -240,19 +244,23 @@ Geocoding (independent infrastructure)
 - i18n (5 locales: pl, en, es, ar, de)
 - Profile management (`display_name`, `preferred_locale`, login email read-only)
 - Login redirect prefers `users.preferred_locale` when available
+- Listing detail SEO: localized dynamic metadata, Open Graph/Twitter, JSON-LD, `/sitemap.xml`, `/robots.txt`
 
 ### Partial (code exists but incomplete)
 - City backfill script exists but unclear if run in production
 - Payments table exists but no UI for payment history
 - contacts_access table exists but unused (subscription model replaced pay-per-contact)
+- Root `[locale]/layout.tsx` metadata still static Polish-only (listing detail overrides per page)
+- JSON-LD `name` uses English DB `title`, not localized H1
 
 ### Planned (mentioned in migrations/docs but no code)
-- None identified
+- SEO-friendly listing slugs, city landing pages, filter landing pages, locale-aware sitewide metadata
 
 ### Unclear from code
 - Whether LocationIQ is enabled in production (env var `LOCATIONIQ_ENABLED`)
 - Whether city import script has been executed (947 cities expected)
 - Whether Stripe webhook is configured in production
+- Whether `NEXT_PUBLIC_SITE_URL` is set in production (required for correct canonical/sitemap/robots URLs)
 
 ## AI working notes
 
@@ -284,6 +292,8 @@ Geocoding (independent infrastructure)
 - Cities have `approved` (visible) vs `pending` (user-submitted) status
 - Subscription check: `users.is_paid` (boolean), not `contacts_access` table
 - Listing create/edit numeric fields: whole numbers only (`price` > 0, `size_m2` > 0, `rooms` / `bathrooms` ≥ 0); enforced in `parseV1ListingPayload` and `CreateListingForm`
+- **`'use client'` listing components**: import client-safe modules directly (`@/lib/listings/types`, `formatListingDisplayPrice`, `location`); never `@/lib/listings` barrel (pulls `getListingDetailData` → `next/headers`). Server pages may use barrel; prefer direct import for `@/components/listings/ListingJsonLd` on listing detail to avoid pulling client barrel graph
+- Sitemap lists active listings only (`status = 'active'`), all 5 locales × each listing; `lastModified` uses `created_at` (no `updated_at` on listings)
 
 ## Modification policy
 
