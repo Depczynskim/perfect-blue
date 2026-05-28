@@ -1,15 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getStripeServer } from '@/lib/stripe';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import Stripe from 'stripe';
 
-// Używamy service role key dla webhooków (omija RLS)
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+function getSupabaseAdmin(): SupabaseClient {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !serviceRoleKey) {
+    throw new Error(
+      'Missing Supabase webhook configuration (NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY)',
+    );
+  }
+
+  // Używamy service role key dla webhooków (omija RLS)
+  return createClient(supabaseUrl, serviceRoleKey);
+}
 
 export async function POST(request: NextRequest) {
+  let supabaseAdmin: SupabaseClient;
+  try {
+    supabaseAdmin = getSupabaseAdmin();
+  } catch (err) {
+    console.error('Webhook Supabase client configuration error:', err);
+    return NextResponse.json(
+      { error: 'Webhook Supabase client not configured' },
+      { status: 500 },
+    );
+  }
+
   const body = await request.text();
   const signature = request.headers.get('stripe-signature');
 
@@ -49,24 +68,24 @@ export async function POST(request: NextRequest) {
     case 'checkout.session.completed': {
       const session = event.data.object as Stripe.Checkout.Session;
       if (session.mode === 'subscription') {
-        await handleSubscriptionCheckout(session);
+        await handleSubscriptionCheckout(supabaseAdmin, session);
       }
       break;
     }
     case 'customer.subscription.created':
     case 'customer.subscription.updated': {
       const subscription = event.data.object as Stripe.Subscription;
-      await handleSubscriptionUpdate(subscription);
+      await handleSubscriptionUpdate(supabaseAdmin, subscription);
       break;
     }
     case 'customer.subscription.deleted': {
       const subscription = event.data.object as Stripe.Subscription;
-      await handleSubscriptionCanceled(subscription);
+      await handleSubscriptionCanceled(supabaseAdmin, subscription);
       break;
     }
     case 'invoice.payment_failed': {
       const invoice = event.data.object as Stripe.Invoice;
-      await handlePaymentFailed(invoice);
+      await handlePaymentFailed(supabaseAdmin, invoice);
       break;
     }
     default:
@@ -76,7 +95,10 @@ export async function POST(request: NextRequest) {
   return NextResponse.json({ received: true });
 }
 
-async function handleSubscriptionCheckout(session: Stripe.Checkout.Session) {
+async function handleSubscriptionCheckout(
+  supabaseAdmin: SupabaseClient,
+  session: Stripe.Checkout.Session,
+) {
   const userId = session.metadata?.user_id;
   const subscriptionId = session.subscription as string;
   const customerId = session.customer as string;
@@ -106,7 +128,10 @@ async function handleSubscriptionCheckout(session: Stripe.Checkout.Session) {
   }
 }
 
-async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
+async function handleSubscriptionUpdate(
+  supabaseAdmin: SupabaseClient,
+  subscription: Stripe.Subscription,
+) {
   const customerId = subscription.customer as string;
   const status = subscription.status;
 
@@ -144,7 +169,10 @@ async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
   }
 }
 
-async function handleSubscriptionCanceled(subscription: Stripe.Subscription) {
+async function handleSubscriptionCanceled(
+  supabaseAdmin: SupabaseClient,
+  subscription: Stripe.Subscription,
+) {
   const customerId = subscription.customer as string;
 
   console.log(`Subscription ${subscription.id} canceled`);
@@ -176,7 +204,10 @@ async function handleSubscriptionCanceled(subscription: Stripe.Subscription) {
   }
 }
 
-async function handlePaymentFailed(invoice: Stripe.Invoice) {
+async function handlePaymentFailed(
+  supabaseAdmin: SupabaseClient,
+  invoice: Stripe.Invoice,
+) {
   const customerId = invoice.customer as string;
 
   console.log(`Payment failed for customer ${customerId}`);
