@@ -24,7 +24,10 @@
     "profile": "حسابي",
     "login": "تسجيل الدخول",
     "register": "التسجيل",
-    "logout": "تسجيل الخروج"
+    "logout": "تسجيل الخروج",
+    "openMenu": "فتح القائمة",
+    "closeMenu": "إغلاق القائمة",
+    "menuNav": "القائمة الرئيسية"
   },
   "home": {
     "hero": {
@@ -60,6 +63,10 @@
     "addFirstListing": "إضافة أول إعلان",
     "viewDetails": "عرض التفاصيل",
     "filterAll": "الكل",
+    "filterRent": "إيجار",
+    "filterLongTerm": "طويل",
+    "filterShortTerm": "قصير",
+    "filterSaleShort": "بيع",
     "filterLongTermRent": "إيجار طويل الأجل",
     "filterShortTermRent": "إيجار قصير الأجل",
     "filterSale": "للبيع",

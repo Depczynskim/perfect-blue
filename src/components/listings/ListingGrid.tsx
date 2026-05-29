@@ -23,7 +23,7 @@ export default function ListingGrid({
 }: ListingGridProps) {
   if (listings.length === 0) {
     return (
-      <div className="bg-white rounded-lg shadow-sm p-12 text-center">
+      <div className="rounded-lg bg-white p-8 text-center shadow-sm md:p-12">
         <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
           <svg className="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path

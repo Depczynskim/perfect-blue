@@ -24,7 +24,10 @@
     "profile": "Mein Konto",
     "login": "Anmelden",
     "register": "Registrieren",
-    "logout": "Abmelden"
+    "logout": "Abmelden",
+    "openMenu": "Menü öffnen",
+    "closeMenu": "Menü schließen",
+    "menuNav": "Hauptnavigation"
   },
   "home": {
     "hero": {
@@ -60,6 +63,10 @@
     "addFirstListing": "Erste Anzeige hinzufügen",
     "viewDetails": "Details anzeigen",
     "filterAll": "Alle",
+    "filterRent": "Miete",
+    "filterLongTerm": "Langzeit",
+    "filterShortTerm": "Kurzzeit",
+    "filterSaleShort": "Kaufen",
     "filterLongTermRent": "Langzeitmiete",
     "filterShortTermRent": "Kurzzeitmiete",
     "filterSale": "Zu verkaufen",

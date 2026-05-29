@@ -186,8 +186,8 @@ export default function ListingCard({ listing, locale, locationFallback }: Listi
                 type="button"
                 aria-label={t('ariaPreviousPhoto')}
                 onClick={(e) => handleArrowClick(e, goPrev)}
-                className={`absolute left-2 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-8 h-8 rounded-full bg-black/40 text-white transition-opacity duration-200 ${
-                  imageHovered ? 'opacity-100' : 'opacity-0'
+                className={`absolute start-2 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white transition-opacity duration-200 max-md:opacity-70 ${
+                  imageHovered ? 'md:opacity-100' : 'md:opacity-0'
                 }`}
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -199,8 +199,8 @@ export default function ListingCard({ listing, locale, locationFallback }: Listi
                 type="button"
                 aria-label={t('ariaNextPhoto')}
                 onClick={(e) => handleArrowClick(e, goNext)}
-                className={`absolute right-2 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-8 h-8 rounded-full bg-black/40 text-white transition-opacity duration-200 ${
-                  imageHovered ? 'opacity-100' : 'opacity-0'
+                className={`absolute end-2 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white transition-opacity duration-200 max-md:opacity-70 ${
+                  imageHovered ? 'md:opacity-100' : 'md:opacity-0'
                 }`}
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -208,7 +208,7 @@ export default function ListingCard({ listing, locale, locationFallback }: Listi
                 </svg>
               </button>
 
-              <div className="absolute bottom-2 right-2 z-10 px-2 py-0.5 rounded-full bg-black/50 text-white text-xs font-medium tabular-nums select-none">
+              <div className="absolute bottom-2 end-2 z-10 select-none rounded-full bg-black/50 px-2 py-0.5 text-xs font-medium tabular-nums text-white">
                 {photoIndex + 1}/{photos.length}
               </div>
             </>
@@ -216,7 +216,7 @@ export default function ListingCard({ listing, locale, locationFallback }: Listi
         </div>
 
         <div className="p-4 space-y-2">
-          <div className="text-2xl font-bold text-primary-600 tabular-nums">
+          <div className="text-2xl font-bold leading-tight break-words text-primary-600 tabular-nums">
             {displayPrice}
           </div>
           {detailsLine ? (

@@ -157,19 +157,18 @@ export default function CityCombobox({
             setIsOpen(true);
           }}
           onKeyDown={handleKeyDown}
-          className="w-full pl-4 pr-10 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-slate-900 placeholder:text-slate-400"
+          className="w-full border border-slate-300 rounded-lg py-3 ps-4 pe-11 text-slate-900 placeholder:text-slate-400 focus:border-transparent focus:ring-2 focus:ring-primary-500"
         />
 
         {query && (
           <button
             type="button"
-            tabIndex={-1}
             aria-label={labels.clear ?? 'Clear'}
             onMouseDown={(e) => e.preventDefault()}
             onClick={clearSelection}
-            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-slate-600 transition-colors"
+            className="absolute end-2 top-1/2 flex min-h-11 min-w-11 -translate-y-1/2 items-center justify-center rounded-lg text-slate-400 transition-colors hover:text-slate-600"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>

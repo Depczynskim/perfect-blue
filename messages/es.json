@@ -24,7 +24,10 @@
     "profile": "Mi cuenta",
     "login": "Iniciar Sesión",
     "register": "Registrarse",
-    "logout": "Cerrar Sesión"
+    "logout": "Cerrar Sesión",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "menuNav": "Navegación principal"
   },
   "home": {
     "hero": {
@@ -59,7 +62,11 @@
     "noListingsDescription": "No se encontraron anuncios activos.",
     "addFirstListing": "Añadir primer anuncio",
     "viewDetails": "Ver detalles",
-    "filterAll": "Todos",
+    "filterAll": "Todo",
+    "filterRent": "Alquiler",
+    "filterLongTerm": "Largo plazo",
+    "filterShortTerm": "Corto plazo",
+    "filterSaleShort": "Venta",
     "filterLongTermRent": "Alquiler a largo plazo",
     "filterShortTermRent": "Alquiler a corto plazo",
     "filterSale": "En venta",

@@ -24,7 +24,10 @@
     "profile": "Ustawienia konta",
     "login": "Zaloguj się",
     "register": "Zarejestruj",
-    "logout": "Wyloguj"
+    "logout": "Wyloguj",
+    "openMenu": "Otwórz menu",
+    "closeMenu": "Zamknij menu",
+    "menuNav": "Menu główne"
   },
   "home": {
     "hero": {
@@ -60,6 +63,10 @@
     "addFirstListing": "Dodaj pierwsze ogłoszenie",
     "viewDetails": "Zobacz szczegóły",
     "filterAll": "Wszystkie",
+    "filterRent": "Wynajem",
+    "filterLongTerm": "Długi termin",
+    "filterShortTerm": "Krótki termin",
+    "filterSaleShort": "Sprzedaż",
     "filterLongTermRent": "Wynajem długoterminowy",
     "filterShortTermRent": "Wynajem krótkoterminowy",
     "filterSale": "Sprzedaż",

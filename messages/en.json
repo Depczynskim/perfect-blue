@@ -24,7 +24,10 @@
     "profile": "My Account",
     "login": "Log In",
     "register": "Sign Up",
-    "logout": "Log Out"
+    "logout": "Log Out",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "menuNav": "Main navigation"
   },
   "home": {
     "hero": {
@@ -60,6 +63,10 @@
     "addFirstListing": "Add first listing",
     "viewDetails": "View details",
     "filterAll": "All",
+    "filterRent": "Rent",
+    "filterLongTerm": "Long-term",
+    "filterShortTerm": "Short-term",
+    "filterSaleShort": "Sale",
     "filterLongTermRent": "Long-term Rent",
     "filterShortTermRent": "Short-term Rent",
     "filterSale": "For Sale",
