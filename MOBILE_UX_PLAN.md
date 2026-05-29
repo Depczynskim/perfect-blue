@@ -93,7 +93,7 @@ Use for every view before marking implementation complete:
 
 | View | Status | Investigation date | Implementation date | Notes | Follow-up needed |
 |------|--------|----------------------|---------------------|-------|------------------|
-| Listings index (`/[locale]/listings`) | Done | 2026-05-29 | 2026-05-29 | Mobile two-level filters (All/Rent/Sale + Long-term/Short-term); Batch 1 card/city/empty-state tweaks; `rentExploring` active-state fixes | Listing titles on cards not added; no loading skeleton/error boundary yet |
+| Listings index (`/[locale]/listings`) | Done | 2026-05-29 | 2026-05-29 | Mobile 2×2 four-link filters (URL-only active); Batch 1 card/city/empty-state | Listing titles on cards; loading/error UI; optional mobile label copy polish |
 | Listing detail (`/[locale]/listings/[id]`) | Not started | | | | Next: investigation only |
 | Add listing (`/[locale]/listings/new`) | Not started | | | | |
 | Edit listing (`/[locale]/listings/[id]/edit`) | Not started | | | | |
@@ -116,8 +116,7 @@ Use for every view before marking implementation complete:
 
 **Listings index**
 
-* Transaction filters: mobile **All / Rent / Sale** with **Long-term / Short-term** secondary row when Rent is active/open; desktop four-option row unchanged at `md+`.
-* `rentExploring` logic prevents dual primary highlights; All/Sale clicks close the rent submenu immediately.
+* Transaction filters: mobile **2×2 grid** with four direct short-label links (All, long rent, short rent, sale); URL-only active state; desktop four-option row unchanged at `md+`.
 * **Batch 1 usability:** `min-h-11` filter chips; card price `break-words`; photo arrows visible on mobile; city clear button touch target + logical spacing; empty-state padding.
 
 ---
@@ -130,6 +129,7 @@ Use for every view before marking implementation complete:
 | 2026-05-28 | Listings index (`/[locale]/listings`) | Mobile transaction filters: two-level All / Rent / Sale with Long-term / Short-term sub-row | Avoids horizontal scrolling and clarifies rent types; desktop keeps four-option row at `md+` |
 | 2026-05-29 | Listings index (`/[locale]/listings`) | Batch 1: `min-h-11` chips; card price wrap; mobile photo arrows; city clear touch/RTL spacing; empty-state padding | Mobile usability without listing titles or loading/error UI |
 | 2026-05-29 | Listings index (`/[locale]/listings`) | `rentExploring` suppresses All/Sale active styling while Rent submenu open; `closeRentSubmenu` on All/Sale click | Fixes confusing dual-primary highlight and stale active state after choosing All/Sale |
+| 2026-05-29 | Listings index (`/[locale]/listings`) | Replaced two-level mobile Rent filter with four direct short-label links in a 2×2 grid | URL state + local `rentExpanded` caused unstable UX; Option D audit recommendation |
 
 ---
 
