@@ -90,6 +90,42 @@ function propertySummaryTypeLine(propertyType: unknown, tCard: CardTranslate): s
   return tCard(key);
 }
 
+function buildPropertySummaryCompactLine(
+  listing: {
+    property_type: string | null;
+    size_m2: number | string | null;
+    rooms: number | string | null;
+    bathrooms: number | string | null;
+  },
+  tCard: CardTranslate,
+): string | null {
+  const parts: string[] = [];
+
+  const typeLine = propertySummaryTypeLine(listing.property_type, tCard);
+  if (typeLine) {
+    parts.push(typeLine);
+  }
+
+  const sizeM2 = toFiniteNumber(listing.size_m2);
+  if (sizeM2 != null && sizeM2 > 0) {
+    const display = Number.isInteger(sizeM2) ? String(sizeM2) : String(sizeM2);
+    parts.push(`${display} m²`);
+  }
+
+  const rooms = toFiniteNumber(listing.rooms);
+  if (rooms != null && rooms >= 0) {
+    parts.push(tCard('roomsCount', { count: Math.round(rooms) }));
+  }
+
+  const bathrooms = toFiniteNumber(listing.bathrooms);
+  if (bathrooms != null && bathrooms >= 0) {
+    parts.push(tCard('bathroomsCount', { count: Math.round(bathrooms) }));
+  }
+
+  if (parts.length === 0) return null;
+  return parts.join(' · ');
+}
+
 /** Use first segment when title repeats size/price after en dash or hyphen (sidebar shows price). */
 function listingPageHeadingTitle(raw: string): string {
   const trimmed = raw.trim();
@@ -256,6 +292,8 @@ export default async function ListingDetailPage({
     ? buildGoogleTranslateUrl(descriptionText, translateTargetLocale)
     : '';
 
+  const propertySummaryCompactLine = buildPropertySummaryCompactLine(listing, tCard);
+
   return (
     <div className="min-h-screen bg-slate-50">
       <ListingJsonLd listing={listing} photos={photos} locale={locale} id={params.id} />
@@ -271,10 +309,13 @@ export default async function ListingDetailPage({
 
             <h1 className="text-3xl font-bold tracking-tight text-slate-900">{headingTitle}</h1>
 
-            {/* Property summary — feature tiles */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
+            {/* Property summary — compact line (mobile) / feature tiles (desktop) */}
+            <div className="bg-white rounded-lg shadow-sm p-4 lg:p-6">
               <h2 className="text-xl font-semibold text-slate-900 mb-4">{t('propertySummary')}</h2>
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+              <p className="lg:hidden text-sm text-slate-600 leading-relaxed break-words">
+                {propertySummaryCompactLine ?? '—'}
+              </p>
+              <div className="hidden lg:grid lg:grid-cols-4 gap-3 mb-4">
                 <div className="rounded-lg border border-slate-100 bg-slate-50 px-3 py-4 sm:px-4">
                   <div className="flex flex-col items-center text-center justify-center py-2 gap-1.5">
                     <IconBuilding size={32} stroke={1.8} className="text-slate-500" />

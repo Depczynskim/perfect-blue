@@ -94,7 +94,7 @@ Use for every view before marking implementation complete:
 | View | Status | Investigation date | Implementation date | Notes | Follow-up needed |
 |------|--------|----------------------|---------------------|-------|------------------|
 | Listings index (`/[locale]/listings`) | Done | 2026-05-29 | 2026-05-30 | Mobile 2×2 filters; card/city/empty-state Batch 1; **card map preview tap on location row** (Batch 2) | Listing titles on cards; loading/error UI; optional mobile label copy polish |
-| Listing detail (`/[locale]/listings/[id]`) | Not started | | | | Next: investigation only |
+| Listing detail (`/[locale]/listings/[id]`) | In progress | 2026-05-30 | 2026-05-30 | **Batch 1:** mobile compact property summary line (`lg:hidden`); desktop four-tile grid unchanged (`hidden lg:grid`) | Gallery, sidebar, map, description, H1 spacing; full per-view checklist QA |
 | Add listing (`/[locale]/listings/new`) | Not started | | | | |
 | Edit listing (`/[locale]/listings/[id]/edit`) | Not started | | | | |
 | Messages list (`/[locale]/messages`) | Not started | | | | |
@@ -132,6 +132,7 @@ Use for every view before marking implementation complete:
 | 2026-05-29 | Listings index (`/[locale]/listings`) | `rentExploring` suppresses All/Sale active styling while Rent submenu open; `closeRentSubmenu` on All/Sale click | Fixes confusing dual-primary highlight and stale active state after choosing All/Sale |
 | 2026-05-29 | Listings index (`/[locale]/listings`) | Replaced two-level mobile Rent filter with four direct short-label links in a 2×2 grid | URL state + local `rentExpanded` caused unstable UX; Option D audit recommendation |
 | 2026-05-30 | Listings index (`/[locale]/listings`) | Batch 2: mobile tap on full location row opens card map preview; overlay tap/outside/Escape dismiss; desktop hover on pin unchanged | Touch devices had no hover path; div+click handler inside Link (no nested button); `pointer-events-auto` on touch overlay blocks accidental navigation |
+| 2026-05-30 | Listing detail (`/[locale]/listings/[id]`) | Batch 1: below `lg`, replace 2×2 property summary tiles with compact metadata line (`House · 150 m² · 5 rooms · …`); desktop four-tile grid unchanged via `hidden lg:grid` | Reduces vertical bulk on mobile/tablet; mirrors listing card details line; reuses `listings.card` plural keys; no new translations |
 
 ---
 
@@ -141,10 +142,10 @@ The next mobile QA target is:
 
 **`/[locale]/listings/[id]`** (listing detail)
 
-**Next step:** Perform **investigation only** for the listing detail mobile view and report proposed fixes before implementing anything.
+**Next step:** Manual QA for Batch 1 (property summary compact line) at 320–414px and `lg+` desktop tile grid; then investigate remaining listing detail mobile issues (gallery, sidebar, map, description, H1).
 
-**Likely entry points (listing detail investigation):**
+**Likely entry points (listing detail follow-up):**
 
-* `src/app/[locale]/listings/[id]/page.tsx`
+* `src/app/[locale]/listings/[id]/page.tsx` — property summary done (Batch 1)
 * `src/components/listings/` — gallery, map, contact, description, etc.
 * `messages/*/listingDetail.json` (and related namespaces)
