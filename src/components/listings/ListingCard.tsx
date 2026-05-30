@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useMemo } from 'react';
+import { useState, useRef, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { formatListingDisplayPrice } from '@/lib/listings/formatListingDisplayPrice';
@@ -19,6 +19,10 @@ interface ListingCardProps {
 const isRealHoverDevice = () =>
   typeof window !== 'undefined' &&
   window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+const prefersTouchTap = () =>
+  typeof window !== 'undefined' &&
+  window.matchMedia('(hover: none), (pointer: coarse)').matches;
 
 const PROPERTY_TYPE_KEYS: Record<
   ListingPropertyType,
@@ -68,15 +72,17 @@ function buildListingCardDetailsLine(listing: ListingCardItem, t: CardTranslate)
 }
 
 /**
- * Single listing card with desktop-only hover map preview on the location row
- * and per-card photo gallery (desktop hover arrows + touch swipe).
+ * Single listing card with desktop hover map preview on the location pin,
+ * mobile/touch tap on the full location row, and per-card photo gallery.
  */
 export default function ListingCard({ listing, locale, locationFallback }: ListingCardProps) {
   const t = useTranslations('listings.card');
   const [mapVisible, setMapVisible] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
   const [imageHovered, setImageHovered] = useState(false);
+  const [touchTapDevice, setTouchTapDevice] = useState(false);
   const touchStartX = useRef<number | null>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const parsedLocation = parseLocation(listing.location);
   const hasCoords = !!parsedLocation;
@@ -85,6 +91,7 @@ export default function ListingCard({ listing, locale, locationFallback }: Listi
   const hasMultiplePhotos = photos.length > 1;
   const currentPhotoUrl = photos[photoIndex] ?? listing.thumbnailUrl;
   const detailsLine = useMemo(() => buildListingCardDetailsLine(listing, t), [listing, t]);
+  const displayLocation = formatListingLocation(listing) || locationFallback;
 
   const displayPrice = useMemo(
     () =>
@@ -101,12 +108,46 @@ export default function ListingCard({ listing, locale, locationFallback }: Listi
     [listing.price, listing.currency, listing.transaction_type, locale, t],
   );
 
+  useEffect(() => {
+    setTouchTapDevice(prefersTouchTap());
+  }, []);
+
+  useEffect(() => {
+    if (!mapVisible) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMapVisible(false);
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [mapVisible]);
+
+  useEffect(() => {
+    if (!mapVisible || !touchTapDevice) return;
+
+    const handlePointerDown = (e: PointerEvent) => {
+      if (cardRef.current?.contains(e.target as Node)) return;
+      setMapVisible(false);
+    };
+
+    document.addEventListener('pointerdown', handlePointerDown);
+    return () => document.removeEventListener('pointerdown', handlePointerDown);
+  }, [mapVisible, touchTapDevice]);
+
   const goPrev = () => setPhotoIndex((i) => (i - 1 + photos.length) % photos.length);
   const goNext = () => setPhotoIndex((i) => (i + 1) % photos.length);
 
   const handleLocationMouseEnter = () => {
     if (!hasCoords) return;
     if (!isRealHoverDevice()) return;
+    setMapVisible(true);
+  };
+
+  const handleLocationClick = (e: React.MouseEvent) => {
+    if (!hasCoords || !touchTapDevice || mapVisible) return;
+    e.preventDefault();
+    e.stopPropagation();
     setMapVisible(true);
   };
 
@@ -144,8 +185,11 @@ export default function ListingCard({ listing, locale, locationFallback }: Listi
     action();
   };
 
+  const locationRowInteractive = hasCoords && touchTapDevice;
+
   return (
     <div
+      ref={cardRef}
       className="relative"
       style={{ zIndex: mapVisible ? 10 : undefined }}
       onMouseLeave={handleCardMouseLeave}
@@ -222,12 +266,25 @@ export default function ListingCard({ listing, locale, locationFallback }: Listi
           {detailsLine ? (
             <p className="text-sm text-slate-600 line-clamp-2">{detailsLine}</p>
           ) : null}
-          <div className="flex items-center gap-1 text-sm text-slate-500 pt-0.5">
+          <div
+            className={`flex w-full items-center gap-1 text-sm text-slate-500 min-h-11 -mx-1 px-1 rounded ${
+              locationRowInteractive ? 'cursor-pointer active:bg-slate-50' : 'pt-0.5'
+            }`}
+            onClick={locationRowInteractive ? handleLocationClick : undefined}
+            aria-expanded={locationRowInteractive ? mapVisible : undefined}
+            aria-label={
+              locationRowInteractive
+                ? mapVisible
+                  ? t('ariaHideMap', { location: displayLocation })
+                  : t('ariaShowMap', { location: displayLocation })
+                : undefined
+            }
+          >
             <span
               className={
                 hasCoords
-                  ? 'group p-0.5 -m-0.5 rounded transition-colors'
-                  : undefined
+                  ? 'group flex-shrink-0 p-0.5 rounded transition-colors'
+                  : 'flex-shrink-0'
               }
               onMouseEnter={handleLocationMouseEnter}
             >
@@ -236,6 +293,7 @@ export default function ListingCard({ listing, locale, locationFallback }: Listi
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="round"
@@ -246,13 +304,19 @@ export default function ListingCard({ listing, locale, locationFallback }: Listi
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             </span>
-            <span className="line-clamp-1">{formatListingLocation(listing) || locationFallback}</span>
+            <span className="line-clamp-1 flex-1 min-w-0">{displayLocation}</span>
           </div>
         </div>
       </Link>
 
       {mapVisible && parsedLocation && (
-        <ListingCardMapPreview latitude={parsedLocation.latitude} longitude={parsedLocation.longitude} />
+        <ListingCardMapPreview
+          latitude={parsedLocation.latitude}
+          longitude={parsedLocation.longitude}
+          dismissible={touchTapDevice}
+          onDismiss={() => setMapVisible(false)}
+          ariaLabel={t('ariaHideMap', { location: displayLocation })}
+        />
       )}
     </div>
   );

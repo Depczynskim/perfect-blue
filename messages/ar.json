@@ -84,6 +84,8 @@
       "bathroomsCount": "{count, plural, zero {لا حمامات} one {# حمام} two {# حمامان} few {# حمامات} many {# حماماً} other {# حمام}}",
       "ariaPreviousPhoto": "الصورة السابقة",
       "ariaNextPhoto": "الصورة التالية",
+      "ariaShowMap": "إظهار الخريطة لـ {location}",
+      "ariaHideMap": "إخفاء الخريطة لـ {location}",
       "priceSuffixPerMonth": " / شهر",
       "priceSuffixPerNight": " / ليلة"
     }

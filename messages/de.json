@@ -84,6 +84,8 @@
       "bathroomsCount": "{count, plural, one {# Bad} other {# Bäder}}",
       "ariaPreviousPhoto": "Vorheriges Foto",
       "ariaNextPhoto": "Nächstes Foto",
+      "ariaShowMap": "Karte für {location} anzeigen",
+      "ariaHideMap": "Karte für {location} ausblenden",
       "priceSuffixPerMonth": " / Monat",
       "priceSuffixPerNight": " / Nacht"
     }

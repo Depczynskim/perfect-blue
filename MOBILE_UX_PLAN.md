@@ -93,7 +93,7 @@ Use for every view before marking implementation complete:
 
 | View | Status | Investigation date | Implementation date | Notes | Follow-up needed |
 |------|--------|----------------------|---------------------|-------|------------------|
-| Listings index (`/[locale]/listings`) | Done | 2026-05-29 | 2026-05-29 | Mobile 2×2 four-link filters (URL-only active); Batch 1 card/city/empty-state | Listing titles on cards; loading/error UI; optional mobile label copy polish |
+| Listings index (`/[locale]/listings`) | Done | 2026-05-29 | 2026-05-30 | Mobile 2×2 filters; card/city/empty-state Batch 1; **card map preview tap on location row** (Batch 2) | Listing titles on cards; loading/error UI; optional mobile label copy polish |
 | Listing detail (`/[locale]/listings/[id]`) | Not started | | | | Next: investigation only |
 | Add listing (`/[locale]/listings/new`) | Not started | | | | |
 | Edit listing (`/[locale]/listings/[id]/edit`) | Not started | | | | |
@@ -118,6 +118,7 @@ Use for every view before marking implementation complete:
 
 * Transaction filters: mobile **2×2 grid** with four direct short-label links (All, long rent, short rent, sale); URL-only active state; desktop four-option row unchanged at `md+`.
 * **Batch 1 usability:** `min-h-11` filter chips; card price `break-words`; photo arrows visible on mobile; city clear button touch target + logical spacing; empty-state padding.
+* **Batch 2 map preview:** On touch/coarse-pointer devices, tap full location row opens map overlay; dismiss via overlay tap, tap outside card, or Escape; desktop pin-hover unchanged; `ListingMap` `interactive={false}` in preview only.
 
 ---
 
@@ -130,6 +131,7 @@ Use for every view before marking implementation complete:
 | 2026-05-29 | Listings index (`/[locale]/listings`) | Batch 1: `min-h-11` chips; card price wrap; mobile photo arrows; city clear touch/RTL spacing; empty-state padding | Mobile usability without listing titles or loading/error UI |
 | 2026-05-29 | Listings index (`/[locale]/listings`) | `rentExploring` suppresses All/Sale active styling while Rent submenu open; `closeRentSubmenu` on All/Sale click | Fixes confusing dual-primary highlight and stale active state after choosing All/Sale |
 | 2026-05-29 | Listings index (`/[locale]/listings`) | Replaced two-level mobile Rent filter with four direct short-label links in a 2×2 grid | URL state + local `rentExpanded` caused unstable UX; Option D audit recommendation |
+| 2026-05-30 | Listings index (`/[locale]/listings`) | Batch 2: mobile tap on full location row opens card map preview; overlay tap/outside/Escape dismiss; desktop hover on pin unchanged | Touch devices had no hover path; div+click handler inside Link (no nested button); `pointer-events-auto` on touch overlay blocks accidental navigation |
 
 ---
 

@@ -9,9 +9,11 @@ import { defaultMarkerIcon } from '@/lib/map/icon'
 interface ListingMapProps {
   latitude: number
   longitude: number
+  /** When false, disables pan/zoom gestures (e.g. card preview overlay). Defaults to true. */
+  interactive?: boolean
 }
 
-export default function ListingMap({ latitude, longitude }: ListingMapProps) {
+export default function ListingMap({ latitude, longitude, interactive = true }: ListingMapProps) {
   const t = useTranslations('listingDetail')
   const [mounted, setMounted] = useState(false)
 
@@ -45,6 +47,9 @@ export default function ListingMap({ latitude, longitude }: ListingMapProps) {
       center={[latitude, longitude]}
       zoom={13}
       scrollWheelZoom={false}
+      dragging={interactive}
+      touchZoom={interactive}
+      doubleClickZoom={interactive}
       style={{ height: '100%', width: '100%' }}
       key={`listing-map-${latitude}-${longitude}`}
     >

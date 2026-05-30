@@ -14,20 +14,34 @@ const ListingMap = dynamic(() => import('./ListingMap'), {
 interface ListingCardMapPreviewProps {
   latitude: number;
   longitude: number;
+  /** Touch mode: blocks link click-through and allows tap-to-dismiss. */
+  dismissible?: boolean;
+  onDismiss?: () => void;
+  ariaLabel?: string;
 }
 
 /**
- * Desktop-only hover map overlay for listing cards.
- * Rendered lazily (dynamic import) only for the hovered card.
- * pointer-events-none keeps the underlying card link clickable.
+ * Map overlay for listing cards.
+ * Desktop hover: pointer-events-none keeps the card link clickable.
+ * Mobile/touch: dismissible mode blocks navigation and closes on tap.
  */
-export default function ListingCardMapPreview({ latitude, longitude }: ListingCardMapPreviewProps) {
+export default function ListingCardMapPreview({
+  latitude,
+  longitude,
+  dismissible = false,
+  onDismiss,
+  ariaLabel,
+}: ListingCardMapPreviewProps) {
   return (
     <div
-      className="absolute inset-0 z-20 rounded-lg overflow-hidden shadow-2xl ring-2 ring-primary-300 pointer-events-none"
-      aria-hidden="true"
+      className={`absolute inset-0 z-20 rounded-lg overflow-hidden shadow-2xl ring-2 ring-primary-300 ${
+        dismissible ? 'pointer-events-auto cursor-pointer' : 'pointer-events-none'
+      }`}
+      aria-hidden={dismissible ? undefined : true}
+      aria-label={dismissible ? ariaLabel : undefined}
+      onClick={dismissible ? onDismiss : undefined}
     >
-      <ListingMap latitude={latitude} longitude={longitude} />
+      <ListingMap latitude={latitude} longitude={longitude} interactive={false} />
     </div>
   );
 }

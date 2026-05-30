@@ -84,6 +84,8 @@
       "bathroomsCount": "{count, plural, one {# łazienka} few {# łazienki} other {# łazienek}}",
       "ariaPreviousPhoto": "Poprzednie zdjęcie",
       "ariaNextPhoto": "Następne zdjęcie",
+      "ariaShowMap": "Pokaż mapę: {location}",
+      "ariaHideMap": "Ukryj mapę: {location}",
       "priceSuffixPerMonth": " / miesiąc",
       "priceSuffixPerNight": " / doba"
     }
