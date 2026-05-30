@@ -296,6 +296,12 @@ export default async function ListingDetailPage({
 
   const propertySummaryCompactLine = buildPropertySummaryCompactLine(listing, tCard);
 
+  const formattedAddedDate = formatDate(listing.created_at, locale, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
   return (
     <div className="min-h-screen bg-slate-50">
       <ListingJsonLd listing={listing} photos={photos} locale={locale} id={params.id} />
@@ -309,7 +315,12 @@ export default async function ListingDetailPage({
             {/* Galeria zdjęć z lightboxem */}
             <PhotoGallery photos={galleryPhotos} title={headingTitle} />
 
-            <h1 className="text-2xl font-bold leading-snug tracking-tight text-slate-900 break-words lg:text-3xl">{headingTitle}</h1>
+            <div className="space-y-2">
+              <h1 className="text-2xl font-bold leading-snug tracking-tight text-slate-900 break-words lg:text-3xl">{headingTitle}</h1>
+              <p className="lg:hidden text-sm text-slate-500 leading-snug">
+                {t('addedOn')} {formattedAddedDate}
+              </p>
+            </div>
 
             {/* Mobile action card — price, summary line, CTA */}
             <div className="lg:hidden bg-white rounded-lg shadow-sm p-4 space-y-3">
@@ -436,17 +447,6 @@ export default async function ListingDetailPage({
                 </div>
               )}
             </div>
-
-            <div className="lg:hidden bg-white rounded-lg shadow-sm p-4">
-              <div className="text-sm text-slate-500 mb-2">{t('addedOn')}</div>
-              <div className="text-slate-900">
-                {formatDate(listing.created_at, locale, {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                })}
-              </div>
-            </div>
           </div>
 
           {/* Prawa kolumna - cena i kontakt (desktop only) */}
@@ -484,13 +484,7 @@ export default async function ListingDetailPage({
 
               <div className="mt-6 pt-6 border-t border-slate-200">
                 <div className="text-sm text-slate-500 mb-2">{t('addedOn')}</div>
-                <div className="text-slate-900">
-                  {formatDate(listing.created_at, locale, {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                  })}
-                </div>
+                <div className="text-slate-900">{formattedAddedDate}</div>
               </div>
             </div>
           </div>
