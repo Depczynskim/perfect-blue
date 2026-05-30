@@ -281,6 +281,8 @@ export default async function ListingDetailPage({
   });
   const priceHeading = t(listingDetailPriceHeadingKey(listing.transaction_type as ListingTransactionType));
 
+  const showMobilePriceLabel = listing.transaction_type === 'sale';
+
   const descriptionText = (listing.description ?? '').trim();
   const hasDescription = descriptionText.length > 0;
   const translateTargetLocale = normalizeTranslateTargetLocale(
@@ -310,26 +312,28 @@ export default async function ListingDetailPage({
             <h1 className="text-2xl font-bold leading-snug tracking-tight text-slate-900 break-words lg:text-3xl">{headingTitle}</h1>
 
             {/* Mobile action card — price, summary line, CTA */}
-            <div className="lg:hidden bg-white rounded-lg shadow-sm p-4 space-y-4">
+            <div className="lg:hidden bg-white rounded-lg shadow-sm p-4 space-y-3">
               <div>
-                <div className="text-sm text-slate-500 mb-1">{priceHeading}</div>
-                <div className="text-2xl font-bold text-primary-600 tabular-nums break-words">
+                {showMobilePriceLabel ? (
+                  <div className="text-sm text-slate-500 mb-1 text-center">{priceHeading}</div>
+                ) : null}
+                <div className="text-3xl font-bold text-primary-600 tabular-nums break-words text-center">
                   {displayPrice}
                 </div>
               </div>
-              <p className="text-sm text-slate-600 leading-relaxed break-words">
+              <p className="text-base font-medium text-slate-700 text-center leading-relaxed break-words">
                 {propertySummaryCompactLine ?? '—'}
               </p>
               {isOwner ? (
                 <div className="space-y-3">
-                  <div className="bg-primary-50 border border-primary-200 rounded-lg p-4 text-center">
+                  <div className="bg-primary-50 rounded-lg px-3 py-2 text-center">
                     <p className="text-sm text-primary-900 font-medium">
                       {t('yourListing')}
                     </p>
                   </div>
                   <Link
                     href={`/${locale}/listings/${params.id}/edit`}
-                    className="block w-full bg-primary-600 text-white text-center px-4 py-3 rounded-lg font-medium hover:bg-primary-700 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors"
+                    className="block w-full bg-primary-600 text-white text-center px-4 py-3 rounded-lg font-medium hover:bg-primary-700 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors min-h-11"
                   >
                     {t('editListing')}
                   </Link>
@@ -340,6 +344,7 @@ export default async function ListingDetailPage({
                   hasAccess={hasSubscription}
                   isLoggedIn={!!user}
                   requiresSubscription={messagingRequiresSubscription()}
+                  variant="plain"
                 />
               )}
             </div>

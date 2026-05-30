@@ -8,6 +8,7 @@ interface ContactButtonProps {
   hasAccess: boolean;
   isLoggedIn: boolean;
   requiresSubscription?: boolean;
+  variant?: 'default' | 'plain';
 }
 
 export default function ContactButton({
@@ -15,6 +16,7 @@ export default function ContactButton({
   hasAccess,
   isLoggedIn,
   requiresSubscription = true,
+  variant = 'default',
 }: ContactButtonProps) {
   const t = useTranslations('contact');
   const tCommon = useTranslations('common');
@@ -24,6 +26,10 @@ export default function ContactButton({
   const [showMessageForm, setShowMessageForm] = useState(false);
   const [message, setMessage] = useState('');
   const [messageSent, setMessageSent] = useState(false);
+
+  const isPlain = variant === 'plain';
+  const focusRingClass = 'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2';
+  const focusRingGreenClass = 'focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2';
 
   const handlePurchase = async () => {
     if (!isLoggedIn) {
@@ -61,7 +67,7 @@ export default function ContactButton({
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!message.trim()) {
       setError(tCommon('error'));
       return;
@@ -97,26 +103,56 @@ export default function ContactButton({
     }
   };
 
+  const errorAlert = error ? (
+    <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700">
+      {error}
+    </div>
+  ) : null;
+
   // Jeśli ma dostęp - pokaż formularz wiadomości
   if (hasAccess) {
     if (messageSent) {
-      return (
-        <div className="bg-white border border-slate-200 rounded-lg p-4">
-          <div className="flex items-center gap-2 text-slate-900 font-medium mb-2">
-            <svg className="w-5 h-5 text-green-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            {t('messageSent')}
+      if (isPlain) {
+        return (
+          <div className="space-y-3 text-center">
+            <div className="flex items-center justify-center gap-2 text-slate-900 font-medium">
+              <svg className="w-5 h-5 text-green-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              {t('messageSent')}
+            </div>
+            <p className="text-sm text-slate-600">{t('ownerWillRespond')}</p>
+            <button
+              type="button"
+              onClick={() => setMessageSent(false)}
+              className={`text-sm text-primary-600 hover:text-primary-700 underline ${focusRingClass}`}
+            >
+              {t('sendAnother')}
+            </button>
+            {errorAlert}
           </div>
-          <p className="text-sm text-slate-600">
-            {t('ownerWillRespond')}
-          </p>
-          <button
-            onClick={() => setMessageSent(false)}
-            className="mt-3 text-sm text-primary-600 hover:text-primary-700 underline"
-          >
-            {t('sendAnother')}
-          </button>
+        );
+      }
+
+      return (
+        <div className="space-y-4">
+          <div className="bg-white border border-slate-200 rounded-lg p-4">
+            <div className="flex items-center gap-2 text-slate-900 font-medium mb-2">
+              <svg className="w-5 h-5 text-green-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              {t('messageSent')}
+            </div>
+            <p className="text-sm text-slate-600">{t('ownerWillRespond')}</p>
+            <button
+              type="button"
+              onClick={() => setMessageSent(false)}
+              className="mt-3 text-sm text-primary-600 hover:text-primary-700 underline"
+            >
+              {t('sendAnother')}
+            </button>
+          </div>
+          {errorAlert}
         </div>
       );
     }
@@ -125,83 +161,93 @@ export default function ContactButton({
       ? 'bg-green-50 border border-green-200 rounded-lg p-4'
       : 'bg-white border border-slate-200 rounded-lg p-4';
     const ctaButtonClass = requiresSubscription
-      ? 'w-full bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium flex items-center justify-center gap-2'
-      : 'w-full bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors font-medium flex items-center justify-center gap-2';
+      ? `w-full bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium flex items-center justify-center gap-2 min-h-11${isPlain ? ` ${focusRingGreenClass}` : ''}`
+      : `w-full bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors font-medium flex items-center justify-center gap-2 min-h-11${isPlain ? ` ${focusRingClass}` : ''}`;
     const sendButtonClass = requiresSubscription
-      ? 'flex-1 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:opacity-50'
-      : 'flex-1 bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors font-medium disabled:opacity-50';
+      ? `flex-1 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:opacity-50 min-h-11${isPlain ? ` ${focusRingGreenClass}` : ''}`
+      : `flex-1 bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors font-medium disabled:opacity-50 min-h-11${isPlain ? ` ${focusRingClass}` : ''}`;
+    const cancelButtonClass = isPlain
+      ? `px-4 py-2 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors min-h-11 ${focusRingClass}`
+      : 'px-4 py-2 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors';
     const textareaClass = requiresSubscription
       ? 'w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors resize-none'
       : 'w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors resize-none';
 
+    const subscriptionBanner = requiresSubscription ? (
+      <div
+        className={
+          isPlain
+            ? 'flex items-center justify-center gap-2 text-green-800 font-medium text-sm mb-3'
+            : 'flex items-center gap-2 text-green-800 font-medium mb-3'
+        }
+      >
+        <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        {t('hasSubscription')}
+      </div>
+    ) : null;
+
+    const messageForm = !showMessageForm ? (
+      <button type="button" onClick={() => setShowMessageForm(true)} className={ctaButtonClass}>
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+        {t('writeMessage')}
+      </button>
+    ) : (
+      <form onSubmit={handleSendMessage} className="space-y-3">
+        <textarea
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder={t('messagePlaceholder')}
+          rows={4}
+          className={textareaClass}
+        />
+        <div className="flex gap-2">
+          <button type="submit" disabled={isLoading} className={sendButtonClass}>
+            {isLoading ? t('sending') : t('send')}
+          </button>
+          <button type="button" onClick={() => setShowMessageForm(false)} className={cancelButtonClass}>
+            {t('cancel')}
+          </button>
+        </div>
+      </form>
+    );
+
+    if (isPlain) {
+      return (
+        <div className="space-y-3">
+          {subscriptionBanner}
+          {!showMessageForm ? (
+            messageForm
+          ) : (
+            <div className="border-t border-slate-200 pt-4">{messageForm}</div>
+          )}
+          {errorAlert}
+        </div>
+      );
+    }
+
     return (
       <div className="space-y-4">
         <div className={contactBoxClass}>
-          {requiresSubscription && (
-            <div className="flex items-center gap-2 text-green-800 font-medium mb-3">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              {t('hasSubscription')}
-            </div>
-          )}
-
-          {!showMessageForm ? (
-            <button
-              onClick={() => setShowMessageForm(true)}
-              className={ctaButtonClass}
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-              </svg>
-              {t('writeMessage')}
-            </button>
-          ) : (
-            <form onSubmit={handleSendMessage} className="space-y-3">
-              <textarea
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder={t('messagePlaceholder')}
-                rows={4}
-                className={textareaClass}
-              />
-              <div className="flex gap-2">
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className={sendButtonClass}
-                >
-                  {isLoading ? t('sending') : t('send')}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setShowMessageForm(false)}
-                  className="px-4 py-2 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
-                >
-                  {t('cancel')}
-                </button>
-              </div>
-            </form>
-          )}
+          {subscriptionBanner}
+          {messageForm}
         </div>
-
-        {error && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700">
-            {error}
-          </div>
-        )}
+        {errorAlert}
       </div>
     );
   }
 
   // Jeśli nie ma dostępu - pokaż przycisk zakupu
+  const purchaseButtonClass = isPlain
+    ? `w-full bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-h-11 ${focusRingClass}`
+    : 'w-full bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2';
+
   return (
     <div className="space-y-3">
-      <button
-        onClick={handlePurchase}
-        disabled={isLoading}
-        className="w-full bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-      >
+      <button type="button" onClick={handlePurchase} disabled={isLoading} className={purchaseButtonClass}>
         {isLoading ? (
           <>
             <svg className="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
@@ -219,21 +265,13 @@ export default function ContactButton({
           </>
         )}
       </button>
-      
-      <p className="text-xs text-slate-500 text-center">
-        {t('subscriptionInfo')}
-      </p>
 
-      {error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700">
-          {error}
-        </div>
-      )}
+      <p className="text-xs text-slate-500 text-center">{t('subscriptionInfo')}</p>
+
+      {errorAlert}
 
       {!isLoggedIn && (
-        <p className="text-xs text-slate-400 text-center">
-          {t('loginRequired')}
-        </p>
+        <p className="text-xs text-slate-400 text-center">{t('loginRequired')}</p>
       )}
     </div>
   );

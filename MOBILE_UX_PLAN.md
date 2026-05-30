@@ -94,7 +94,7 @@ Use for every view before marking implementation complete:
 | View | Status | Investigation date | Implementation date | Notes | Follow-up needed |
 |------|--------|----------------------|---------------------|-------|------------------|
 | Listings index (`/[locale]/listings`) | Done | 2026-05-29 | 2026-05-30 | Mobile 2×2 filters; card/city/empty-state Batch 1; **card map preview tap on location row** (Batch 2) | Listing titles on cards; loading/error UI; optional mobile label copy polish |
-| Listing detail (`/[locale]/listings/[id]`) | In progress | 2026-05-30 | 2026-05-30 | **Batch 1:** compact summary line; **Batch 2:** mobile action card (price → line → CTA), smaller H1, desktop-only tiles/sidebar, mobile added date after map | Gallery, description/map padding; full per-view checklist QA |
+| Listing detail (`/[locale]/listings/[id]`) | In progress | 2026-05-30 | 2026-05-30 | Batches 1–2: compact line + mobile action card hierarchy; **Batch 3:** lighter conversion card, plain ContactButton, conditional price label | Gallery, description/map padding; full per-view checklist QA |
 | Add listing (`/[locale]/listings/new`) | Not started | | | | |
 | Edit listing (`/[locale]/listings/[id]/edit`) | Not started | | | | |
 | Messages list (`/[locale]/messages`) | Not started | | | | |
@@ -134,6 +134,7 @@ Use for every view before marking implementation complete:
 | 2026-05-30 | Listings index (`/[locale]/listings`) | Batch 2: mobile tap on full location row opens card map preview; overlay tap/outside/Escape dismiss; desktop hover on pin unchanged | Touch devices had no hover path; div+click handler inside Link (no nested button); `pointer-events-auto` on touch overlay blocks accidental navigation |
 | 2026-05-30 | Listing detail (`/[locale]/listings/[id]`) | Batch 1: below `lg`, replace 2×2 property summary tiles with compact metadata line (`House · 150 m² · 5 rooms · …`); desktop four-tile grid unchanged via `hidden lg:grid` | Reduces vertical bulk on mobile/tablet; mirrors listing card details line; reuses `listings.card` plural keys; no new translations |
 | 2026-05-30 | Listing detail (`/[locale]/listings/[id]`) | Batch 2: mobile action card after H1 (price → compact line → CTA); `hidden lg:block` desktop sidebar; desktop-only property tiles; mobile added date after map; smaller H1 (`text-2xl lg:text-3xl`) | Fixes mobile hierarchy so price/contact appear before description/map; desktop sticky sidebar and tiles unchanged |
+| 2026-05-30 | Listing detail (`/[locale]/listings/[id]`) | Batch 3: mobile action card refinement — centered `text-3xl` price; hide rent price labels on mobile; stronger facts line; `ContactButton variant="plain"` (no inner bordered card); lighter owner banner | Removes card-in-card feel; desktop sidebar ContactButton default unchanged |
 
 ---
 
@@ -143,7 +144,7 @@ The next mobile QA target is:
 
 **`/[locale]/listings/[id]`** (listing detail)
 
-**Next step:** Manual QA for Batch 2 (mobile hierarchy: gallery → H1 → price/CTA → description → map → added date); then investigate remaining listing detail mobile issues (gallery, description/map padding).
+**Next step:** Manual QA for Batch 3 (mobile action card conversion hierarchy); then investigate remaining listing detail mobile issues (gallery, description/map padding).
 
 **Likely entry points (listing detail follow-up):**
 
