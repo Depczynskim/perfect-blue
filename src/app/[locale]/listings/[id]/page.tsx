@@ -303,19 +303,51 @@ export default async function ListingDetailPage({
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Lewa kolumna - zdjęcia i opis */}
-          <div className="lg:col-span-2 space-y-7">
+          <div className="lg:col-span-2 space-y-5 lg:space-y-7">
             {/* Galeria zdjęć z lightboxem */}
             <PhotoGallery photos={galleryPhotos} title={headingTitle} />
 
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{headingTitle}</h1>
+            <h1 className="text-2xl font-bold leading-snug tracking-tight text-slate-900 break-words lg:text-3xl">{headingTitle}</h1>
 
-            {/* Property summary — compact line (mobile) / feature tiles (desktop) */}
-            <div className="bg-white rounded-lg shadow-sm p-4 lg:p-6">
-              <h2 className="text-xl font-semibold text-slate-900 mb-4">{t('propertySummary')}</h2>
-              <p className="lg:hidden text-sm text-slate-600 leading-relaxed break-words">
+            {/* Mobile action card — price, summary line, CTA */}
+            <div className="lg:hidden bg-white rounded-lg shadow-sm p-4 space-y-4">
+              <div>
+                <div className="text-sm text-slate-500 mb-1">{priceHeading}</div>
+                <div className="text-2xl font-bold text-primary-600 tabular-nums break-words">
+                  {displayPrice}
+                </div>
+              </div>
+              <p className="text-sm text-slate-600 leading-relaxed break-words">
                 {propertySummaryCompactLine ?? '—'}
               </p>
-              <div className="hidden lg:grid lg:grid-cols-4 gap-3 mb-4">
+              {isOwner ? (
+                <div className="space-y-3">
+                  <div className="bg-primary-50 border border-primary-200 rounded-lg p-4 text-center">
+                    <p className="text-sm text-primary-900 font-medium">
+                      {t('yourListing')}
+                    </p>
+                  </div>
+                  <Link
+                    href={`/${locale}/listings/${params.id}/edit`}
+                    className="block w-full bg-primary-600 text-white text-center px-4 py-3 rounded-lg font-medium hover:bg-primary-700 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors"
+                  >
+                    {t('editListing')}
+                  </Link>
+                </div>
+              ) : (
+                <ContactButton
+                  listingId={params.id}
+                  hasAccess={hasSubscription}
+                  isLoggedIn={!!user}
+                  requiresSubscription={messagingRequiresSubscription()}
+                />
+              )}
+            </div>
+
+            {/* Property summary — feature tiles (desktop only) */}
+            <div className="hidden lg:block bg-white rounded-lg shadow-sm p-6">
+              <h2 className="text-xl font-semibold text-slate-900 mb-4">{t('propertySummary')}</h2>
+              <div className="grid grid-cols-4 gap-3 mb-4">
                 <div className="rounded-lg border border-slate-100 bg-slate-50 px-3 py-4 sm:px-4">
                   <div className="flex flex-col items-center text-center justify-center py-2 gap-1.5">
                     <IconBuilding size={32} stroke={1.8} className="text-slate-500" />
@@ -399,10 +431,21 @@ export default async function ListingDetailPage({
                 </div>
               )}
             </div>
+
+            <div className="lg:hidden bg-white rounded-lg shadow-sm p-4">
+              <div className="text-sm text-slate-500 mb-2">{t('addedOn')}</div>
+              <div className="text-slate-900">
+                {formatDate(listing.created_at, locale, {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}
+              </div>
+            </div>
           </div>
 
-          {/* Prawa kolumna - cena i kontakt */}
-          <div className="lg:col-span-1">
+          {/* Prawa kolumna - cena i kontakt (desktop only) */}
+          <div className="hidden lg:block lg:col-span-1">
             <div className="bg-white rounded-lg shadow-sm p-6 sticky top-24">
               <div className="mb-6">
                 <div className="text-sm text-slate-500 mb-1">{priceHeading}</div>
