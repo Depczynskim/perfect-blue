@@ -22,3 +22,30 @@ body {
   min-height: 100vh;
 }
 
+/* Listing detail map: cap Leaflet z-index so tiles/controls stay below the fixed mobile contact bar (z-50) and header menu (z-60) */
+.listing-detail-map .leaflet-tile-pane {
+  z-index: 1 !important;
+}
+.listing-detail-map .leaflet-overlay-pane {
+  z-index: 2 !important;
+}
+.listing-detail-map .leaflet-shadow-pane {
+  z-index: 3 !important;
+}
+.listing-detail-map .leaflet-marker-pane {
+  z-index: 4 !important;
+}
+.listing-detail-map .leaflet-tooltip-pane {
+  z-index: 5 !important;
+}
+.listing-detail-map .leaflet-popup-pane {
+  z-index: 6 !important;
+}
+.listing-detail-map .leaflet-top,
+.listing-detail-map .leaflet-bottom {
+  z-index: 7 !important;
+}
+.listing-detail-map .leaflet-control {
+  z-index: 8 !important;
+}
+

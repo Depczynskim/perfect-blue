@@ -59,9 +59,9 @@ const PhotoGallery = dynamicImport(
   { ssr: false }
 );
 
-// Dynamiczny import przycisku kontaktu (bez SSR - używa client hooks)
-const ContactButton = dynamicImport(
-  () => import('@/components/listings/ContactButton'),
+// Dynamiczny import kontaktu (bez SSR - używa client hooks + viewport placement)
+const ListingDetailContact = dynamicImport(
+  () => import('@/components/listings/ListingDetailContact'),
   { ssr: false }
 );
 
@@ -308,7 +308,7 @@ export default async function ListingDetailPage({
       <Header user={user} />
 
       {/* Main content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-28 lg:pb-0">
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Lewa kolumna - zdjęcia i opis */}
           <div className="lg:col-span-2 space-y-5 lg:space-y-7">
@@ -322,7 +322,7 @@ export default async function ListingDetailPage({
               </p>
             </div>
 
-            {/* Mobile action card — price, summary line, CTA */}
+            {/* Mobile action card — price and summary line (CTA in fixed bottom bar) */}
             <div className="lg:hidden bg-white rounded-lg shadow-sm p-4 space-y-3">
               <div>
                 {showMobilePriceLabel ? (
@@ -349,15 +349,7 @@ export default async function ListingDetailPage({
                     {t('editListing')}
                   </Link>
                 </div>
-              ) : (
-                <ContactButton
-                  listingId={params.id}
-                  hasAccess={hasSubscription}
-                  isLoggedIn={!!user}
-                  requiresSubscription={messagingRequiresSubscription()}
-                  variant="plain"
-                />
-              )}
+              ) : null}
             </div>
 
             {/* Property summary — feature tiles (desktop only) */}
@@ -439,7 +431,7 @@ export default async function ListingDetailPage({
                 <span>{listingLocation}</span>
               </div>
               {hasValidCoordinates && (
-                <div className="h-80 rounded-lg overflow-hidden border border-slate-200">
+                <div className="listing-detail-map relative z-0 isolate h-80 overflow-hidden rounded-lg border border-slate-200">
                   <ListingMap
                     latitude={parsedLocation.latitude}
                     longitude={parsedLocation.longitude}
@@ -474,7 +466,8 @@ export default async function ListingDetailPage({
                   </Link>
                 </div>
               ) : (
-                <ContactButton
+                <ListingDetailContact
+                  placement="desktop-sidebar"
                   listingId={params.id}
                   hasAccess={hasSubscription}
                   isLoggedIn={!!user}
@@ -490,6 +483,16 @@ export default async function ListingDetailPage({
           </div>
         </div>
       </main>
+
+      {!isOwner ? (
+        <ListingDetailContact
+          placement="mobile-fixed"
+          listingId={params.id}
+          hasAccess={hasSubscription}
+          isLoggedIn={!!user}
+          requiresSubscription={messagingRequiresSubscription()}
+        />
+      ) : null}
     </div>
   );
 }

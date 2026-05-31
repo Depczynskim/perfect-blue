@@ -5,6 +5,7 @@ export { default as PhotoUpload } from './PhotoUpload';
 export { default as PhotoGallery } from './PhotoGallery';
 export { default as Lightbox } from './Lightbox';
 export { default as ContactButton } from './ContactButton';
+export { default as ListingDetailContact } from './ListingDetailContact';
 export { default as CategoryFilters } from './CategoryFilters';
 export { default as ListingGrid } from './ListingGrid';
 export { default as ListingCard } from './ListingCard';
