@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfect Blue — Light Reflection Signature</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <h1 class="page-title">Light Reflection Signature — Text-Focused Reflections</h1>
+    <p class="page-intro">
+      Isolated brand exploration. Logo styling matches production header
+      (<code>Header.tsx</code>): PB icon + Inter wordmark. Not connected to the app.
+    </p>
+    <p class="review-notice" role="status">
+      <strong>Review mode:</strong> Animation timing accelerated to ~3s and opacity increased for easier comparison. 
+      Production would use 45–120s timing with 40–60% lower opacity for subtle, felt-not-noticed effect.
+    </p>
+
+    <!-- Header-like background -->
+    <section class="preview-section" aria-labelledby="header-preview-label">
+      <p class="preview-label" id="header-preview-label">Header background preview</p>
+      <div class="preview-surface preview-surface--header">
+        <div class="variant-list" style="padding: 1.5rem 0;">
+
+          <article class="variant-item">
+            <div class="preview-bar">
+              <a href="#" class="logo variant-a" aria-label="Perfect Blue — Variant A">
+                <div class="logo-icon">
+                  <span class="logo-icon-text">PB</span>
+                </div>
+                <span class="logo-wordmark">Perfect Blue</span>
+              </a>
+            </div>
+            <p class="variant-meta">
+              <strong>Variant A — Wordmark Soft Reflection</strong><br>
+              Diagonal sweep across full wordmark text. Soft organic gradient with multiple highlight bands.<br>
+              <em>Production note:</em> Reduce opacity to 45%, extend timing to ~55s for ambient premium polish.
+            </p>
+          </article>
+
+          <article class="variant-item">
+            <div class="preview-bar">
+              <a href="#" class="logo variant-b" aria-label="Perfect Blue — Variant B">
+                <div class="logo-icon">
+                  <span class="logo-icon-text">PB</span>
+                </div>
+                <span class="logo-wordmark">
+                  <span class="logo-word logo-word--perfect">Perfect</span> <span class="logo-word logo-word--blue">Blue</span>
+                </span>
+              </a>
+            </div>
+            <p class="variant-meta">
+              <strong>Variant B — Blue Word Glint</strong> <span style="color: #2563eb; font-weight: 600;">← RECOMMENDED</span><br>
+              Focused elliptical glint primarily on "Blue" with subtle secondary touch on "Perfect". Natural, accidental feel.<br>
+              <em>Production note:</em> Reduce opacity to 50%, extend timing to ~72s. Most premium and Mediterranean feel.
+            </p>
+          </article>
+
+          <article class="variant-item">
+            <div class="preview-bar">
+              <a href="#" class="logo variant-c" aria-label="Perfect Blue — Variant C">
+                <div class="logo-icon">
+                  <span class="logo-icon-text">PB</span>
+                </div>
+                <span class="logo-wordmark">Perfect Blue</span>
+              </a>
+            </div>
+            <p class="variant-meta">
+              <strong>Variant C — Broken Water Reflection</strong><br>
+              Multiple irregular bands (2–3 layers) moving together but offset. Suggests water-reflected light organically.<br>
+              <em>Production note:</em> Reduce opacity to 40%, extend to ~68s. Most organic/natural, but slightly busier.
+            </p>
+          </article>
+
+          <article class="variant-item">
+            <div class="preview-bar">
+              <a href="#" class="logo variant-d" aria-label="Perfect Blue — Variant D">
+                <div class="logo-icon">
+                  <span class="logo-icon-text">PB</span>
+                </div>
+                <span class="logo-wordmark">Perfect Blue</span>
+              </a>
+            </div>
+            <p class="variant-meta">
+              <strong>Variant D — Almost Static Text Sheen</strong><br>
+              Minimal luminous accent with imperceptible 3px drift over very long cycle. Nearly still.<br>
+              <em>Production note:</em> Keep current opacity (~30%), extend to ~180s or make fully static. Safest fallback.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Neutral white background -->
+    <section class="preview-section" aria-labelledby="neutral-preview-label">
+      <p class="preview-label" id="neutral-preview-label">Neutral white background</p>
+      <div class="preview-surface preview-surface--neutral">
+        <div class="variant-list" style="padding: 1.5rem 0;">
+
+          <article class="variant-item">
+            <div class="preview-bar">
+              <a href="#" class="logo variant-a" tabindex="-1" aria-hidden="true">
+                <div class="logo-icon">
+                  <span class="logo-icon-text">PB</span>
+                </div>
+                <span class="logo-wordmark">Perfect Blue</span>
+              </a>
+            </div>
+          </article>
+
+          <article class="variant-item">
+            <div class="preview-bar">
+              <a href="#" class="logo variant-b" tabindex="-1" aria-hidden="true">
+                <div class="logo-icon">
+                  <span class="logo-icon-text">PB</span>
+                </div>
+                <span class="logo-wordmark">
+                  <span class="logo-word logo-word--perfect">Perfect</span> <span class="logo-word logo-word--blue">Blue</span>
+                </span>
+              </a>
+            </div>
+          </article>
+
+          <article class="variant-item">
+            <div class="preview-bar">
+              <a href="#" class="logo variant-c" tabindex="-1" aria-hidden="true">
+                <div class="logo-icon">
+                  <span class="logo-icon-text">PB</span>
+                </div>
+                <span class="logo-wordmark">Perfect Blue</span>
+              </a>
+            </div>
+          </article>
+
+          <article class="variant-item">
+            <div class="preview-bar">
+              <a href="#" class="logo variant-d" tabindex="-1" aria-hidden="true">
+                <div class="logo-icon">
+                  <span class="logo-icon-text">PB</span>
+                </div>
+                <span class="logo-wordmark">Perfect Blue</span>
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="preview-section">
+      <p class="preview-label">Implementation notes</p>
+      <div style="font-size: 0.8125rem; color: #475569; line-height: 1.6; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.375rem; padding: 1rem;">
+        <p style="margin: 0 0 0.75rem;"><strong>Most natural:</strong> Variant B (Blue Word Glint) — focused, premium, Mediterranean feel</p>
+        <p style="margin: 0 0 0.75rem;"><strong>Most premium:</strong> Variant B — elliptical radial gradient feels like quality detail</p>
+        <p style="margin: 0 0 0.75rem;"><strong>Safest for production:</strong> Variant D (Almost Static) — minimal motion risk</p>
+        <p style="margin: 0 0 0.75rem;"><strong>Recommended:</strong> <span style="color: #2563eb; font-weight: 600;">Variant B</span> at 50% opacity, 72s cycle</p>
+        <p style="margin: 0;"><strong>Transfer to Header.tsx:</strong> Add pseudo-element to <code>.logo-wordmark</code> span, wrap "Blue" in separate span for focused effect, CSS-only implementation</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

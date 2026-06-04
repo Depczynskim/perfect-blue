@@ -31,28 +31,44 @@
   },
   "home": {
     "hero": {
-      "title": "Znajdź swoje",
-      "titleHighlight": "idealne miejsce",
-      "description": "Portal ogłoszeń nieruchomości z intuicyjną mapą i prostym wyszukiwaniem. Dodaj ogłoszenie za darmo i docieraj do zainteresowanych.",
+      "brand": "Perfect Blue",
+      "subtitleBefore": "Znajdź idealne miejsce w ",
+      "subtitleHighlight": "Katalonii",
+      "description": "Przeglądaj aktywne ogłoszenia nieruchomości od właścicieli i agencji. Korzystaj z Perfect Blue w swoim języku i kontaktuj się ze sprzedającymi bezpośrednio.",
+      "imageAlt": "Śródziemnomorskie niebo i morze w słońcu nad wybrzeżem Katalonii",
       "browseListings": "Przeglądaj ogłoszenia",
       "addListing": "Dodaj ogłoszenie"
     },
     "features": {
-      "mapSearch": {
-        "title": "Wyszukiwanie na mapie",
-        "description": "Znajdź nieruchomości w wybranej lokalizacji dzięki interaktywnej mapie."
+      "activeListings": {
+        "title": "Aktywne ogłoszenia",
+        "description": "Przeglądaj aktualne nieruchomości na sprzedaż i wynajem w całej Katalonii."
       },
-      "freeListings": {
-        "title": "Darmowe ogłoszenia",
-        "description": "Dodawanie ogłoszeń jest całkowicie bezpłatne. Płacisz tylko za kontakt."
+      "multilingualPlatform": {
+        "title": "Wielojęzyczna platforma",
+        "description": "Korzystaj z Perfect Blue w pięciu językach i tłumacz ogłoszenia, gdy potrzebujesz."
       },
-      "securePayments": {
-        "title": "Bezpieczne płatności",
-        "description": "Płatności obsługiwane przez Stripe. Dane kontaktowe chronione."
+      "directContact": {
+        "title": "Bezpośredni kontakt",
+        "description": "Kontaktuj się z właścicielami i agencjami bezpośrednio, bez zbędnych kroków."
       }
     },
+    "sellerCta": {
+      "title": "Sprzedajesz lub wynajmujesz nieruchomość?",
+      "description": "Dodaj ogłoszenie za darmo i dotrzyj do kupujących szukających w Katalonii.",
+      "cta": "Dodaj nieruchomość już dziś"
+    },
     "footer": {
-      "rights": "© 2025 Perfect Blue. Wszelkie prawa zastrzeżone."
+      "tagline": "Nieruchomości w Katalonii. Prosto. Przejrzyście. Lokalnie.",
+      "about": "O nas",
+      "howItWorks": "Jak to działa",
+      "contact": "Kontakt",
+      "privacy": "Prywatność",
+      "terms": "Regulamin",
+      "rights": "© 2026 Perfect Blue. Wszelkie prawa zastrzeżone.",
+      "socialFacebook": "Facebook",
+      "socialInstagram": "Instagram",
+      "socialEmail": "E-mail"
     }
   },
   "listings": {

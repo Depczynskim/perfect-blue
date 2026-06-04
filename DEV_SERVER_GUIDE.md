@@ -87,10 +87,10 @@ lsof -ti:3008
 ulimit -n 10240 && npm run dev -- --port 3008
 ```
 
-### Issue 4: Missing Next.js Vendor Chunk (`@supabase.js`)
+### Issue 4: Missing Next.js Vendor Chunk (`@supabase.js`, `@formatjs.js`, numeric chunks)
 
 **Symptoms:**
-- Error: `Cannot find module './vendor-chunks/@supabase.js'`
+- Error: `Cannot find module './vendor-chunks/@supabase.js'` (or `@formatjs.js`, or `./8948.js` / similar)
 - Require stack points into `.next/server/...` (for example `webpack-runtime.js`)
 - Often appears after repeated dev-server restarts or stale build artifacts
 

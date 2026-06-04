@@ -31,28 +31,44 @@
   },
   "home": {
     "hero": {
-      "title": "Finden Sie Ihren",
-      "titleHighlight": "perfekten Ort",
-      "description": "Immobilienportal mit intuitiver Karte und einfacher Suche. Fügen Sie kostenlos Anzeigen hinzu und erreichen Sie interessierte Käufer.",
+      "brand": "Perfect Blue",
+      "subtitleBefore": "Finden Sie Ihren perfekten Ort in ",
+      "subtitleHighlight": "Katalonien",
+      "description": "Durchsuchen Sie aktive Immobilienanzeigen von Eigentümern und Agenturen. Nutzen Sie Perfect Blue in Ihrer Sprache und kontaktieren Sie Verkäufer direkt.",
+      "imageAlt": "Mittelmeer mit blauem Himmel und Meer in der Sonne an der katalanischen Küste",
       "browseListings": "Anzeigen durchsuchen",
       "addListing": "Anzeige hinzufügen"
     },
     "features": {
-      "mapSearch": {
-        "title": "Kartensuche",
-        "description": "Finden Sie Immobilien an Ihrem gewünschten Standort mit unserer interaktiven Karte."
+      "activeListings": {
+        "title": "Aktive Anzeigen",
+        "description": "Durchsuchen Sie aktuelle Immobilien zum Kauf und zur Miete in ganz Katalonien."
       },
-      "freeListings": {
-        "title": "Kostenlose Anzeigen",
-        "description": "Das Hinzufügen von Anzeigen ist völlig kostenlos. Zahlen Sie nur für den Kontaktzugriff."
+      "multilingualPlatform": {
+        "title": "Mehrsprachige Plattform",
+        "description": "Nutzen Sie Perfect Blue in fünf Sprachen und übersetzen Sie Anzeigen bei Bedarf."
       },
-      "securePayments": {
-        "title": "Sichere Zahlungen",
-        "description": "Zahlungen werden von Stripe abgewickelt. Kontaktdaten geschützt."
+      "directContact": {
+        "title": "Direkter Kontakt",
+        "description": "Kontaktieren Sie Eigentümer und Agenturen direkt, ohne unnötige Schritte."
       }
     },
+    "sellerCta": {
+      "title": "Verkaufen oder vermieten Sie eine Immobilie?",
+      "description": "Fügen Sie Ihre Immobilie kostenlos hinzu und erreichen Sie Käufer in Katalonien.",
+      "cta": "Immobilie heute hinzufügen"
+    },
     "footer": {
-      "rights": "© 2025 Perfect Blue. Alle Rechte vorbehalten."
+      "tagline": "Immobilien in Katalonien. Einfach. Transparent. Lokal.",
+      "about": "Über uns",
+      "howItWorks": "So funktioniert es",
+      "contact": "Kontakt",
+      "privacy": "Datenschutz",
+      "terms": "AGB",
+      "rights": "© 2026 Perfect Blue. Alle Rechte vorbehalten.",
+      "socialFacebook": "Facebook",
+      "socialInstagram": "Instagram",
+      "socialEmail": "E-Mail"
     }
   },
   "listings": {

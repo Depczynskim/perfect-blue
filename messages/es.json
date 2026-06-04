@@ -31,28 +31,44 @@
   },
   "home": {
     "hero": {
-      "title": "Encuentra tu",
-      "titleHighlight": "lugar perfecto",
-      "description": "Portal inmobiliario con mapa intuitivo y búsqueda simple. Añade anuncios gratis y llega a compradores interesados.",
+      "brand": "Perfect Blue",
+      "subtitleBefore": "Encuentra tu lugar perfecto en ",
+      "subtitleHighlight": "Cataluña",
+      "description": "Explora anuncios activos de propietarios y agencias. Usa Perfect Blue en tu idioma y contacta con los vendedores directamente.",
+      "imageAlt": "Cielo azul y mar mediterráneo con luz solar en la costa de Cataluña",
       "browseListings": "Ver Anuncios",
       "addListing": "Añadir Anuncio"
     },
     "features": {
-      "mapSearch": {
-        "title": "Búsqueda en Mapa",
-        "description": "Encuentra propiedades en tu ubicación deseada con nuestro mapa interactivo."
+      "activeListings": {
+        "title": "Anuncios activos",
+        "description": "Explora propiedades actuales en venta y alquiler en toda Cataluña."
       },
-      "freeListings": {
-        "title": "Anuncios Gratuitos",
-        "description": "Añadir anuncios es completamente gratis. Paga solo por acceso al contacto."
+      "multilingualPlatform": {
+        "title": "Plataforma multilingüe",
+        "description": "Usa Perfect Blue en cinco idiomas y traduce los anuncios cuando lo necesites."
       },
-      "securePayments": {
-        "title": "Pagos Seguros",
-        "description": "Pagos procesados por Stripe. Datos de contacto protegidos."
+      "directContact": {
+        "title": "Contacto directo",
+        "description": "Contacta con propietarios y agencias directamente, sin pasos innecesarios."
       }
     },
+    "sellerCta": {
+      "title": "¿Vendes o alquilas una propiedad?",
+      "description": "Añade tu propiedad gratis y llega a compradores que buscan en Cataluña.",
+      "cta": "Añade tu propiedad hoy"
+    },
     "footer": {
-      "rights": "© 2025 Perfect Blue. Todos los derechos reservados."
+      "tagline": "Inmobiliaria en Cataluña. Simple. Transparente. Local.",
+      "about": "Sobre nosotros",
+      "howItWorks": "Cómo funciona",
+      "contact": "Contacto",
+      "privacy": "Privacidad",
+      "terms": "Términos",
+      "rights": "© 2026 Perfect Blue. Todos los derechos reservados.",
+      "socialFacebook": "Facebook",
+      "socialInstagram": "Instagram",
+      "socialEmail": "Correo"
     }
   },
   "listings": {

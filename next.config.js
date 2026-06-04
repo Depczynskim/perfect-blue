@@ -5,6 +5,17 @@ const withNextIntl = require('next-intl/plugin')(
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Avoid stale vendor-chunks during dev HMR (split chunks outliving .next cache).
+  experimental: {
+    serverComponentsExternalPackages: [
+      '@supabase/supabase-js',
+      '@supabase/ssr',
+      '@formatjs/ecma402-abstract',
+      '@formatjs/icu-messageformat-parser',
+      '@formatjs/intl-localematcher',
+      '@formatjs/fast-memoize',
+    ],
+  },
   webpack: (config, { dev }) => {
     if (dev) {
       config.watchOptions = {

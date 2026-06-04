@@ -31,28 +31,44 @@
   },
   "home": {
     "hero": {
-      "title": "Find your",
-      "titleHighlight": "perfect place",
-      "description": "Real estate portal with intuitive map and simple search. Add listings for free and reach interested buyers.",
+      "brand": "Perfect Blue",
+      "subtitleBefore": "Find your perfect place in ",
+      "subtitleHighlight": "Catalonia",
+      "description": "Browse active property listings from owners and agencies. Use Perfect Blue in your language and contact sellers directly.",
+      "imageAlt": "Mediterranean blue sky and sea with sunlight along the Catalonia coast",
       "browseListings": "Browse Listings",
       "addListing": "Add Listing"
     },
     "features": {
-      "mapSearch": {
-        "title": "Map Search",
-        "description": "Find properties in your desired location with our interactive map."
+      "activeListings": {
+        "title": "Active Listings",
+        "description": "Browse current properties for sale and rent across Catalonia."
       },
-      "freeListings": {
-        "title": "Free Listings",
-        "description": "Adding listings is completely free. Pay only for contact access."
+      "multilingualPlatform": {
+        "title": "Multilingual Platform",
+        "description": "Use Perfect Blue in five languages and translate listings when needed."
       },
-      "securePayments": {
-        "title": "Secure Payments",
-        "description": "Payments powered by Stripe. Contact data protected."
+      "directContact": {
+        "title": "Direct Contact",
+        "description": "Contact owners and agencies directly, without unnecessary steps."
       }
     },
+    "sellerCta": {
+      "title": "Selling or renting out a property?",
+      "description": "Add your property for free and reach buyers looking in Catalonia.",
+      "cta": "Add your property today"
+    },
     "footer": {
-      "rights": "© 2025 Perfect Blue. All rights reserved."
+      "tagline": "Real estate in Catalonia. Simple. Transparent. Local.",
+      "about": "About",
+      "howItWorks": "How It Works",
+      "contact": "Contact",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "rights": "© 2026 Perfect Blue. All rights reserved.",
+      "socialFacebook": "Facebook",
+      "socialInstagram": "Instagram",
+      "socialEmail": "Email"
     }
   },
   "listings": {

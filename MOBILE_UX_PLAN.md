@@ -94,7 +94,7 @@ Use for every view before marking implementation complete:
 | View | Status | Investigation date | Implementation date | Notes | Follow-up needed |
 |------|--------|----------------------|---------------------|-------|------------------|
 | Listings index (`/[locale]/listings`) | Done | 2026-05-29 | 2026-05-30 | Mobile 2×2 filters; card/city/empty-state Batch 1; **card map preview tap on location row** (Batch 2) | Listing titles on cards; loading/error UI; optional mobile label copy polish |
-| Listing detail (`/[locale]/listings/[id]`) | In progress | 2026-05-30 | 2026-05-30 | Batches 1–3: hierarchy + action card; **Batch 4:** mobile “Added on” under H1 | Gallery, description/map padding; full per-view checklist QA |
+| Listing detail (`/[locale]/listings/[id]`) | In progress | 2026-05-30 | 2026-05-31 | Batches 1–5 shipped (compact line, hierarchy, action card, freshness line, **fixed contact bar + map layering**); builds passed; pushed `a0d21b8` | Manual QA; gallery; description/map padding |
 | Add listing (`/[locale]/listings/new`) | Not started | | | | |
 | Edit listing (`/[locale]/listings/[id]/edit`) | Not started | | | | |
 | Messages list (`/[locale]/messages`) | Not started | | | | |
@@ -106,7 +106,7 @@ Use for every view before marking implementation complete:
 
 **Status values:** `Not started` · `Investigation done` · `In progress` · `Done` · `Blocked`
 
-### Completed mobile pass summary (2026-05-28 – 2026-05-29)
+### Completed mobile pass summary (2026-05-28 – 2026-05-31)
 
 **Header / navigation**
 
@@ -119,6 +119,16 @@ Use for every view before marking implementation complete:
 * Transaction filters: mobile **2×2 grid** with four direct short-label links (All, long rent, short rent, sale); URL-only active state; desktop four-option row unchanged at `md+`.
 * **Batch 1 usability:** `min-h-11` filter chips; card price `break-words`; photo arrows visible on mobile; city clear button touch target + logical spacing; empty-state padding.
 * **Batch 2 map preview:** On touch/coarse-pointer devices, tap full location row opens map overlay; dismiss via overlay tap, tap outside card, or Escape; desktop pin-hover unchanged; `ListingMap` `interactive={false}` in preview only.
+
+**Listing detail**
+
+* Mobile compact facts line replaces 2×2 property tiles below `lg`; desktop four-tile grid unchanged.
+* Mobile order: gallery → H1 → Added on → action card (price → facts; owner edit only) → description → map; **fixed bottom contact bar** for non-owners.
+* Action card: centered `text-3xl` price; rent price labels hidden on mobile; stronger centered facts line; **no inline ContactButton** for non-owners (single CTA in fixed bar).
+* **`ListingDetailContact`:** one `ContactButton` mount via `useSyncExternalStore` — `placement="mobile-fixed"` (fixed bar, `variant="plain"`) or `placement="desktop-sidebar"` (default variant); owner view has no fixed bar.
+* Fixed bar: opaque white, `z-50`, safe-area bottom padding, `max-h-[70vh] overflow-y-auto` for expanded message form; page `pb-28 lg:pb-0` so map/content scroll above bar.
+* **Map layering:** listing-detail map wrapper (`listing-detail-map relative z-0 isolate`); scoped Leaflet z-index caps in `globals.css` so tiles/controls stay below fixed bar; header menu (`z-[60]`) and lightbox (`z-[2000]`) unchanged.
+* “Added on” freshness line under H1 on mobile; bottom added-date card removed; desktop sticky sidebar and property tiles preserved.
 
 ---
 
@@ -136,6 +146,8 @@ Use for every view before marking implementation complete:
 | 2026-05-30 | Listing detail (`/[locale]/listings/[id]`) | Batch 2: mobile action card after H1 (price → compact line → CTA); `hidden lg:block` desktop sidebar; desktop-only property tiles; mobile added date after map; smaller H1 (`text-2xl lg:text-3xl`) | Fixes mobile hierarchy so price/contact appear before description/map; desktop sticky sidebar and tiles unchanged |
 | 2026-05-30 | Listing detail (`/[locale]/listings/[id]`) | Batch 3: mobile action card refinement — centered `text-3xl` price; hide rent price labels on mobile; stronger facts line; `ContactButton variant="plain"` (no inner bordered card); lighter owner banner | Removes card-in-card feel; desktop sidebar ContactButton default unchanged |
 | 2026-05-30 | Listing detail (`/[locale]/listings/[id]`) | Batch 4: mobile “Added on” moved under H1 as subtle freshness line; removed bottom mobile added-date card; desktop sidebar unchanged | Surfaces listing freshness early without competing with price/CTA |
+| 2026-05-31 | Listing detail (`/[locale]/listings/[id]`) | Batch 5: `ListingDetailContact` — single `ContactButton` mount; fixed bottom bar on mobile for non-owners; inline CTA removed from action card; `pb-28 lg:pb-0` | Eliminates duplicate “Write message” CTAs; contact state stays in one component instance |
+| 2026-05-31 | Listing detail (`/[locale]/listings/[id]`) | Batch 5 (layering): `.listing-detail-map` + scoped Leaflet z-index caps; fixed bar `z-50` | Prevents Leaflet panes/controls (default z-index 400–1000) from painting over the fixed contact bar while scrolling |
 
 ---
 
@@ -143,12 +155,25 @@ Use for every view before marking implementation complete:
 
 The next mobile QA target is:
 
-**`/[locale]/listings/[id]`** (listing detail)
+**`/[locale]/listings/[id]`** (listing detail) — **In progress** (implementation batches 1–5 complete; manual QA pending)
 
-**Next step:** Manual QA for Batch 4 (mobile order: gallery → H1 → Added on → action card → description → map); then investigate remaining listing detail mobile issues (gallery, description/map padding).
+**Next step:** Manual QA on production/local at **320, 375, 390, 414** px:
+
+* Mobile order: gallery → H1 → Added on → action card (price + facts) → description → map; **fixed bottom contact bar** (non-owner only)
+* Single contact CTA on mobile — no duplicate button in action card
+* Scroll map area — tiles/controls must not overlap fixed bar; bar remains tappable
+* Locales: `pl`, `en`, `es`, `de`, `ar` (incl. RTL)
+* States: owner (edit in action card, no fixed bar), logged-in contact, logged-out, expanded message form, success/error
+* Desktop `lg+`: sticky sidebar, default `ContactButton`, property tiles unchanged; no fixed bottom bar
+
+Then investigate remaining listing detail issues (gallery, description/map padding) before marking **Done**.
+
+**After listing detail is Done**, next view: **`/[locale]/listings/new`** (Add listing) — investigation only.
 
 **Likely entry points (listing detail follow-up):**
 
-* `src/app/[locale]/listings/[id]/page.tsx` — property summary Batch 1–2 done
-* `src/components/listings/` — gallery, map, contact, description, etc.
+* `src/app/[locale]/listings/[id]/page.tsx`
+* `src/components/listings/ListingDetailContact.tsx` — mobile fixed / desktop sidebar contact
+* `src/components/listings/` — gallery, map, description
+* `src/app/globals.css` — `.listing-detail-map` Leaflet z-index caps
 * `messages/*/listingDetail.json` (and related namespaces)
