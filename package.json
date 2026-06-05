@@ -8,7 +8,12 @@
     "start": "next start",
     "lint": "next lint",
     "backfill:city": "node scripts/backfill-city.mjs",
-    "cities:import": "node scripts/import-cities.mjs"
+    "cities:import": "node scripts/import-cities.mjs",
+    "screenshot:home:desktop": "mkdir -p screenshots/home && npx playwright screenshot http://localhost:3008/pl screenshots/home/home-desktop-1440.png --viewport-size=1440,1000 --full-page",
+    "screenshot:home:mobile:375": "mkdir -p screenshots/home && npx playwright screenshot http://localhost:3008/pl screenshots/home/home-mobile-375.png --viewport-size=375,812 --full-page",
+    "screenshot:home:mobile:390": "mkdir -p screenshots/home && npx playwright screenshot http://localhost:3008/pl screenshots/home/home-mobile-390.png --viewport-size=390,844 --full-page",
+    "screenshot:home:mobile:414": "mkdir -p screenshots/home && npx playwright screenshot http://localhost:3008/pl screenshots/home/home-mobile-414.png --viewport-size=414,896 --full-page",
+    "screenshot:home:all": "npm run screenshot:home:desktop && npm run screenshot:home:mobile:375 && npm run screenshot:home:mobile:390 && npm run screenshot:home:mobile:414"
   },
   "dependencies": {
     "@stripe/stripe-js": "^8.6.1",

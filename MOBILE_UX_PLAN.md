@@ -102,7 +102,7 @@ Use for every view before marking implementation complete:
 | Profile (`/[locale]/profile`) | Not started | | | | |
 | Auth (login / register) | Not started | | | | |
 | Header / nav / language selector | Done | 2026-05-28 | 2026-05-28 | Hamburger + panel below `lg`; language selector stays in top bar; desktop inline nav at `lg+` | LanguageSelector dropdown RTL (`end-0`) optional follow-up |
-| Home (`/[locale]/`) | Not started | | | | Header fix improves home mobile nav; dedicated home QA not done |
+| Home (`/[locale]/`) | In progress | 2026-06-02 | 2026-06-04 | Mockup-driven redesign: photo hero, feature cards, seller CTA, white footer; overlap on `md+` only; see `Homepage_Mockup/COMPARISON.md` | Manual mobile QA (320–414px); mockup gaps: centered hero on mobile, seller CTA below fold check |
 
 **Status values:** `Not started` · `Investigation done` · `In progress` · `Done` · `Blocked`
 
@@ -130,6 +130,40 @@ Use for every view before marking implementation complete:
 * **Map layering:** listing-detail map wrapper (`listing-detail-map relative z-0 isolate`); scoped Leaflet z-index caps in `globals.css` so tiles/controls stay below fixed bar; header menu (`z-[60]`) and lightbox (`z-[2000]`) unchanged.
 * “Added on” freshness line under H1 on mobile; bottom added-date card removed; desktop sticky sidebar and property tiles preserved.
 
+### Home implementation summary (2026-06-02 – 2026-06-04)
+
+**Reference mockup:** `Homepage_Mockup/Homepage_Desired_Layout.png` · **Tracker:** `Homepage_Mockup/COMPARISON.md`
+
+**Workflow used:** small batches → `npm run build` → stop → user screenshots vs mockup (Agent does not see live browser).
+
+**Components (new / refactored):**
+
+* `src/components/home/HomeHero.tsx` — full-width photo hero (`next/image`, mobile + desktop WebP), gradient overlay, `max-w-7xl` content grid
+* `src/components/home/HomeFeatures.tsx` — three feature cards; **mobile:** icon left + text right (`flex-row`); **desktop (`md+`):** centered stack
+* `src/components/home/HomeSellerCta.tsx` — seller/renter band → `/{locale}/listings/new`
+* `src/components/home/HomeFooter.tsx` — white footer, tagline, link row, social icons, centered ©
+* `src/app/[locale]/page.tsx` — composes sections; feature overlap via inner container `md:-mt-24 lg:-mt-28` (no section bg in overlap zone)
+
+**Mobile-relevant behaviour (code):**
+
+* Hero heights: `h-[420px]` → `sm:h-[440px]`; desktop taller at `md+`; separate mobile hero image (`public/images/home-hero-blue-coast-mobile.webp`)
+* Hero CTAs: full-width stacked below `md`, `min-h-11`; side-by-side from `md+`
+* Feature cards: **no** negative overlap on mobile (`pt-6` / `sm:pt-8` only)
+* `main` has `overflow-x-hidden`
+* Copy: `messages/*/home` (5 locales)
+
+**Intentionally unchanged:**
+
+* `Header.tsx` (mockup shows different nav / EN pill — deferred)
+* Listing routes, Supabase, Stripe, SEO routes
+
+**Screenshot review notes (2026-06-04, iPhone SE ~375px):**
+
+* Hero readable; CTAs stacked; hamburger header OK
+* Feature cards stack vertically; icon-left layout in code — verify on device after refresh
+* Seller CTA band may sit below fold — scroll QA needed
+* Footer: white bg aligned with mockup (was dark, corrected)
+
 ---
 
 ## Decision log
@@ -148,32 +182,44 @@ Use for every view before marking implementation complete:
 | 2026-05-30 | Listing detail (`/[locale]/listings/[id]`) | Batch 4: mobile “Added on” moved under H1 as subtle freshness line; removed bottom mobile added-date card; desktop sidebar unchanged | Surfaces listing freshness early without competing with price/CTA |
 | 2026-05-31 | Listing detail (`/[locale]/listings/[id]`) | Batch 5: `ListingDetailContact` — single `ContactButton` mount; fixed bottom bar on mobile for non-owners; inline CTA removed from action card; `pb-28 lg:pb-0` | Eliminates duplicate “Write message” CTAs; contact state stays in one component instance |
 | 2026-05-31 | Listing detail (`/[locale]/listings/[id]`) | Batch 5 (layering): `.listing-detail-map` + scoped Leaflet z-index caps; fixed bar `z-50` | Prevents Leaflet panes/controls (default z-index 400–1000) from painting over the fixed contact bar while scrolling |
+| 2026-06-04 | Home (`/[locale]/`) | Mockup-driven homepage redesign in small batches; user screenshot verification after each batch | Align live home with `Homepage_Mockup/Homepage_Desired_Layout.png` without Header / backend / SEO changes |
+| 2026-06-04 | Home (`/[locale]/`) | Photo hero via `HomeHero` + local WebP (`public/images/home-hero-blue-coast-*.webp`); `next/image` with `priority` | Mediterranean brand hero; LCP-friendly static assets |
+| 2026-06-04 | Home (`/[locale]/`) | Feature-card overlap on `md+` only: inner container `md:-mt-24 lg:-mt-28`; transparent overlap zone (no `bg-slate-50` on pull-up section) | Match mockup “floating” cards on hero image; avoid grey band over sea/sky |
+| 2026-06-04 | Home (`/[locale]/`) | Hero + feature + footer content in shared `max-w-7xl px-4 sm:px-6 lg:px-8` grid | Align with header logo column; fix text hugging viewport edge on desktop |
+| 2026-06-04 | Home (`/[locale]/`) | Footer: white background, dark text, © under center link row (`HomeFooter.tsx`) | Match mockup; replaces interim dark footer |
+| 2026-06-04 | Home (`/[locale]/`) | Header unchanged; mockup centered nav / EN pill deferred | Prior scope constraint; separate pass if approved |
 
 ---
 
 ## Current first task
 
-The next mobile QA target is:
+### Primary: Home mobile QA (`/[locale]/`)
 
-**`/[locale]/listings/[id]`** (listing detail) — **In progress** (implementation batches 1–5 complete; manual QA pending)
+**Status:** In progress — implementation shipped **2026-06-04**; per-view checklist **not** complete.
 
-**Next step:** Manual QA on production/local at **320, 375, 390, 414** px:
+**Next step:** Manual QA on production/local at **320, 375, 390, 414** px (and spot-check `ar` RTL):
 
-* Mobile order: gallery → H1 → Added on → action card (price + facts) → description → map; **fixed bottom contact bar** (non-owner only)
-* Single contact CTA on mobile — no duplicate button in action card
-* Scroll map area — tiles/controls must not overlap fixed bar; bar remains tappable
-* Locales: `pl`, `en`, `es`, `de`, `ar` (incl. RTL)
-* States: owner (edit in action card, no fixed bar), logged-in contact, logged-out, expanded message form, success/error
-* Desktop `lg+`: sticky sidebar, default `ContactButton`, property tiles unchanged; no fixed bottom bar
+* Hero: mobile image crop, text readability, stacked CTAs (`min-h-11`), no horizontal overflow
+* Feature cards: icon-left + text on mobile; no overlap cramming; long locale strings (`de`, `pl`, `ar`)
+* Seller CTA: visible after scroll; button tappable; layout on narrow width
+* Footer: white bg, three-column / stacked mobile, link row readable
+* Desktop `md+`: card overlap on hero, grid alignment — regression check only
 
-Then investigate remaining listing detail issues (gallery, description/map padding) before marking **Done**.
+**Entry points:**
 
-**After listing detail is Done**, next view: **`/[locale]/listings/new`** (Add listing) — investigation only.
+* `src/app/[locale]/page.tsx`
+* `src/components/home/` — `HomeHero`, `HomeFeatures`, `HomeSellerCta`, `HomeFooter`
+* `messages/*/home`
+* `Homepage_Mockup/Homepage_Desired_Layout.png`
+* `Homepage_Mockup/COMPARISON.md`
 
-**Likely entry points (listing detail follow-up):**
+Mark Home **Done** only after per-view checklist above passes (or document intentional mockup deviations).
 
-* `src/app/[locale]/listings/[id]/page.tsx`
-* `src/components/listings/ListingDetailContact.tsx` — mobile fixed / desktop sidebar contact
-* `src/components/listings/` — gallery, map, description
-* `src/app/globals.css` — `.listing-detail-map` Leaflet z-index caps
-* `messages/*/listingDetail.json` (and related namespaces)
+### Also open: Listing detail manual QA
+
+**`/[locale]/listings/[id]`** — **In progress** (batches 1–5 shipped; manual QA still pending from 2026-05-31).
+
+* Gallery, description/map padding follow-ups before **Done**
+* After listing detail **Done** → **`/[locale]/listings/new`** (investigation only)
+
+**Listing detail entry points:** `src/app/[locale]/listings/[id]/page.tsx`, `ListingDetailContact.tsx`, `globals.css` (`.listing-detail-map`), `messages/*/listingDetail`

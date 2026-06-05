@@ -8,13 +8,13 @@ type FeatureCardProps = {
 
 function FeatureCard({ icon, title, description }: FeatureCardProps) {
   return (
-    <div className="rounded-xl border border-slate-200/90 bg-white p-6 shadow-[0_1px_3px_rgba(15,23,42,0.06),0_4px_14px_rgba(15,23,42,0.05)] sm:p-8">
+    <div className="rounded-xl border border-slate-200/90 bg-white p-6 shadow-[0_1px_3px_rgba(15,23,42,0.06),0_4px_14px_rgba(15,23,42,0.05)] sm:p-8 md:p-10 md:shadow-[0_2px_6px_rgba(15,23,42,0.08),0_10px_28px_rgba(15,23,42,0.10)]">
       <div className="flex flex-row items-start gap-4 text-start md:flex-col md:items-center md:gap-0 md:text-center">
-        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-primary-50 md:mx-auto md:mb-4">
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-primary-50 md:mx-auto md:mb-4 md:h-16 md:w-16">
           {icon}
         </div>
         <div className="min-w-0 flex-1 md:flex-none">
-          <h3 className="mb-2 text-lg font-semibold text-primary-600">{title}</h3>
+          <h3 className="mb-2 text-lg font-semibold text-primary-600 md:text-slate-900">{title}</h3>
           <p className="text-sm leading-relaxed text-slate-600 sm:text-base">{description}</p>
         </div>
       </div>
@@ -39,7 +39,7 @@ export function HomeFeatures({
   directContactTitle,
   directContactDescription,
 }: HomeFeaturesProps) {
-  const iconClass = 'h-7 w-7 text-primary-600';
+  const iconClass = 'h-7 w-7 text-primary-600 md:h-8 md:w-8';
 
   return (
     <div className="grid gap-5 sm:gap-6 md:grid-cols-3 md:gap-8">
@@ -48,7 +48,7 @@ export function HomeFeatures({
         description={activeListingsDescription}
         icon={
           <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
           </svg>
         }
       />
@@ -57,7 +57,7 @@ export function HomeFeatures({
         description={multilingualDescription}
         icon={
           <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
           </svg>
         }
       />
@@ -66,7 +66,7 @@ export function HomeFeatures({
         description={directContactDescription}
         icon={
           <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l3.586-3.586z" />
           </svg>
         }
       />

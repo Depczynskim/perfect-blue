@@ -10,25 +10,24 @@ export type HomeSellerCtaProps = {
 function HouseIllustration() {
   return (
     <svg
-      className="h-24 w-28 shrink-0 text-primary-600 sm:h-28 sm:w-32"
+      className="h-24 w-28 shrink-0 text-primary-600 sm:h-28 sm:w-32 lg:h-32 lg:w-36"
       viewBox="0 0 112 96"
       fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       aria-hidden
     >
-      <path
-        d="M8 44L56 12l48 32v40H8V44z"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M40 84V56h32v28"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinejoin="round"
-      />
-      <circle cx="88" cy="72" r="10" stroke="currentColor" strokeWidth="2" />
-      <path d="M84 72h8M88 68v8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M6 82h100" />
+      <path d="M14 50L44 24l30 26" />
+      <path d="M20 50v32h48V50" />
+      <path d="M36 82V62h16v20" />
+      <path d="M26 56h8v8h-8z" />
+      <path d="M88 82V57" />
+      <circle cx="88" cy="46" r="11" />
+      <path d="M102 82V68" />
+      <circle cx="102" cy="60" r="8" />
     </svg>
   );
 }
@@ -43,20 +42,20 @@ function ArrowRightIcon({ className }: { className?: string }) {
 
 export function HomeSellerCta({ locale, title, description, cta }: HomeSellerCtaProps) {
   return (
-    <section className="bg-primary-50/80 py-10 sm:py-12 md:py-14">
+    <section className="bg-white py-4 sm:py-6 md:pt-6 md:pb-8">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center gap-6 rounded-2xl border border-primary-100 bg-primary-50 px-6 py-8 sm:px-8 md:flex-row md:items-center md:justify-between md:gap-10 md:py-10">
+        <div className="flex flex-col items-start gap-5 rounded-2xl border border-primary-100 bg-primary-50 px-6 py-5 sm:px-8 md:flex-row md:items-center md:justify-between md:gap-10 md:py-8">
           <HouseIllustration />
-          <div className="max-w-xl flex-1 text-center md:text-start">
+          <div className="max-w-xl flex-1 text-start">
             <h2 className="text-xl font-bold text-slate-900 sm:text-2xl">{title}</h2>
             <p className="mt-3 text-base leading-relaxed text-slate-600 sm:text-lg">{description}</p>
           </div>
           <Link
             href={`/${locale}/listings/new`}
-            className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-lg border-2 border-primary-600 bg-white px-6 py-3 text-base font-medium text-primary-600 transition-colors hover:bg-primary-50 sm:px-8"
+            className="inline-flex min-h-11 shrink-0 items-center gap-2 self-start px-1 py-2 text-base font-medium text-primary-600 transition-colors hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 md:self-auto md:justify-center md:rounded-lg md:border-2 md:border-primary-600 md:bg-white md:px-8 md:py-3 md:hover:bg-primary-50 md:hover:no-underline"
           >
             {cta}
-            <ArrowRightIcon className="h-5 w-5 shrink-0" />
+            <ArrowRightIcon className="h-5 w-5 shrink-0 rtl:rotate-180" />
           </Link>
         </div>
       </div>

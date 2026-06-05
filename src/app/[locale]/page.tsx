@@ -15,7 +15,7 @@ export default async function Home({
   const t = await getTranslations({ locale, namespace: 'home' });
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-white">
       <Header user={user} />
 
       <main className="flex-1 overflow-x-hidden">
@@ -30,7 +30,7 @@ export default async function Home({
           addListing={t('hero.addListing')}
         />
 
-        <section className="relative z-10 pt-6 pb-10 sm:pt-8 sm:pb-12 md:pb-14">
+        <section className="relative z-10 pt-6 pb-10 sm:pt-8 sm:pb-12 md:pb-8">
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 md:-mt-24 md:pt-0 lg:-mt-28">
             <HomeFeatures
               activeListingsTitle={t('features.activeListings.title')}

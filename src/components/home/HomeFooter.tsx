@@ -61,7 +61,7 @@ export function HomeFooter({
   ];
 
   return (
-    <footer className="border-t border-slate-200 bg-white text-slate-600">
+    <footer className="bg-white text-slate-600">
       <div className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-10 md:grid-cols-3 md:items-start md:gap-8">
           <div className="text-center md:text-start">
