@@ -19,6 +19,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'hourly',
       priority: 0.9,
     });
+    entries.push({
+      url: `${baseUrl}/${locale}/about`,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    });
+    entries.push({
+      url: `${baseUrl}/${locale}/how-it-works`,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    });
+    entries.push({
+      url: `${baseUrl}/${locale}/contact`,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    });
+    entries.push({
+      url: `${baseUrl}/${locale}/privacy`,
+      changeFrequency: 'monthly',
+      priority: 0.4,
+    });
+    entries.push({
+      url: `${baseUrl}/${locale}/terms`,
+      changeFrequency: 'monthly',
+      priority: 0.4,
+    });
   }
 
   const supabase = await createServerClient();

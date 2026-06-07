@@ -53,11 +53,11 @@ export function HomeFooter({
   socialEmail,
 }: HomeFooterProps) {
   const footerLinks: FooterLink[] = [
-    { label: about, href: '#' },
-    { label: howItWorks, href: '#' },
-    { label: contact, href: '#' },
-    { label: privacy, href: '#' },
-    { label: terms, href: '#' },
+    { label: about, href: `/${locale}/about` },
+    { label: howItWorks, href: `/${locale}/how-it-works` },
+    { label: contact, href: `/${locale}/contact` },
+    { label: privacy, href: `/${locale}/privacy` },
+    { label: terms, href: `/${locale}/terms` },
   ];
 
   return (
@@ -79,15 +79,25 @@ export function HomeFooter({
               className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm"
               aria-label={brand}
             >
-              {footerLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="text-slate-600 transition-colors hover:text-primary-600"
-                >
-                  {link.label}
-                </a>
-              ))}
+              {footerLinks.map((link) =>
+                link.href.startsWith('#') ? (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="text-slate-600 transition-colors hover:text-primary-600"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    className="text-slate-600 transition-colors hover:text-primary-600"
+                  >
+                    {link.label}
+                  </Link>
+                ),
+              )}
             </nav>
             <p className="mt-6 text-sm text-slate-500">{rights}</p>
           </div>

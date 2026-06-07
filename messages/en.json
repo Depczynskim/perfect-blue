@@ -270,7 +270,9 @@
       "loginLink": "Log In",
       "checkEmail": "Check Your Inbox",
       "emailSent": "We've sent a confirmation link to {email}. Click the link to activate your account.",
-      "backToLogin": "Back to login"
+      "backToLogin": "Back to login",
+      "legalNoticePrefix": "By creating an account, you acknowledge our",
+      "legalNoticeAnd": "and"
     },
     "validation": {
       "passwordMismatch": "Passwords don't match",
@@ -325,5 +327,137 @@
     "coordinates": "Coordinates",
     "invalidCoordinates": "Invalid coordinates",
     "propertyLocation": "Property location"
+  },
+  "trustPages": {
+    "shared": {
+      "browseListings": "Browse Listings",
+      "addListing": "Add Listing",
+      "contactUs": "Contact Us",
+      "launchPricingTitle": "During launch",
+      "launchPricingBody": "Browsing listings, adding listings, and messaging through Perfect Blue are currently free during launch. We may introduce paid plans or optional paid features later. If that changes, we will explain pricing clearly before it applies."
+    },
+    "about": {
+      "seo": {
+        "title": "About Perfect Blue",
+        "description": "Perfect Blue is a multilingual property portal focused on Catalonia. Browse listings, add a property, and message advertisers directly."
+      },
+      "title": "About Perfect Blue",
+      "intro": "Perfect Blue is a multilingual property portal focused on Catalonia. We help people browse listings, add a property, and contact advertisers directly — whether searching locally or from abroad.",
+      "whatIs": {
+        "heading": "What Perfect Blue is",
+        "body": "Perfect Blue is a portal. It helps people discover property listings and get in touch with the advertiser behind them. Advertisers may include owners, landlords, agencies, or other authorised parties."
+      },
+      "whatIsNot": {
+        "heading": "What Perfect Blue is not",
+        "body": "Perfect Blue is not a traditional estate agency. We do not act as the seller, landlord, buyer, or tenant. We do not handle negotiations, legal checks, contracts, or completion of a transaction."
+      },
+      "why": {
+        "heading": "Why we built it",
+        "body": "Property search in Catalonia can feel fragmented, especially across languages. Perfect Blue is designed to make listings easier to browse and understand in English, Polish, Spanish, German, and Arabic."
+      },
+      "whoFor": {
+        "heading": "Who it is for",
+        "body": "Perfect Blue is for people looking for property in Catalonia and for advertisers who want to reach them — including owners, landlords, and agencies publishing their own listings."
+      },
+      "approach": {
+        "heading": "Our approach",
+        "body": "We want the platform to be simple, transparent, and useful. That means being clear about what you can do here, who you are contacting, and where Perfect Blue's role begins and ends."
+      },
+      "transparency": {
+        "heading": "Trust and transparency",
+        "body": "We do not claim to verify every listing or every property detail. Advertisers are responsible for the information they publish. Users should review details carefully and carry out their own checks before making decisions. If you see something incorrect or suspicious, please contact us."
+      }
+    },
+    "howItWorks": {
+      "seo": {
+        "title": "How Perfect Blue Works",
+        "description": "Learn how to browse listings, add a property, and message advertisers on Perfect Blue — a property portal focused on Catalonia."
+      },
+      "title": "How Perfect Blue works",
+      "intro": "Perfect Blue connects people looking for property with people advertising property in Catalonia.",
+      "seekers": {
+        "heading": "For buyers and renters",
+        "step1": "Browse listings on Perfect Blue in your language.",
+        "step2": "Open a property to view photos, key details, and the listing description.",
+        "step3": "If the property interests you, send a message to the advertiser through the platform.",
+        "step4": "Continue the next steps directly with the advertiser — for example questions about the property, arranging a viewing, or discussing terms."
+      },
+      "advertisers": {
+        "heading": "For advertisers",
+        "step1": "Create an account and add your property details.",
+        "step2": "Upload photos and complete the listing information.",
+        "step3": "Publish your listing on Perfect Blue.",
+        "step4": "Receive messages from interested users and reply directly.",
+        "step5": "Keep your listing details accurate and up to date.",
+        "note": "Advertisers may include owners, landlords, agencies, or other authorised parties."
+      },
+      "onPlatform": {
+        "heading": "What happens on Perfect Blue",
+        "body": "Perfect Blue helps users discover listings and start contact through the platform."
+      },
+      "offPlatform": {
+        "heading": "What happens outside Perfect Blue",
+        "body": "Property-specific discussions, viewings, negotiations, contracts, legal checks, finance, and completion happen directly between the parties."
+      },
+      "important": {
+        "heading": "Important to know",
+        "body": "Perfect Blue is a property portal, not an estate agency. We do not verify every listing, property condition, legal status, availability, or price accuracy. Advertisers are responsible for their listings, and users should carry out their own checks before making a commitment."
+      },
+      "reportNote": "If you notice a suspicious or inaccurate listing, please contact us so we can review it.",
+      "contactPrompt": "Need help using Perfect Blue?",
+      "contactLink": "Visit our Contact page"
+    },
+    "contactPage": {
+      "seo": {
+        "title": "Contact Perfect Blue",
+        "description": "Contact Perfect Blue for help with the platform. For questions about a specific property, message the advertiser through the listing first."
+      },
+      "title": "Contact Perfect Blue",
+      "intro": "Need help with Perfect Blue? We would be glad to hear from you.",
+      "beforeContact": {
+        "heading": "Before you contact us",
+        "body": "If your question is about a specific property — for example availability, condition, arranging a viewing, or the price — please contact the advertiser through the listing first. Perfect Blue is a property portal, so the advertiser is usually the best first contact for property-specific questions."
+      },
+      "contactAbout": {
+        "heading": "Contact us about",
+        "topic1": "Using the website",
+        "topic2": "Your account",
+        "topic3": "Adding, editing, or managing a listing",
+        "topic4": "Reporting an incorrect or suspicious listing",
+        "topic5": "General feedback",
+        "topic6": "Business, partnership, or agency enquiries"
+      },
+      "getInTouch": {
+        "heading": "Get in touch",
+        "emailLabel": "Email:"
+      },
+      "report": {
+        "heading": "Report a listing",
+        "body": "If you think a listing is inaccurate, inappropriate, or suspicious, please email us with the listing link and a short explanation so we can review it."
+      },
+      "platformRole": "Perfect Blue is a property portal, not an estate agency. We can help with the platform itself; advertisers handle property-specific questions."
+    }
+  },
+  "legalPages": {
+    "shared": {
+      "lastUpdatedLabel": "Last updated",
+      "privacyLink": "Privacy Policy",
+      "termsLink": "Terms of Use",
+      "contactLink": "Contact"
+    },
+    "privacy": {
+      "seo": {
+        "title": "Privacy Policy",
+        "description": "How Perfect Blue processes personal data when you browse listings, create an account, publish a listing, or send messages."
+      },
+      "title": "Privacy Policy"
+    },
+    "terms": {
+      "seo": {
+        "title": "Terms of Use",
+        "description": "Terms governing your use of Perfect Blue, a property portal for browsing listings, publishing listings, and messaging advertisers."
+      },
+      "title": "Terms of Use"
+    }
   }
 }

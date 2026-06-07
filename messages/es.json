@@ -270,7 +270,9 @@
       "loginLink": "Iniciar Sesión",
       "checkEmail": "Revisa tu Bandeja de Entrada",
       "emailSent": "Hemos enviado un enlace de confirmación a {email}. Haz clic en el enlace para activar tu cuenta.",
-      "backToLogin": "Volver al inicio de sesión"
+      "backToLogin": "Volver al inicio de sesión",
+      "legalNoticePrefix": "Al crear una cuenta, reconoces nuestra",
+      "legalNoticeAnd": "y nuestros"
     },
     "validation": {
       "passwordMismatch": "Las contraseñas no coinciden",
@@ -325,5 +327,137 @@
     "coordinates": "Coordenadas",
     "invalidCoordinates": "Coordenadas no válidas",
     "propertyLocation": "Ubicación de la propiedad"
+  },
+  "trustPages": {
+    "shared": {
+      "browseListings": "Ver anuncios",
+      "addListing": "Publicar anuncio",
+      "contactUs": "Contacto",
+      "launchPricingTitle": "Durante el lanzamiento",
+      "launchPricingBody": "Consultar anuncios, publicar un inmueble y enviar mensajes a través de Perfect Blue es actualmente gratuito durante el lanzamiento. Podemos introducir planes de pago o funciones opcionales más adelante. Si cambia, explicaremos los precios con claridad antes de que apliquen."
+    },
+    "about": {
+      "seo": {
+        "title": "Sobre Perfect Blue",
+        "description": "Perfect Blue es un portal inmobiliario multilingüe centrado en Cataluña. Consulta anuncios, publica un inmueble y contacta directamente con los anunciantes."
+      },
+      "title": "Sobre Perfect Blue",
+      "intro": "Perfect Blue es un portal inmobiliario multilingüe centrado en Cataluña. Ayudamos a consultar anuncios, publicar un inmueble y contactar directamente con los anunciantes, ya busques en local o desde el extranjero.",
+      "whatIs": {
+        "heading": "Qué es Perfect Blue",
+        "body": "Perfect Blue es un portal. Ayuda a descubrir anuncios inmobiliarios y contactar con el anunciante. Los anunciantes pueden ser propietarios, arrendadores, agencias u otras partes autorizadas."
+      },
+      "whatIsNot": {
+        "heading": "Qué no es Perfect Blue",
+        "body": "Perfect Blue no es una agencia inmobiliaria tradicional. No actuamos como vendedor, arrendador, comprador ni inquilino. No gestionamos negociaciones, comprobaciones legales, contratos ni la finalización de la transacción."
+      },
+      "why": {
+        "heading": "Por qué lo creamos",
+        "body": "Buscar vivienda en Cataluña puede resultar fragmentado, especialmente entre idiomas. Perfect Blue está pensado para facilitar la consulta de anuncios en inglés, polaco, español, alemán y árabe."
+      },
+      "whoFor": {
+        "heading": "Para quién es",
+        "body": "Perfect Blue es para quienes buscan vivienda en Cataluña y para anunciantes que quieren llegar a ellos — incluidos propietarios, arrendadores y agencias que publican sus propios anuncios."
+      },
+      "approach": {
+        "heading": "Nuestro enfoque",
+        "body": "Queremos que la plataforma sea simple, transparente y útil. Eso significa dejar claro qué puedes hacer aquí, con quién te pones en contacto y dónde empieza y termina el papel de Perfect Blue."
+      },
+      "transparency": {
+        "heading": "Confianza y transparencia",
+        "body": "No afirmamos verificar cada anuncio ni cada detalle del inmueble. Los anunciantes son responsables de la información que publican. Los usuarios deben revisar los detalles con cuidado y hacer sus propias comprobaciones antes de decidir. Si ves algo incorrecto o sospechoso, contáctanos."
+      }
+    },
+    "howItWorks": {
+      "seo": {
+        "title": "Cómo funciona Perfect Blue",
+        "description": "Aprende a consultar anuncios, publicar un inmueble y enviar mensajes a los anunciantes en Perfect Blue — un portal inmobiliario centrado en Cataluña."
+      },
+      "title": "Cómo funciona Perfect Blue",
+      "intro": "Perfect Blue conecta a quienes buscan vivienda con quienes anuncian inmuebles en Cataluña.",
+      "seekers": {
+        "heading": "Para compradores e inquilinos",
+        "step1": "Consulta anuncios en Perfect Blue en tu idioma.",
+        "step2": "Abre un inmueble para ver fotos, datos clave y la descripción.",
+        "step3": "Si te interesa, envía un mensaje al anunciante a través de la plataforma.",
+        "step4": "Continúa los siguientes pasos directamente con el anunciante — por ejemplo preguntas sobre el inmueble, concertar una visita o hablar de condiciones."
+      },
+      "advertisers": {
+        "heading": "Para anunciantes",
+        "step1": "Crea una cuenta y añade los datos del inmueble.",
+        "step2": "Sube fotos y completa la información del anuncio.",
+        "step3": "Publica tu anuncio en Perfect Blue.",
+        "step4": "Recibe mensajes de usuarios interesados y responde directamente.",
+        "step5": "Mantén los datos del anuncio actualizados y correctos.",
+        "note": "Los anunciantes pueden ser propietarios, arrendadores, agencias u otras partes autorizadas."
+      },
+      "onPlatform": {
+        "heading": "Qué ocurre en Perfect Blue",
+        "body": "Perfect Blue ayuda a descubrir anuncios e iniciar el contacto a través de la plataforma."
+      },
+      "offPlatform": {
+        "heading": "Qué ocurre fuera de Perfect Blue",
+        "body": "Conversaciones sobre el inmueble, visitas, negociaciones, contratos, comprobaciones legales, financiación y cierre se realizan directamente entre las partes."
+      },
+      "important": {
+        "heading": "Importante",
+        "body": "Perfect Blue es un portal inmobiliario, no una agencia. No verificamos cada anuncio, el estado del inmueble, la situación legal, la disponibilidad ni la exactitud del precio. Los anunciantes son responsables de sus anuncios y los usuarios deben hacer sus propias comprobaciones antes de comprometerse."
+      },
+      "reportNote": "Si detectas un anuncio sospechoso o incorrecto, contáctanos para que podamos revisarlo.",
+      "contactPrompt": "¿Necesitas ayuda con Perfect Blue?",
+      "contactLink": "Visita nuestra página de Contacto"
+    },
+    "contactPage": {
+      "seo": {
+        "title": "Contacto con Perfect Blue",
+        "description": "Contacta con Perfect Blue para ayuda con la plataforma. Para preguntas sobre un inmueble concreto, escribe primero al anunciante a través del anuncio."
+      },
+      "title": "Contacto con Perfect Blue",
+      "intro": "¿Necesitas ayuda con Perfect Blue? Estaremos encantados de ayudarte.",
+      "beforeContact": {
+        "heading": "Antes de contactarnos",
+        "body": "Si tu pregunta es sobre un inmueble concreto — por ejemplo disponibilidad, estado, concertar una visita o el precio — contacta primero con el anunciante a través del anuncio. Perfect Blue es un portal inmobiliario, así que el anunciante suele ser el mejor primer contacto para preguntas sobre el inmueble."
+      },
+      "contactAbout": {
+        "heading": "Contáctanos sobre",
+        "topic1": "El uso del sitio web",
+        "topic2": "Tu cuenta",
+        "topic3": "Añadir, editar o gestionar un anuncio",
+        "topic4": "Informar de un anuncio incorrecto o sospechoso",
+        "topic5": "Comentarios generales",
+        "topic6": "Consultas comerciales, de colaboración o de agencias"
+      },
+      "getInTouch": {
+        "heading": "Escríbenos",
+        "emailLabel": "Correo electrónico:"
+      },
+      "report": {
+        "heading": "Informar de un anuncio",
+        "body": "Si crees que un anuncio es incorrecto, inapropiado o sospechoso, escríbenos con el enlace del anuncio y una breve explicación para que podamos revisarlo."
+      },
+      "platformRole": "Perfect Blue es un portal inmobiliario, no una agencia. Podemos ayudarte con la plataforma; los anunciantes responden a las preguntas sobre el inmueble."
+    }
+  },
+  "legalPages": {
+    "shared": {
+      "lastUpdatedLabel": "Última actualización",
+      "privacyLink": "Política de privacidad",
+      "termsLink": "Términos de uso",
+      "contactLink": "Contacto"
+    },
+    "privacy": {
+      "seo": {
+        "title": "Política de privacidad",
+        "description": "Cómo Perfect Blue trata los datos personales cuando consultas anuncios, creas una cuenta, publicas un anuncio o envías mensajes."
+      },
+      "title": "Política de privacidad"
+    },
+    "terms": {
+      "seo": {
+        "title": "Términos de uso",
+        "description": "Términos que regulan el uso de Perfect Blue, un portal inmobiliario para consultar anuncios, publicar anuncios y enviar mensajes."
+      },
+      "title": "Términos de uso"
+    }
   }
 }

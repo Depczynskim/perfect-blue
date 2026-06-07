@@ -8,6 +8,7 @@ import { createClient } from '@/lib/supabase/client'
 export function RegisterForm() {
   const t = useTranslations('auth.register')
   const tValidation = useTranslations('auth.validation')
+  const tLegal = useTranslations('legalPages.shared')
   const locale = useLocale()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -137,6 +138,24 @@ export function RegisterForm() {
       >
         {loading ? t('submitting') : t('submit')}
       </button>
+
+      <p className="text-center text-sm text-gray-600 leading-relaxed">
+        {t('legalNoticePrefix')}{' '}
+        <Link
+          href={`/${locale}/privacy`}
+          className="font-medium text-primary-600 hover:text-primary-700"
+        >
+          {tLegal('privacyLink')}
+        </Link>{' '}
+        {t('legalNoticeAnd')}{' '}
+        <Link
+          href={`/${locale}/terms`}
+          className="font-medium text-primary-600 hover:text-primary-700"
+        >
+          {tLegal('termsLink')}
+        </Link>
+        .
+      </p>
 
       <p className="text-center text-sm text-gray-600">
         {t('hasAccount')}{' '}
