@@ -37,7 +37,11 @@
       "description": "Przeglądaj aktywne ogłoszenia nieruchomości od właścicieli i agencji. Korzystaj z Perfect Blue w swoim języku i kontaktuj się ze sprzedającymi bezpośrednio.",
       "imageAlt": "Śródziemnomorskie niebo i morze w słońcu nad wybrzeżem Katalonii",
       "browseListings": "Przeglądaj ogłoszenia",
-      "addListing": "Dodaj ogłoszenie"
+      "addListing": "Dodaj ogłoszenie",
+      "trustLaunchLabel": "Okres startowy:",
+      "trustLaunchValue": "Wszystko za darmo",
+      "trustListingsLabel": "Ogłoszenia:",
+      "trustListingsValue": "Zawsze bezpłatne"
     },
     "features": {
       "activeListings": {

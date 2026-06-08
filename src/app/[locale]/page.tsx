@@ -28,6 +28,10 @@ export default async function Home({
           imageAlt={t('hero.imageAlt')}
           browseListings={t('hero.browseListings')}
           addListing={t('hero.addListing')}
+          trustLaunchLabel={t('hero.trustLaunchLabel')}
+          trustLaunchValue={t('hero.trustLaunchValue')}
+          trustListingsLabel={t('hero.trustListingsLabel')}
+          trustListingsValue={t('hero.trustListingsValue')}
         />
 
         <section className="relative z-10 pt-6 pb-10 sm:pt-8 sm:pb-12 md:pb-8">

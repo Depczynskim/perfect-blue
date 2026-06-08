@@ -37,7 +37,11 @@
       "description": "تصفح إعلانات العقارات النشطة من الملاك والوكالات. استخدم Perfect Blue بلغتك وتواصل مع البائعين مباشرة.",
       "imageAlt": "سماء و بحر أزرق متوسطيان مع ضوء الشمس على ساحل كاتالونيا",
       "browseListings": "تصفح الإعلانات",
-      "addListing": "إضافة إعلان"
+      "addListing": "إضافة إعلان",
+      "trustLaunchLabel": "فترة الإطلاق:",
+      "trustLaunchValue": "كل شيء مجاني",
+      "trustListingsLabel": "الإعلانات:",
+      "trustListingsValue": "مجاني للأبد"
     },
     "features": {
       "activeListings": {

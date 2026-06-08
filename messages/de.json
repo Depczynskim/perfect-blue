@@ -37,7 +37,11 @@
       "description": "Durchsuchen Sie aktive Immobilienanzeigen von Eigentümern und Agenturen. Nutzen Sie Perfect Blue in Ihrer Sprache und kontaktieren Sie Verkäufer direkt.",
       "imageAlt": "Mittelmeer mit blauem Himmel und Meer in der Sonne an der katalanischen Küste",
       "browseListings": "Anzeigen durchsuchen",
-      "addListing": "Anzeige hinzufügen"
+      "addListing": "Anzeige hinzufügen",
+      "trustLaunchLabel": "Startphase:",
+      "trustLaunchValue": "Alles kostenlos",
+      "trustListingsLabel": "Inserate:",
+      "trustListingsValue": "Dauerhaft kostenlos"
     },
     "features": {
       "activeListings": {

@@ -10,6 +10,10 @@ export type HomeHeroProps = {
   imageAlt: string;
   browseListings: string;
   addListing: string;
+  trustLaunchLabel: string;
+  trustLaunchValue: string;
+  trustListingsLabel: string;
+  trustListingsValue: string;
 };
 
 function ArrowRightIcon({ className }: { className?: string }) {
@@ -35,9 +39,13 @@ export function HomeHero({
   imageAlt,
   browseListings,
   addListing,
+  trustLaunchLabel,
+  trustLaunchValue,
+  trustListingsLabel,
+  trustListingsValue,
 }: HomeHeroProps) {
   return (
-    <section className="relative w-full overflow-hidden min-h-[400px] h-[420px] sm:min-h-[420px] sm:h-[440px] md:min-h-[520px] md:h-[560px] lg:min-h-[560px] lg:h-[600px] xl:h-[640px]">
+    <section className="relative w-full overflow-hidden min-h-[460px] h-[480px] sm:min-h-[480px] sm:h-[500px] md:min-h-[560px] md:h-[600px] lg:min-h-[620px] lg:h-[660px] xl:h-[700px]">
       <div className="absolute inset-0" aria-hidden>
         <Image
           src="/images/home-hero-blue-coast-mobile.webp"
@@ -59,7 +67,7 @@ export function HomeHero({
       </div>
 
       <div
-        className="absolute inset-0 bg-gradient-to-r from-slate-950/[0.65] via-slate-900/[0.52] via-30% via-slate-900/[0.26] via-50% to-transparent to-[78%] md:from-slate-950/[0.05] md:via-slate-900/[0.03] md:via-28% md:via-slate-900/[0.01] md:via-45% md:to-transparent md:to-[62%]"
+        className="absolute inset-0 bg-gradient-to-r from-slate-950/[0.46] via-slate-900/[0.34] via-30% via-slate-900/[0.16] via-50% to-transparent to-[78%] md:from-slate-950/[0.34] md:via-slate-900/[0.22] md:via-32% md:via-slate-900/[0.08] md:via-55% md:to-transparent md:to-[82%]"
         aria-hidden
       />
       <div
@@ -95,6 +103,32 @@ export function HomeHero({
             >
               {addListing}
             </Link>
+          </div>
+
+          <div className="mx-auto mt-4 w-full max-w-md sm:mt-5 md:mx-0 md:w-fit">
+            <div className="relative">
+              <div className="absolute left-0 right-0 top-1 -bottom-3 rounded-xl border border-white/20 bg-slate-950/50 backdrop-blur-sm md:top-0 md:-right-16 md:-bottom-5" />
+              <div className="relative flex translate-y-2 items-center divide-x divide-white/15">
+              <div className="flex items-center gap-3 md:gap-5 px-5 py-3 md:px-9 md:py-7">
+                <svg className="h-7 w-7 md:h-10 md:w-10 shrink-0 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+                </svg>
+                <div className="flex flex-col leading-tight">
+                  <span className="text-sm md:text-base font-semibold text-emerald-400 whitespace-nowrap">{trustLaunchLabel}</span>
+                  <span className="text-sm md:text-base text-white/90 whitespace-nowrap">{trustLaunchValue}</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 md:gap-5 px-5 py-3 md:px-9 md:py-7">
+                <svg className="h-7 w-7 md:h-10 md:w-10 shrink-0 text-primary-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+                <div className="flex flex-col leading-tight">
+                  <span className="text-sm md:text-base font-semibold text-primary-300 whitespace-nowrap">{trustListingsLabel}</span>
+                  <span className="text-sm md:text-base text-white/90 whitespace-nowrap">{trustListingsValue}</span>
+                </div>
+              </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
