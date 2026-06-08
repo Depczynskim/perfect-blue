@@ -34,14 +34,14 @@
       "brand": "Perfect Blue",
       "subtitleBefore": "Encuentra tu lugar perfecto en ",
       "subtitleHighlight": "Cataluña",
-      "description": "Explora anuncios activos de propietarios y agencias. Usa Perfect Blue en tu idioma y contacta con los vendedores directamente.",
+      "description": "Explora anuncios activos de propietarios y agencias. Usa Perfect Blue en tu idioma.",
       "imageAlt": "Cielo azul y mar mediterráneo con luz solar en la costa de Cataluña",
       "browseListings": "Ver Anuncios",
       "addListing": "Añadir Anuncio",
-      "trustLaunchLabel": "Período de lanzamiento:",
+      "trustLaunchLabel": "Lanzamiento:",
       "trustLaunchValue": "Todo es gratis",
       "trustListingsLabel": "Anuncios:",
-      "trustListingsValue": "Gratis para siempre"
+      "trustListingsValue": "Gratis siempre"
     },
     "features": {
       "activeListings": {

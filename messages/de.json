@@ -34,14 +34,14 @@
       "brand": "Perfect Blue",
       "subtitleBefore": "Finden Sie Ihren perfekten Ort in ",
       "subtitleHighlight": "Katalonien",
-      "description": "Durchsuchen Sie aktive Immobilienanzeigen von Eigentümern und Agenturen. Nutzen Sie Perfect Blue in Ihrer Sprache und kontaktieren Sie Verkäufer direkt.",
+      "description": "Durchsuchen Sie aktive Immobilien von Eigentümern und Agenturen. Nutzen Sie Perfect Blue in Ihrer Sprache.",
       "imageAlt": "Mittelmeer mit blauem Himmel und Meer in der Sonne an der katalanischen Küste",
       "browseListings": "Anzeigen durchsuchen",
       "addListing": "Anzeige hinzufügen",
-      "trustLaunchLabel": "Startphase:",
-      "trustLaunchValue": "Alles kostenlos",
+      "trustLaunchLabel": "Start:",
+      "trustLaunchValue": "Alles gratis",
       "trustListingsLabel": "Inserate:",
-      "trustListingsValue": "Dauerhaft kostenlos"
+      "trustListingsValue": "Immer gratis"
     },
     "features": {
       "activeListings": {

@@ -105,26 +105,26 @@ export function HomeHero({
             </Link>
           </div>
 
-          <div className="mx-auto mt-4 w-full max-w-md sm:mt-5 md:mx-0 md:w-fit">
+          <div className="mx-auto mt-4 w-full max-w-md sm:mt-5 md:mx-0 md:w-[560px] md:max-w-none">
             <div className="relative">
-              <div className="absolute left-0 right-0 top-1 -bottom-3 rounded-xl border border-white/20 bg-slate-950/50 backdrop-blur-sm md:top-0 md:-right-16 md:-bottom-5" />
+              <div className="absolute left-0 right-0 top-1 -bottom-3 rounded-xl border border-white/20 bg-slate-950/50 backdrop-blur-sm md:top-0 md:-bottom-5" />
               <div className="relative flex translate-y-2 items-center divide-x divide-white/15">
-              <div className="flex items-center gap-3 md:gap-5 px-5 py-3 md:px-9 md:py-7">
-                <svg className="h-7 w-7 md:h-10 md:w-10 shrink-0 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+              <div className="flex min-w-0 flex-1 items-center gap-2 px-3 py-3 md:gap-4 md:px-7 md:py-7">
+                <svg className="h-6 w-6 md:h-10 md:w-10 shrink-0 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
                 </svg>
-                <div className="flex flex-col leading-tight">
-                  <span className="text-sm md:text-base font-semibold text-emerald-400 whitespace-nowrap">{trustLaunchLabel}</span>
-                  <span className="text-sm md:text-base text-white/90 whitespace-nowrap">{trustLaunchValue}</span>
+                <div className="flex min-w-0 flex-col leading-tight">
+                  <span className="whitespace-nowrap text-xs font-semibold text-emerald-400 sm:text-sm md:text-base">{trustLaunchLabel}</span>
+                  <span className="whitespace-nowrap text-xs text-white/90 sm:text-sm md:text-base">{trustLaunchValue}</span>
                 </div>
               </div>
-              <div className="flex items-center gap-3 md:gap-5 px-5 py-3 md:px-9 md:py-7">
-                <svg className="h-7 w-7 md:h-10 md:w-10 shrink-0 text-primary-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+              <div className="flex min-w-0 flex-1 items-center gap-2 px-3 py-3 md:gap-4 md:px-7 md:py-7">
+                <svg className="h-6 w-6 md:h-10 md:w-10 shrink-0 text-primary-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
-                <div className="flex flex-col leading-tight">
-                  <span className="text-sm md:text-base font-semibold text-primary-300 whitespace-nowrap">{trustListingsLabel}</span>
-                  <span className="text-sm md:text-base text-white/90 whitespace-nowrap">{trustListingsValue}</span>
+                <div className="flex min-w-0 flex-col leading-tight">
+                  <span className="whitespace-nowrap text-xs font-semibold text-primary-300 sm:text-sm md:text-base">{trustListingsLabel}</span>
+                  <span className="whitespace-nowrap text-xs text-white/90 sm:text-sm md:text-base">{trustListingsValue}</span>
                 </div>
               </div>
               </div>
