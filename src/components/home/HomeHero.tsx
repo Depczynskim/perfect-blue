@@ -59,11 +59,11 @@ export function HomeHero({
       </div>
 
       <div
-        className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-900/75 via-30% via-slate-900/38 via-50% to-transparent to-[78%] md:from-slate-950/88 md:via-slate-900/65 md:via-28% md:via-slate-900/32 md:via-45% md:to-transparent md:to-[62%]"
+        className="absolute inset-0 bg-gradient-to-r from-slate-950/[0.65] via-slate-900/[0.52] via-30% via-slate-900/[0.26] via-50% to-transparent to-[78%] md:from-slate-950/[0.05] md:via-slate-900/[0.03] md:via-28% md:via-slate-900/[0.01] md:via-45% md:to-transparent md:to-[62%]"
         aria-hidden
       />
       <div
-        className="absolute inset-y-0 left-0 w-full max-w-2xl bg-gradient-to-r from-slate-950/25 to-transparent md:max-w-3xl"
+        className="absolute inset-y-0 left-0 w-full max-w-2xl bg-gradient-to-r from-slate-950/[0.18] to-transparent md:max-w-3xl md:from-transparent"
         aria-hidden
       />
 
