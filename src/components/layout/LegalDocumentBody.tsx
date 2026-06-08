@@ -1,23 +1,22 @@
 import type { LegalDocument } from '@/content/legal/types';
-
-const SUPPORT_EMAIL = 'hello@perfectblue.es';
+import { CONTACT_EMAIL } from '@/lib/contactEmail';
 
 function renderTextWithEmail(text: string) {
-  if (!text.includes(SUPPORT_EMAIL)) {
+  if (!text.includes(CONTACT_EMAIL)) {
     return text;
   }
 
-  const parts = text.split(SUPPORT_EMAIL);
+  const parts = text.split(CONTACT_EMAIL);
   return parts.map((part, index) => (
     <span key={index}>
       {part}
       {index < parts.length - 1 ? (
         <a
-          href={`mailto:${SUPPORT_EMAIL}`}
+          href={`mailto:${CONTACT_EMAIL}`}
           className="font-medium text-primary-600 transition-colors hover:text-primary-700"
           dir="ltr"
         >
-          {SUPPORT_EMAIL}
+          {CONTACT_EMAIL}
         </a>
       ) : null}
     </span>

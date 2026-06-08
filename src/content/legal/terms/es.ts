@@ -65,7 +65,7 @@ export const termsEs: LegalDocument = {
     {
       heading: 'Denuncias y moderación',
       paragraphs: [
-        'Si crees que un anuncio, foto, mensaje u otro contenido es inexacto, sospechoso, ilícito, infractor o problemático de otro modo, puedes contactarnos en hello@perfectblue.es con el enlace correspondiente y una breve explicación.',
+        'Si crees que un anuncio, foto, mensaje u otro contenido es inexacto, sospechoso, ilícito, infractor o problemático de otro modo, puedes contactarnos en contact@perfectblue.es con el enlace correspondiente y una breve explicación.',
         'Podemos investigar denuncias y eliminar, desactivar, restringir el acceso al contenido o suspender cuentas cuando consideremos necesario hacer cumplir estos Términos, proteger a los usuarios, responder a quejas, cumplir la ley o reducir el riesgo de la plataforma.',
       ],
     },

@@ -10,7 +10,7 @@ export const privacyPl: LegalDocument = {
     {
       heading: 'Kto odpowiada za Twoje dane osobowe',
       paragraphs: [
-        'Operatorem Perfect Blue jest administrator danych osobowych przetwarzanych za pośrednictwem platformy. Możesz skontaktować się z nami pod adresem hello@perfectblue.es.',
+        'Operatorem Perfect Blue jest administrator danych osobowych przetwarzanych za pośrednictwem platformy. Możesz skontaktować się z nami pod adresem contact@perfectblue.es.',
         'Pełne dane identyfikacyjne operatora, w tym zarejestrowany adres i numer identyfikacji podatkowej, zostaną opublikowane na naszej stronie po ich potwierdzeniu. Jeśli wyznaczymy Inspektora Ochrony Danych lub przedstawiciela w UE, gdy będzie to wymagane, podamy te dane tutaj.',
       ],
     },
@@ -96,7 +96,7 @@ export const privacyPl: LegalDocument = {
     {
       heading: 'Jak skorzystać ze swoich praw',
       paragraphs: [
-        'Możesz skontaktować się z nami pod adresem hello@perfectblue.es. Możemy poprosić o rozsądne informacje w celu weryfikacji tożsamości przed realizacją żądania. Jeśli Twoje żądanie dotyczy wiadomości, ogłoszeń lub treści obejmujących innych użytkowników, możemy potrzebować zrównoważyć Twoje prawa z prawami i wolnościami innych osób.',
+        'Możesz skontaktować się z nami pod adresem contact@perfectblue.es. Możemy poprosić o rozsądne informacje w celu weryfikacji tożsamości przed realizacją żądania. Jeśli Twoje żądanie dotyczy wiadomości, ogłoszeń lub treści obejmujących innych użytkowników, możemy potrzebować zrównoważyć Twoje prawa z prawami i wolnościami innych osób.',
       ],
     },
     {

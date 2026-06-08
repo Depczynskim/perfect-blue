@@ -65,7 +65,7 @@ export const termsPl: LegalDocument = {
     {
       heading: 'Zgłaszanie i moderacja',
       paragraphs: [
-        'Jeśli uważasz, że ogłoszenie, zdjęcie, wiadomość lub inna treść jest niedokładna, podejrzana, niezgodna z prawem, naruszająca prawa lub w inny sposób problematyczna, możesz skontaktować się z nami pod adresem hello@perfectblue.es, podając odpowiedni link i krótkie wyjaśnienie.',
+        'Jeśli uważasz, że ogłoszenie, zdjęcie, wiadomość lub inna treść jest niedokładna, podejrzana, niezgodna z prawem, naruszająca prawa lub w inny sposób problematyczna, możesz skontaktować się z nami pod adresem contact@perfectblue.es, podając odpowiedni link i krótkie wyjaśnienie.',
         'Możemy badać zgłoszenia i usuwać, wyłączać, ograniczać dostęp do treści lub zawieszać konta, gdy uważamy, że jest to konieczne do egzekwowania niniejszego Regulaminu, ochrony użytkowników, odpowiedzi na skargi, zgodności z prawem lub ograniczenia ryzyka platformy.',
       ],
     },

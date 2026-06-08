@@ -65,7 +65,7 @@ export const termsDe: LegalDocument = {
     {
       heading: 'Meldungen und Moderation',
       paragraphs: [
-        'Wenn Sie glauben, dass ein Inserat, Foto, eine Nachricht oder sonstiger Inhalt ungenau, verdächtig, rechtswidrig, rechtsverletzend oder anderweitig problematisch ist, können Sie uns unter hello@perfectblue.es mit dem relevanten Link und einer kurzen Erklärung kontaktieren.',
+        'Wenn Sie glauben, dass ein Inserat, Foto, eine Nachricht oder sonstiger Inhalt ungenau, verdächtig, rechtswidrig, rechtsverletzend oder anderweitig problematisch ist, können Sie uns unter contact@perfectblue.es mit dem relevanten Link und einer kurzen Erklärung kontaktieren.',
         'Wir können Meldungen untersuchen und Inhalte entfernen, deaktivieren, den Zugang einschränken oder Konten sperren, wenn wir dies für die Durchsetzung dieser Bedingungen, den Schutz von Nutzern, die Beantwortung von Beschwerden, die Einhaltung des Rechts oder die Risikominderung der Plattform für erforderlich halten.',
       ],
     },

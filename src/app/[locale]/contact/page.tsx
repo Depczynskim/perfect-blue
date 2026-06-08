@@ -2,9 +2,8 @@ import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { createServerClient } from '@/lib/supabase';
 import { ContentPageShell, TrustPageCtas } from '@/components/layout';
+import { CONTACT_EMAIL } from '@/lib/contactEmail';
 import { getSiteUrl } from '@/lib/siteUrl';
-
-const SUPPORT_EMAIL = 'hello@perfectblue.es';
 
 export async function generateMetadata({
   params: { locale },
@@ -70,11 +69,11 @@ export default async function ContactPage({
             <p className="text-slate-600">
               {t('getInTouch.emailLabel')}{' '}
               <a
-                href={`mailto:${SUPPORT_EMAIL}`}
+                href={`mailto:${CONTACT_EMAIL}`}
                 className="font-medium text-primary-600 transition-colors hover:text-primary-700"
                 dir="ltr"
               >
-                {SUPPORT_EMAIL}
+                {CONTACT_EMAIL}
               </a>
             </p>
           </section>

@@ -10,7 +10,7 @@ export const privacyEs: LegalDocument = {
     {
       heading: 'Quién es responsable de tus datos personales',
       paragraphs: [
-        'El operador de Perfect Blue es el responsable del tratamiento de los datos personales procesados a través de la plataforma. Puedes contactarnos en hello@perfectblue.es.',
+        'El operador de Perfect Blue es el responsable del tratamiento de los datos personales procesados a través de la plataforma. Puedes contactarnos en contact@perfectblue.es.',
         'Los datos de identidad legal completos del operador, incluida la dirección registrada y la identificación fiscal, se publicarán en nuestro sitio web cuando se confirmen. Si designamos un Delegado de Protección de Datos o un representante en la UE cuando sea necesario, indicaremos esos datos aquí.',
       ],
     },
@@ -96,7 +96,7 @@ export const privacyEs: LegalDocument = {
     {
       heading: 'Cómo ejercer tus derechos',
       paragraphs: [
-        'Puedes contactarnos en hello@perfectblue.es. Podemos solicitar información razonable para verificar tu identidad antes de atender una solicitud. Si tu solicitud afecta a mensajes, anuncios o contenido que involucra a otros usuarios, puede que necesitemos equilibrar tus derechos con los derechos y libertades de otras personas.',
+        'Puedes contactarnos en contact@perfectblue.es. Podemos solicitar información razonable para verificar tu identidad antes de atender una solicitud. Si tu solicitud afecta a mensajes, anuncios o contenido que involucra a otros usuarios, puede que necesitemos equilibrar tus derechos con los derechos y libertades de otras personas.',
       ],
     },
     {

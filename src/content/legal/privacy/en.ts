@@ -10,7 +10,7 @@ export const privacyEn: LegalDocument = {
     {
       heading: 'Who is responsible for your personal data',
       paragraphs: [
-        'The operator of Perfect Blue is the controller of personal data processed through the platform. You can contact us at hello@perfectblue.es.',
+        'The operator of Perfect Blue is the controller of personal data processed through the platform. You can contact us at contact@perfectblue.es.',
         'Full legal identity details of the operator, including registered address and tax identification, will be published on our website when confirmed. If we appoint a Data Protection Officer or EU representative where required, we will list those details here.',
       ],
     },
@@ -98,7 +98,7 @@ export const privacyEn: LegalDocument = {
     {
       heading: 'How to exercise your rights',
       paragraphs: [
-        'You can contact us at hello@perfectblue.es. We may ask for reasonable information to verify your identity before acting on a request. If your request concerns messages, listings, or content involving other users, we may need to balance your rights against the rights and freedoms of others.',
+        'You can contact us at contact@perfectblue.es. We may ask for reasonable information to verify your identity before acting on a request. If your request concerns messages, listings, or content involving other users, we may need to balance your rights against the rights and freedoms of others.',
       ],
     },
     {

@@ -65,7 +65,7 @@ export const termsEn: LegalDocument = {
     {
       heading: 'Reporting and moderation',
       paragraphs: [
-        'If you believe that a listing, photo, message, or other content is inaccurate, suspicious, unlawful, infringing, or otherwise problematic, you can contact us at hello@perfectblue.es with the relevant link and a short explanation.',
+        'If you believe that a listing, photo, message, or other content is inaccurate, suspicious, unlawful, infringing, or otherwise problematic, you can contact us at contact@perfectblue.es with the relevant link and a short explanation.',
         'We may investigate reports and may remove, disable, restrict access to content, or suspend accounts where we believe this is necessary to enforce these Terms, protect users, respond to complaints, comply with law, or reduce platform risk.',
       ],
     },
