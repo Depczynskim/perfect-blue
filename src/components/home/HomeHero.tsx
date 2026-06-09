@@ -83,7 +83,7 @@ export function HomeHero({
             </h1>
             <p className="mt-3 text-xl font-semibold leading-snug text-white sm:text-2xl md:mt-4 md:text-3xl lg:text-4xl xl:text-5xl">
               {subtitleBefore}
-              <span className="text-primary-300">{subtitleHighlight}</span>
+              <span className="text-white">{subtitleHighlight}</span>
             </p>
             <p className="mx-auto mt-4 max-w-xl text-base font-medium leading-relaxed text-white sm:text-lg sm:leading-relaxed md:mx-0 md:mt-5 md:text-xl md:leading-relaxed lg:max-w-2xl">
               {description}
@@ -119,11 +119,11 @@ export function HomeHero({
                 </div>
               </div>
               <div className="flex min-w-0 flex-1 items-center gap-2 px-3 py-3 md:gap-4 md:px-7 md:py-7">
-                <svg className="h-6 w-6 md:h-10 md:w-10 shrink-0 text-primary-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                <svg className="h-6 w-6 md:h-10 md:w-10 shrink-0 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
                 <div className="flex min-w-0 flex-col leading-tight">
-                  <span className="whitespace-nowrap text-xs font-semibold text-primary-300 sm:text-sm md:text-base">{trustListingsLabel}</span>
+                  <span className="whitespace-nowrap text-xs font-semibold text-white sm:text-sm md:text-base">{trustListingsLabel}</span>
                   <span className="whitespace-nowrap text-xs text-white/90 sm:text-sm md:text-base">{trustListingsValue}</span>
                 </div>
               </div>
