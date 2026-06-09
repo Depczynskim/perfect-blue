@@ -6,7 +6,7 @@ export const locales = ['pl', 'en', 'es', 'ar', 'de'] as const;
 export type Locale = (typeof locales)[number];
 
 // Domyślny język
-export const defaultLocale: Locale = 'pl';
+export const defaultLocale: Locale = 'en';
 
 // Nazwy języków do wyświetlenia
 export const localeNames: Record<Locale, string> = {

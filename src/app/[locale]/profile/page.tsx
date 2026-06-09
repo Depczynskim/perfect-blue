@@ -11,7 +11,7 @@ function normalizePreferredLocale(value: string | null | undefined): UserPreferr
   if (value && ALLOWED_LOCALES.includes(value as UserPreferredLocale)) {
     return value as UserPreferredLocale;
   }
-  return 'pl';
+  return 'en';
 }
 
 export default async function ProfilePage({ params: { locale } }: { params: { locale: string } }) {
