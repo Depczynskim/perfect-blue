@@ -46,15 +46,15 @@
     "features": {
       "activeListings": {
         "title": "إعلانات نشطة",
-        "description": "تصفح العقارات الحالية للبيع والإيجار في جميع أنحاء كاتالونيا."
+        "description": "عروض حقيقية من مالكين ووكالات نشطة."
       },
       "multilingualPlatform": {
-        "title": "منصة متعددة اللغات",
-        "description": "استخدم Perfect Blue بخمس لغات وترجم الإعلانات عند الحاجة."
+        "title": "ترجمات مباشرة",
+        "description": "ترجمات دقيقة بجميع لغات المنصة الخمس."
       },
       "directContact": {
         "title": "تواصل مباشر",
-        "description": "تواصل مع الملاك والوكالات مباشرة، دون خطوات غير ضرورية."
+        "description": "راسل المالكين والوكالات مباشرة عبر Perfect Blue."
       }
     },
     "sellerCta": {

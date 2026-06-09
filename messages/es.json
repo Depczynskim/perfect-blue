@@ -46,15 +46,15 @@
     "features": {
       "activeListings": {
         "title": "Anuncios activos",
-        "description": "Explora propiedades actuales en venta y alquiler en toda Cataluña."
+        "description": "Anuncios reales de propietarios y agencias activos."
       },
       "multilingualPlatform": {
-        "title": "Plataforma multilingüe",
-        "description": "Usa Perfect Blue en cinco idiomas y traduce los anuncios cuando lo necesites."
+        "title": "Traducciones en vivo",
+        "description": "Traducciones precisas en los 5 idiomas de la plataforma."
       },
       "directContact": {
         "title": "Contacto directo",
-        "description": "Contacta con propietarios y agencias directamente, sin pasos innecesarios."
+        "description": "Escribe a propietarios y agencias directamente en Perfect Blue."
       }
     },
     "sellerCta": {

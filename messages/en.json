@@ -45,16 +45,16 @@
     },
     "features": {
       "activeListings": {
-        "title": "Active Listings",
-        "description": "Browse current properties for sale and rent across Catalonia."
+        "title": "Active listings",
+        "description": "Real property listings from active owners and agencies."
       },
       "multilingualPlatform": {
-        "title": "Multilingual Platform",
-        "description": "Use Perfect Blue in five languages and translate listings when needed."
+        "title": "Live translations",
+        "description": "Accurate live translations across all 5 platform languages."
       },
       "directContact": {
-        "title": "Direct Contact",
-        "description": "Contact owners and agencies directly, without unnecessary steps."
+        "title": "Direct contact",
+        "description": "Message owners and agencies directly through Perfect Blue."
       }
     },
     "sellerCta": {

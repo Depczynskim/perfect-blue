@@ -46,15 +46,15 @@
     "features": {
       "activeListings": {
         "title": "Aktywne ogłoszenia",
-        "description": "Przeglądaj aktualne nieruchomości na sprzedaż i wynajem w całej Katalonii."
+        "description": "Prawdziwe oferty od aktywnych właścicieli i agencji."
       },
       "multilingualPlatform": {
-        "title": "Wielojęzyczna platforma",
-        "description": "Korzystaj z Perfect Blue w pięciu językach i tłumacz ogłoszenia, gdy potrzebujesz."
+        "title": "Tłumaczenia na żywo",
+        "description": "Dokładne tłumaczenia we wszystkich 5 językach platformy."
       },
       "directContact": {
         "title": "Bezpośredni kontakt",
-        "description": "Kontaktuj się z właścicielami i agencjami bezpośrednio, bez zbędnych kroków."
+        "description": "Pisz do właścicieli i agencji bezpośrednio przez Perfect Blue."
       }
     },
     "sellerCta": {
