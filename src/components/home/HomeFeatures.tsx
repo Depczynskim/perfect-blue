@@ -14,7 +14,7 @@ function FeatureCard({ icon, title, description }: FeatureCardProps) {
           {icon}
         </div>
         <div className="min-w-0 flex-1 md:flex-none">
-          <h3 className="mb-2 text-lg font-semibold text-primary-600 md:text-slate-900">{title}</h3>
+          <h3 className="mb-2 text-lg font-semibold text-slate-900">{title}</h3>
           <p className="text-sm leading-relaxed text-slate-600 sm:text-base">{description}</p>
         </div>
       </div>

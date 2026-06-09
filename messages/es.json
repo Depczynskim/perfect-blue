@@ -38,9 +38,9 @@
       "imageAlt": "Cielo azul y mar mediterráneo con luz solar en la costa de Cataluña",
       "browseListings": "Ver Anuncios",
       "addListing": "Añadir Anuncio",
-      "trustLaunchLabel": "Lanzamiento:",
-      "trustLaunchValue": "Todo es gratis",
-      "trustListingsLabel": "Anuncios:",
+      "trustLaunchLabel": "Inicio del portal",
+      "trustLaunchValue": "Todo gratis",
+      "trustListingsLabel": "Anuncios",
       "trustListingsValue": "Gratis siempre"
     },
     "features": {
